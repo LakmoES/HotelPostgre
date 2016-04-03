@@ -42,7 +42,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="DBObjects\DBCompany.cs" />
     <Compile Include="DBObjects\DBObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

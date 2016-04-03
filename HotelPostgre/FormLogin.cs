@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace HotelPostgre
 {
-    public partial class Form1 : Form
+    public partial class FormLogin : Form
     {
-        public Form1()
+        public FormLogin()
         {
             InitializeComponent();
             try
@@ -23,6 +23,13 @@ namespace HotelPostgre
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void buttonEnter_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            new FormUser().ShowDialog();
+            this.Show();
         }
         
     }

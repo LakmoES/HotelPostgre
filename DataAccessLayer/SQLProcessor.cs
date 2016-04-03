@@ -9,6 +9,8 @@ namespace DataAccessLayer
 {
     class SQLProcessor
     {
+        private NpgsqlConnection conn;
+
         private static SQLProcessor instance;
         private SQLProcessor() { }
         public static SQLProcessor Instance
@@ -21,6 +23,35 @@ namespace DataAccessLayer
             }
         }
 
+        public void connect(string username, string password)
+        {
+            //username = postgres
+            //password = root
+            conn = new NpgsqlConnection(String.Format("Server=127.0.0.1;User Id={0};Password={1};Database=Shmelyov;", username, password));
+            //conn.Open();
+        }
+        public void disconnect()
+        {
+            conn = null;
+        }
+        public int executeWOResult(string queryText)
+        {
+            conn.Open();
+            NpgsqlCommand cmd = new NpgsqlCommand(queryText, conn);
+            // Execute a query
+            var numberOfRows = cmd.ExecuteNonQuery();
+            conn.Close();
+            return numberOfRows;
+        }
+        public NpgsqlDataReader executeWResult(string queryText)
+        {
+            NpgsqlCommand cmd = new NpgsqlCommand(queryText, conn);
+            // Execute a query
+            conn.Open();
+            var rd = cmd.ExecuteReader();
+            conn.Close();
+            return rd;
+        }
         public void testRead(/*DataGridView dataGridView*/)
         {
             NpgsqlConnection conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres;Password=root;Database=Shmelyov;");
