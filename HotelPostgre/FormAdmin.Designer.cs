@@ -1,6 +1,6 @@
 ﻿namespace HotelPostgre
 {
-    partial class FormUser
+    partial class FormAdmin
     {
         /// <summary>
         /// Required designer variable.

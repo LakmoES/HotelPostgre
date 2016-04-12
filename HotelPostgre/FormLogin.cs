@@ -28,7 +28,7 @@ namespace HotelPostgre
         private void buttonEnter_Click(object sender, EventArgs e)
         {
             this.Hide();
-            new FormUser().ShowDialog();
+            new FormAdmin().ShowDialog();
             this.Show();
         }
         

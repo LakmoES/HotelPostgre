@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Npgsql;
+using System.Windows.Forms;
+using System.Data.Common;
 
 namespace DataAccessLayer
 {
@@ -32,7 +34,8 @@ namespace DataAccessLayer
         }
         public void disconnect()
         {
-            conn = null;
+            //conn = null;
+            conn.Close();
         }
         public int executeWOResult(string queryText)
         {
@@ -49,7 +52,8 @@ namespace DataAccessLayer
             // Execute a query
             conn.Open();
             var rd = cmd.ExecuteReader();
-            conn.Close();
+            MessageBox.Show("hr"+rd.HasRows.ToString());
+            //conn.Close();
             return rd;
         }
         public void testRead(/*DataGridView dataGridView*/)
@@ -62,7 +66,7 @@ namespace DataAccessLayer
 
             // Execute a query
             NpgsqlDataReader dr = cmd.ExecuteReader();
-
+            MessageBox.Show("dr" + dr.FieldCount);
             // Read all rows and output the first column in each row
 
             /*dataGridView.Rows.Clear();
