@@ -30,7 +30,6 @@ namespace DataAccessLayer
             //username = postgres
             //password = root
             conn = new NpgsqlConnection(String.Format("Server=127.0.0.1;User Id={0};Password={1};Database=Shmelyov;", username, password));
-            //conn.Open();
         }
         public void disconnect()
         {
@@ -52,8 +51,6 @@ namespace DataAccessLayer
             // Execute a query
             conn.Open();
             var rd = cmd.ExecuteReader();
-            MessageBox.Show("hr"+rd.HasRows.ToString());
-            //conn.Close();
             return rd;
         }
         public void testRead(/*DataGridView dataGridView*/)

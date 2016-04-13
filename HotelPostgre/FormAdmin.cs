@@ -23,7 +23,15 @@ namespace HotelPostgre
             var list = SelectTablesQuery.getCompanyTable();
             MessageBox.Show(String.Format("Найдено {0} записей.", list.Count));
             foreach (var cur in list)
-                dataGridView1.Rows.Add(cur.id, cur.title, cur.telephone, cur.address);
+                dataGridViewCompany.Rows.Add(cur.id, cur.title, cur.telephone, cur.address);
+        }
+
+        private void buttonObjectRefresh_Click(object sender, EventArgs e)
+        {
+            var list = SelectTablesQuery.getObjectsTable();
+            MessageBox.Show(String.Format("Найдено {0} записей.", list.Count));
+            foreach (var cur in list)
+                dataGridViewObject.Rows.Add(cur.id, cur.address, cur.addDate.Date.ToString(), cur.cost.ToString(), cur.owner, cur.appartamentOrHouse, cur.area, cur.numberOfRooms);
         }
     }
 }
