@@ -1,4 +1,4 @@
-﻿namespace HotelPostgre
+﻿namespace Admin
 {
     partial class FormAdmin
     {
@@ -32,21 +32,21 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.buttonCompanyRefresh = new System.Windows.Forms.Button();
             this.dataGridViewCompany = new System.Windows.Forms.DataGridView();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.dataGridViewObject = new System.Windows.Forms.DataGridView();
-            this.buttonObjectRefresh = new System.Windows.Forms.Button();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Owner = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AppartamentOrHouse = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Area = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Rooms = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.title = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.telephone = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.address = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.buttonObjectRefresh = new System.Windows.Forms.Button();
+            this.dataGridViewObject = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ObjectOwner = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AppartamentOrHouse = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Area = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Rooms = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControlMain.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCompany)).BeginInit();
@@ -95,9 +95,38 @@
             this.telephone,
             this.address});
             this.dataGridViewCompany.Location = new System.Drawing.Point(3, 3);
+            this.dataGridViewCompany.MultiSelect = false;
             this.dataGridViewCompany.Name = "dataGridViewCompany";
+            this.dataGridViewCompany.ReadOnly = true;
             this.dataGridViewCompany.Size = new System.Drawing.Size(534, 247);
             this.dataGridViewCompany.TabIndex = 0;
+            this.dataGridViewCompany.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataGridView_SelectAndShowMenu);
+            // 
+            // id
+            // 
+            this.id.HeaderText = "id";
+            this.id.Name = "id";
+            this.id.ReadOnly = true;
+            this.id.Width = 30;
+            // 
+            // title
+            // 
+            this.title.HeaderText = "Title";
+            this.title.Name = "title";
+            this.title.ReadOnly = true;
+            // 
+            // telephone
+            // 
+            this.telephone.HeaderText = "Telephone";
+            this.telephone.Name = "telephone";
+            this.telephone.ReadOnly = true;
+            // 
+            // address
+            // 
+            this.address.HeaderText = "Address";
+            this.address.Name = "address";
+            this.address.ReadOnly = true;
+            this.address.Width = 250;
             // 
             // tabPage2
             // 
@@ -111,23 +140,6 @@
             this.tabPage2.Text = "Объекты";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // dataGridViewObject
-            // 
-            this.dataGridViewObject.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewObject.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn1,
-            this.dataGridViewTextBoxColumn2,
-            this.dataGridViewTextBoxColumn3,
-            this.dataGridViewTextBoxColumn4,
-            this.Owner,
-            this.AppartamentOrHouse,
-            this.Area,
-            this.Rooms});
-            this.dataGridViewObject.Location = new System.Drawing.Point(3, 3);
-            this.dataGridViewObject.Name = "dataGridViewObject";
-            this.dataGridViewObject.Size = new System.Drawing.Size(561, 247);
-            this.dataGridViewObject.TabIndex = 1;
-            // 
             // buttonObjectRefresh
             // 
             this.buttonObjectRefresh.Location = new System.Drawing.Point(570, 96);
@@ -138,74 +150,81 @@
             this.buttonObjectRefresh.UseVisualStyleBackColor = true;
             this.buttonObjectRefresh.Click += new System.EventHandler(this.buttonObjectRefresh_Click);
             // 
+            // dataGridViewObject
+            // 
+            this.dataGridViewObject.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewObject.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn2,
+            this.dataGridViewTextBoxColumn3,
+            this.dataGridViewTextBoxColumn4,
+            this.ObjectOwner,
+            this.AppartamentOrHouse,
+            this.Area,
+            this.Rooms});
+            this.dataGridViewObject.Location = new System.Drawing.Point(3, 3);
+            this.dataGridViewObject.MultiSelect = false;
+            this.dataGridViewObject.Name = "dataGridViewObject";
+            this.dataGridViewObject.ReadOnly = true;
+            this.dataGridViewObject.Size = new System.Drawing.Size(561, 247);
+            this.dataGridViewObject.TabIndex = 1;
+            this.dataGridViewObject.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataGridView_SelectAndShowMenu);
+            // 
             // dataGridViewTextBoxColumn1
             // 
             this.dataGridViewTextBoxColumn1.HeaderText = "id";
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
             this.dataGridViewTextBoxColumn1.Width = 30;
             // 
             // dataGridViewTextBoxColumn2
             // 
             this.dataGridViewTextBoxColumn2.HeaderText = "Address";
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
             this.dataGridViewTextBoxColumn2.Width = 150;
             // 
             // dataGridViewTextBoxColumn3
             // 
             this.dataGridViewTextBoxColumn3.HeaderText = "AddDate";
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            this.dataGridViewTextBoxColumn3.Width = 70;
             // 
             // dataGridViewTextBoxColumn4
             // 
             this.dataGridViewTextBoxColumn4.HeaderText = "Cost";
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
             this.dataGridViewTextBoxColumn4.Width = 60;
             // 
-            // Owner
+            // ObjectOwner
             // 
-            this.Owner.HeaderText = "Owner";
-            this.Owner.Name = "Owner";
-            this.Owner.Width = 40;
+            this.ObjectOwner.HeaderText = "Owner";
+            this.ObjectOwner.Name = "ObjectOwner";
+            this.ObjectOwner.ReadOnly = true;
+            this.ObjectOwner.Width = 40;
             // 
             // AppartamentOrHouse
             // 
             this.AppartamentOrHouse.HeaderText = "AppartamentOrHouse";
             this.AppartamentOrHouse.Name = "AppartamentOrHouse";
+            this.AppartamentOrHouse.ReadOnly = true;
             this.AppartamentOrHouse.Width = 40;
             // 
             // Area
             // 
             this.Area.HeaderText = "Area";
             this.Area.Name = "Area";
+            this.Area.ReadOnly = true;
             this.Area.Width = 40;
             // 
             // Rooms
             // 
             this.Rooms.HeaderText = "Rooms";
             this.Rooms.Name = "Rooms";
+            this.Rooms.ReadOnly = true;
             this.Rooms.Width = 45;
-            // 
-            // id
-            // 
-            this.id.HeaderText = "id";
-            this.id.Name = "id";
-            this.id.Width = 30;
-            // 
-            // title
-            // 
-            this.title.HeaderText = "Title";
-            this.title.Name = "title";
-            // 
-            // telephone
-            // 
-            this.telephone.HeaderText = "Telephone";
-            this.telephone.Name = "telephone";
-            // 
-            // address
-            // 
-            this.address.HeaderText = "Address";
-            this.address.Name = "address";
-            this.address.Width = 250;
             // 
             // FormAdmin
             // 
@@ -216,7 +235,9 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "FormAdmin";
-            this.Text = "База данных";
+            this.Text = "База данных [Администратор]";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormAdmin_FormClosed);
+            this.Load += new System.EventHandler(this.FormAdmin_Load);
             this.tabControlMain.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCompany)).EndInit();
@@ -243,9 +264,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Owner;
         private System.Windows.Forms.DataGridViewTextBoxColumn AppartamentOrHouse;
         private System.Windows.Forms.DataGridViewTextBoxColumn Area;
         private System.Windows.Forms.DataGridViewTextBoxColumn Rooms;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ObjectOwner;
     }
 }
+

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccessLayer.DBObjects
+namespace Repositories
 {
     public class DBObject
     {
@@ -42,6 +42,13 @@ namespace DataAccessLayer.DBObjects
         public override string ToString()
         {
             return String.Format("{0} {1}", ammount, currency);
+        }
+        public int Ammount
+        {
+            get
+            {
+                return ammount;
+            }
         }
     }
 }
