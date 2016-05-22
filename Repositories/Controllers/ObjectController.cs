@@ -20,7 +20,7 @@ namespace Repositories
         }
         public void checkAddition(DBObject obj)
         {
-            if (obj.numberOfRooms <= 0 || obj.cost.Ammount <= 0 || obj.address.Length == 0 || obj.area <= 0 || obj.owner <= 0)
+            if (obj.numberOfRooms <= 0 || obj.cost <= 0 || obj.address.Length == 0 || obj.area <= 0 || obj.owner <= 0)
             { }
             else
             {

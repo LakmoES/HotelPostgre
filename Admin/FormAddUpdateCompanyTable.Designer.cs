@@ -1,6 +1,6 @@
 ﻿namespace Admin
 {
-    partial class FormUpdateCompanyTable
+    partial class FormAddUpdateCompanyTable
     {
         /// <summary>
         /// Required designer variable.
@@ -125,7 +125,7 @@
             this.buttonOK.UseVisualStyleBackColor = true;
             this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
             // 
-            // FormUpdateCompanyTable
+            // FormAddUpdateCompanyTable
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -141,7 +141,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxID);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Name = "FormUpdateCompanyTable";
+            this.Name = "FormAddUpdateCompanyTable";
             this.Text = "Редактировать";
             this.ResumeLayout(false);
             this.PerformLayout();

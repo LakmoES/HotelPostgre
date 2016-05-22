@@ -47,6 +47,8 @@
             this.AppartamentOrHouse = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Area = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Rooms = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.buttonCompanyAdd = new System.Windows.Forms.Button();
+            this.buttonObjectAdd = new System.Windows.Forms.Button();
             this.tabControlMain.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCompany)).BeginInit();
@@ -66,6 +68,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.buttonCompanyAdd);
             this.tabPage1.Controls.Add(this.buttonCompanyRefresh);
             this.tabPage1.Controls.Add(this.dataGridViewCompany);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
@@ -130,6 +133,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.buttonObjectAdd);
             this.tabPage2.Controls.Add(this.buttonObjectRefresh);
             this.tabPage2.Controls.Add(this.dataGridViewObject);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
@@ -226,6 +230,26 @@
             this.Rooms.ReadOnly = true;
             this.Rooms.Width = 45;
             // 
+            // buttonCompanyAdd
+            // 
+            this.buttonCompanyAdd.Location = new System.Drawing.Point(569, 224);
+            this.buttonCompanyAdd.Name = "buttonCompanyAdd";
+            this.buttonCompanyAdd.Size = new System.Drawing.Size(75, 23);
+            this.buttonCompanyAdd.TabIndex = 2;
+            this.buttonCompanyAdd.Text = "Добавить";
+            this.buttonCompanyAdd.UseVisualStyleBackColor = true;
+            this.buttonCompanyAdd.Click += new System.EventHandler(this.buttonCompanyAdd_Click);
+            // 
+            // buttonObjectAdd
+            // 
+            this.buttonObjectAdd.Location = new System.Drawing.Point(573, 224);
+            this.buttonObjectAdd.Name = "buttonObjectAdd";
+            this.buttonObjectAdd.Size = new System.Drawing.Size(75, 23);
+            this.buttonObjectAdd.TabIndex = 3;
+            this.buttonObjectAdd.Text = "Добавить";
+            this.buttonObjectAdd.UseVisualStyleBackColor = true;
+            this.buttonObjectAdd.Click += new System.EventHandler(this.buttonObjectAdd_Click);
+            // 
             // FormAdmin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -268,6 +292,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Area;
         private System.Windows.Forms.DataGridViewTextBoxColumn Rooms;
         private System.Windows.Forms.DataGridViewTextBoxColumn ObjectOwner;
+        private System.Windows.Forms.Button buttonCompanyAdd;
+        private System.Windows.Forms.Button buttonObjectAdd;
     }
 }
 

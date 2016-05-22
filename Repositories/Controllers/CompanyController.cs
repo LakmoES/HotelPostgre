@@ -19,11 +19,9 @@ namespace Repositories
         }
         public void checkAddition(DBCompany company)
         {
-            if (company.id < 0)
-            { }
-            else
+            if (company.title.Length >= 1)
             {
-                //OK. Add the obj
+                //OK. Add the company
                 companyPresenter.AddToTable(company);
             }
         }

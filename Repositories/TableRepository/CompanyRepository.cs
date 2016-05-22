@@ -94,13 +94,13 @@ namespace Repositories
         }
         public void DeleteFromTable(DBCompany company)
         {
-            try
-            {
+            //try
+            //{
                 NpgsqlCommand queryCommand = new NpgsqlCommand("DELETE FROM \"HomeBUY\".\"Company\" WHERE \"id\" = @id", DBConnection.Instance.connection);
                 queryCommand.Parameters.AddWithValue("@id", company.id);
                 queryCommand.ExecuteNonQuery();
-            }
-            catch (NpgsqlException) { }
+            //}
+            //catch (NpgsqlException) { }
         }
 
         //Перегрузка для удаления по id

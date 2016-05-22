@@ -38,19 +38,19 @@ namespace Admin
         private void FormAdmin_Load(object sender, EventArgs e)
         {
             objectPresenter = new ObjectPresenter(this.dataGridViewObject);
-            objectPresenter.ShowTable();
+            objectPresenter.ShowTable(true);
 
             companyPresenter = new CompanyPresenter(this.dataGridViewCompany);
-            companyPresenter.ShowTable();
+            companyPresenter.ShowTable(true);
         }
         private void buttonCompanyRefresh_Click(object sender, EventArgs e)
         {
-            companyPresenter.ShowTable();
+            companyPresenter.ShowTable(true);
         }
 
         private void buttonObjectRefresh_Click(object sender, EventArgs e)
         {
-            objectPresenter.ShowTable();
+            objectPresenter.ShowTable(true);
         }
 
         private void FormAdmin_FormClosed(object sender, FormClosedEventArgs e)
@@ -78,29 +78,46 @@ namespace Admin
         }
         private void dataGridView_Edit_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Редактирование.","[Заглушка]");
             if(selectedDGV == dataGridViewCompany)
             {
-                new FormUpdateCompanyTable(selectedDGV, selectedDGV.SelectedRows[0].Index).ShowDialog();
+                new FormAddUpdateCompanyTable(selectedDGV, selectedDGV.SelectedRows[0].Index).ShowDialog();
+            }
+            if (selectedDGV == dataGridViewObject)
+            {
+                MessageBox.Show("Редактирование.", "[Заглушка]");
+                new FormAddUpdateObjectTable(selectedDGV, selectedDGV.CurrentRow.Index).ShowDialog();
             }
         }
         private void dataGridView_Remove_Click(object sender, EventArgs e)
         {
             var cell = selectedDGV[0, selectedDGV.CurrentRow.Index];
             int id = Convert.ToInt32(cell.Value);
+            DialogResult dialogResult = MessageBox.Show("Вы действительно хотите удалить запись?", "Подтверждение", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                if (selectedDGV == dataGridViewCompany)
+                {
+                    CompanyController companyController = new CompanyController(selectedDGV);
+                    companyController.checkDelete(id/*selectedDGV.CurrentRow.Index*/);
+                    companyPresenter.ShowTable();
+                }
+                if (selectedDGV == dataGridViewObject)
+                {
+                    ObjectController objectController = new ObjectController(selectedDGV);
+                    objectController.checkDelete(id/*selectedDGV.CurrentRow.Index*/);
+                    objectPresenter.ShowTable();
+                }
+            }
+        }
 
-            if (selectedDGV == dataGridViewCompany)
-            {
-                CompanyController companyController = new CompanyController(selectedDGV);
-                companyController.checkDelete(id/*selectedDGV.CurrentRow.Index*/);
-                companyPresenter.ShowTable();
-            }
-            if (selectedDGV == dataGridViewObject)
-            {
-                ObjectController objectController = new ObjectController(selectedDGV);
-                objectController.checkDelete(id/*selectedDGV.CurrentRow.Index*/);
-                objectPresenter.ShowTable();
-            }
+        private void buttonCompanyAdd_Click(object sender, EventArgs e)
+        {
+            new FormAddUpdateCompanyTable(dataGridViewCompany).ShowDialog();
+        }
+
+        private void buttonObjectAdd_Click(object sender, EventArgs e)
+        {
+            new FormAddUpdateObjectTable(dataGridViewObject).ShowDialog();
         }
     }
 }
