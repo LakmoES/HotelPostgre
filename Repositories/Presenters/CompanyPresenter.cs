@@ -24,7 +24,6 @@ namespace Repositories
         {
             dgvElements = companyRepository.GetTable();
             dgv.Rows.Clear();
-            //id, title, telephone, address
             foreach (DBCompany company in dgvElements)
                 dgv.Rows.Add(company.id, company.title, company.telephone, company.address);
             if (sort)
