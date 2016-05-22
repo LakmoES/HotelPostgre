@@ -91,16 +91,16 @@ namespace Repositories
             catch (NpgsqlException)
             { }
         }
-        public void UpdateTable(DBPerson ownerToUpdate)
+        public void UpdateTable(DBPerson person)
         {
             try
             {
                 NpgsqlCommand queryCommand = new NpgsqlCommand("UPDATE \"HomeBUY\".\"" + tableName + "\" SET \"Name\" = @Name, \"Surname\" = @Surname, \"Telephone\" = @Telephone" +
                     " WHERE \"id\" = @id", DBConnection.Instance.connection);
-                queryCommand.Parameters.AddWithValue("@Name", ownerToUpdate.name);
-                queryCommand.Parameters.AddWithValue("@Surname", ownerToUpdate.surname);
-                queryCommand.Parameters.AddWithValue("@Telephone", ownerToUpdate.telephone);
-                queryCommand.Parameters.AddWithValue("@id", ownerToUpdate.id);
+                queryCommand.Parameters.AddWithValue("@Name", person.name);
+                queryCommand.Parameters.AddWithValue("@Surname", person.surname);
+                queryCommand.Parameters.AddWithValue("@Telephone", person.telephone);
+                queryCommand.Parameters.AddWithValue("@id", person.id);
                 queryCommand.ExecuteNonQuery();
             }
             catch (NpgsqlException) { }

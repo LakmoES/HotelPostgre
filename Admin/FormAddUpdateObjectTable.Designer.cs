@@ -240,7 +240,7 @@
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "FormAddUpdateObjectTable";
-            this.Text = "FormAddUpdateObjectTable";
+            this.Text = "Объект";
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRooms)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownArea)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCost)).EndInit();

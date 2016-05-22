@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,12 +20,14 @@ namespace Repositories
             this.dgv = dgv;
             personRepository = new PersonRepository(tableName);
         }
-        public void ShowTable()
+        public void ShowTable(bool sort = false)
         {
             dgvElements = personRepository.GetTable();
             dgv.Rows.Clear();
             foreach (DBPerson person in dgvElements)
                 dgv.Rows.Add(person.id, person.name, person.surname, person.telephone);
+            if (sort)
+                dgv.Sort(dgv.Columns[0], ListSortDirection.Ascending);
         }
         public void AddToTable(DBPerson person)
         {

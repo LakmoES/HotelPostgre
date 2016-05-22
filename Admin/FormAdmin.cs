@@ -17,6 +17,11 @@ namespace Admin
         NpgsqlConnection conn;
         ObjectPresenter objectPresenter;
         CompanyPresenter companyPresenter;
+        PersonPresenter ownerPresenter;
+
+        CompanyController companyController;
+        ObjectController objectController;
+        PersonController ownerController;
 
         ContextMenu contextMenu;
         DataGridView selectedDGV;
@@ -24,6 +29,10 @@ namespace Admin
         {
             InitializeComponent();
             this.conn = conn;
+
+            companyController = new CompanyController(dataGridViewCompany);
+            objectController = new ObjectController(dataGridViewObject);
+            ownerController = new PersonController(dataGridViewOwner, "Owner");
 
             DBConnection.Instance.setConnection(conn);
             DBConnection.Instance.openConnection();
@@ -42,6 +51,9 @@ namespace Admin
 
             companyPresenter = new CompanyPresenter(this.dataGridViewCompany);
             companyPresenter.ShowTable(true);
+
+            ownerPresenter = new PersonPresenter(this.dataGridViewOwner, "Owner");
+            ownerPresenter.ShowTable(true);
         }
         private void buttonCompanyRefresh_Click(object sender, EventArgs e)
         {
@@ -51,6 +63,11 @@ namespace Admin
         private void buttonObjectRefresh_Click(object sender, EventArgs e)
         {
             objectPresenter.ShowTable(true);
+        }
+
+        private void buttonOwnerRefresh_Click(object sender, EventArgs e)
+        {
+            ownerPresenter.ShowTable(true);
         }
 
         private void FormAdmin_FormClosed(object sender, FormClosedEventArgs e)
@@ -84,8 +101,11 @@ namespace Admin
             }
             if (selectedDGV == dataGridViewObject)
             {
-                MessageBox.Show("Редактирование.", "[Заглушка]");
                 new FormAddUpdateObjectTable(selectedDGV, selectedDGV.CurrentRow.Index).ShowDialog();
+            }
+            if (selectedDGV == dataGridViewOwner)
+            {
+                new FormAddUpdatePersonTable(selectedDGV, selectedDGV.CurrentRow.Index, "Owner").ShowDialog();
             }
         }
         private void dataGridView_Remove_Click(object sender, EventArgs e)
@@ -97,15 +117,18 @@ namespace Admin
             {
                 if (selectedDGV == dataGridViewCompany)
                 {
-                    CompanyController companyController = new CompanyController(selectedDGV);
-                    companyController.checkDelete(id/*selectedDGV.CurrentRow.Index*/);
+                    companyController.checkDelete(id);
                     companyPresenter.ShowTable();
                 }
                 if (selectedDGV == dataGridViewObject)
                 {
-                    ObjectController objectController = new ObjectController(selectedDGV);
-                    objectController.checkDelete(id/*selectedDGV.CurrentRow.Index*/);
+                    objectController.checkDelete(id);
                     objectPresenter.ShowTable();
+                }
+                if(selectedDGV == dataGridViewOwner)
+                {
+                    ownerController.checkDelete(id);
+                    ownerPresenter.ShowTable();
                 }
             }
         }
@@ -118,6 +141,11 @@ namespace Admin
         private void buttonObjectAdd_Click(object sender, EventArgs e)
         {
             new FormAddUpdateObjectTable(dataGridViewObject).ShowDialog();
+        }
+
+        private void buttonOwnerAdd_Click(object sender, EventArgs e)
+        {
+            new FormAddUpdatePersonTable(dataGridViewOwner, "Owner").ShowDialog();
         }
     }
 }

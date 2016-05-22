@@ -24,6 +24,8 @@ namespace Admin
             adding = false;
             numericUpDownCost.Minimum = -1;
             numericUpDownCost.Maximum = Int32.MaxValue;
+            numericUpDownArea.Minimum = -1;
+            numericUpDownArea.Maximum = Int32.MaxValue;
 
             objectPresenter = new ObjectPresenter(dgv);
             ownerRepository = new PersonRepository("Owner");

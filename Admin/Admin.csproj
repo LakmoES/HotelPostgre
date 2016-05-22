@@ -59,6 +59,12 @@
     <Compile Include="FormAddUpdateObjectTable.Designer.cs">
       <DependentUpon>FormAddUpdateObjectTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormAddUpdatePersonTable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAddUpdatePersonTable.Designer.cs">
+      <DependentUpon>FormAddUpdatePersonTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormAdmin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -74,6 +80,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FormAddUpdateObjectTable.resx">
       <DependentUpon>FormAddUpdateObjectTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormAddUpdatePersonTable.resx">
+      <DependentUpon>FormAddUpdatePersonTable.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormAdmin.resx">
       <DependentUpon>FormAdmin.cs</DependentUpon>

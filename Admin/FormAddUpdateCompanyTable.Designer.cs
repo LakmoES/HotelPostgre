@@ -142,7 +142,7 @@
             this.Controls.Add(this.textBoxID);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "FormAddUpdateCompanyTable";
-            this.Text = "Редактировать";
+            this.Text = "Компания";
             this.ResumeLayout(false);
             this.PerformLayout();
 
