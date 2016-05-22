@@ -21,12 +21,12 @@ namespace Admin
         DBPerson person;
         bool adding;
         string tableName;
+        Regex regex; // [id]
         public FormAddUpdatePersonTable(DataGridView dgv, int index, string tableName) //редактирование
         {
             InitializeComponent();
             this.tableName = tableName;
             Init(dgv);
-            companyRepository = new CompanyRepository();
 
             adding = false;
 
@@ -37,11 +37,11 @@ namespace Admin
 
             if (tableName == "Staff")
             {
-                int pCompany = Convert.ToInt32(dgv.Rows[index].Cells[4].Value);
+                FillTheFieldsForStaff();
+                Match match = regex.Match(dgv.Rows[index].Cells[4].Value.ToString());
+                int pCompany = Convert.ToInt32(match.Value.Substring(1, match.Value.Length - 2));
                 person = new DBStaff(pID, pName, pSurname, pTel, pCompany);
-                this.comboBoxCompany.Visible = true;
-                this.comboBoxCompany.Text = pCompany.ToString();
-                this.labelCompany.Visible = true;
+                this.comboBoxCompany.Text = dgv.Rows[index].Cells[4].Value.ToString();
             }
             else
                 person = new DBPerson(pID, pName, pSurname, pTel);
@@ -51,7 +51,7 @@ namespace Admin
             this.textBoxSurname.Text = person.surname;
             this.textBoxTelephone.Text = person.telephone;
         }
-        public FormAddUpdatePersonTable(DataGridView dgv, string tableName) //изменение
+        public FormAddUpdatePersonTable(DataGridView dgv, string tableName) //добавление
         {
             InitializeComponent();
             this.tableName = tableName;
@@ -61,15 +61,17 @@ namespace Admin
             if (tableName == "Staff")
             {
                 person = new DBStaff(-1, null, null, null, -1);
-                FillTheFields();
+                FillTheFieldsForStaff();
             }
             else
                 person = new DBPerson(-1, null, null, null);
         }
         private void Init(DataGridView dgv)
         {
+            regex = new Regex("\\[[0-9]+\\]");
             personPresenter = new PersonPresenter(dgv, tableName);
             staffPresenter = new StaffPresenter(dgv);
+            companyRepository = new CompanyRepository();
 
             role = new Dictionary<string, string>();
             role.Add("Staff", "Работник");
@@ -80,8 +82,11 @@ namespace Admin
             role.TryGetValue(tableName, out title);
             this.Text = title;
         }
-        private void FillTheFields()
+        private void FillTheFieldsForStaff()
         {
+            this.comboBoxCompany.Visible = true;
+            this.labelCompany.Visible = true;
+
             var companiesList = companyRepository.GetTable();
             foreach (var company in companiesList)
             {
@@ -107,7 +112,6 @@ namespace Admin
             person.telephone = this.textBoxTelephone.Text.Trim(' ');
             if (tableName == "Staff")
             {
-                Regex regex = new Regex("\\[[0-9]+\\]"); // [id]
                 Match match = regex.Match(this.comboBoxCompany.Text);
                 int companyID = Convert.ToInt32(match.Value.Substring(1, match.Value.Length - 2));
 
@@ -117,14 +121,16 @@ namespace Admin
                     staffPresenter.UpdateTable(person as DBStaff);
                 else
                     staffPresenter.AddToTable(person as DBStaff);
-                staffPresenter.ShowTable();
+                staffPresenter.ShowTable(true);
             }
             else
+            {
                 if (!adding)
                     personPresenter.UpdateTable(person);
                 else
                     personPresenter.AddToTable(person);
-                personPresenter.ShowTable();
+                personPresenter.ShowTable(true);
+            }
         }
     }
 }

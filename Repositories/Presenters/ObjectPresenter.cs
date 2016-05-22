@@ -12,6 +12,7 @@ namespace Repositories
     {
         DataGridView dgv;
         ObjectRepository objectRepository;
+        PersonRepository ownerRepository;
         List<DBObject> dgvElements;
 
         public ObjectPresenter(DataGridView dgv)
@@ -19,14 +20,25 @@ namespace Repositories
             dgvElements = new List<DBObject>();
             this.dgv = dgv;
             objectRepository = new ObjectRepository();
+            ownerRepository = new PersonRepository("Owner");
         }
         public void ShowTable(bool sort = false)
         {
+            var owners = ownerRepository.GetTable();
             dgvElements = objectRepository.GetTable();
             dgv.Rows.Clear();
             //id,address,adddate,cost,owner,appart,area,rooms
             foreach (DBObject obj in dgvElements)
-                dgv.Rows.Add(obj.id, obj.address, obj.addDate.ToString("dd/MM/yyyy"), obj.cost, obj.owner, obj.appartamentOrHouse, obj.area, obj.numberOfRooms);
+            {
+                string ownerText = null;
+                foreach (DBPerson owner in owners)
+                    if (owner.id == obj.owner)
+                    {
+                        ownerText = String.Format("[{0}] {1} {2}", owner.id, owner.name, owner.surname);
+                        break;
+                    }
+                dgv.Rows.Add(obj.id, obj.address, obj.addDate.ToString("dd/MM/yyyy"), obj.cost, ownerText, obj.appartamentOrHouse, obj.area, obj.numberOfRooms);
+            }
             if (sort)
                 dgv.Sort(dgv.Columns[0], ListSortDirection.Ascending);
         }

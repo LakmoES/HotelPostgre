@@ -18,10 +18,14 @@ namespace Admin
         ObjectPresenter objectPresenter;
         CompanyPresenter companyPresenter;
         PersonPresenter ownerPresenter;
+        StaffPresenter staffPresenter;
+        PersonPresenter clientPresenter;
 
         CompanyController companyController;
         ObjectController objectController;
         PersonController ownerController;
+        StaffController staffController;
+        PersonController clientController;
 
         ContextMenu contextMenu;
         DataGridView selectedDGV;
@@ -33,6 +37,8 @@ namespace Admin
             companyController = new CompanyController(dataGridViewCompany);
             objectController = new ObjectController(dataGridViewObject);
             ownerController = new PersonController(dataGridViewOwner, "Owner");
+            staffController = new StaffController(dataGridViewStaff);
+            clientController = new PersonController(dataGridViewClient, "Client");
 
             DBConnection.Instance.setConnection(conn);
             DBConnection.Instance.openConnection();
@@ -54,20 +60,32 @@ namespace Admin
 
             ownerPresenter = new PersonPresenter(this.dataGridViewOwner, "Owner");
             ownerPresenter.ShowTable(true);
+
+            staffPresenter = new StaffPresenter(this.dataGridViewStaff);
+            staffPresenter.ShowTable(true);
+
+            clientPresenter = new PersonPresenter(this.dataGridViewClient, "Client");
+            clientPresenter.ShowTable(true);
         }
         private void buttonCompanyRefresh_Click(object sender, EventArgs e)
         {
             companyPresenter.ShowTable(true);
         }
-
         private void buttonObjectRefresh_Click(object sender, EventArgs e)
         {
             objectPresenter.ShowTable(true);
         }
-
         private void buttonOwnerRefresh_Click(object sender, EventArgs e)
         {
             ownerPresenter.ShowTable(true);
+        }
+        private void buttonStaffRefresh_Click(object sender, EventArgs e)
+        {
+            staffPresenter.ShowTable(true);
+        }
+        private void buttonClientRefresh_Click(object sender, EventArgs e)
+        {
+            clientPresenter.ShowTable(true);
         }
 
         private void FormAdmin_FormClosed(object sender, FormClosedEventArgs e)
@@ -107,6 +125,14 @@ namespace Admin
             {
                 new FormAddUpdatePersonTable(selectedDGV, selectedDGV.CurrentRow.Index, "Owner").ShowDialog();
             }
+            if (selectedDGV == dataGridViewStaff)
+            {
+                new FormAddUpdatePersonTable(selectedDGV, selectedDGV.CurrentRow.Index, "Staff").ShowDialog();
+            }
+            if (selectedDGV == dataGridViewClient)
+            {
+                new FormAddUpdatePersonTable(selectedDGV, selectedDGV.CurrentRow.Index, "Client").ShowDialog();
+            }
         }
         private void dataGridView_Remove_Click(object sender, EventArgs e)
         {
@@ -118,17 +144,27 @@ namespace Admin
                 if (selectedDGV == dataGridViewCompany)
                 {
                     companyController.checkDelete(id);
-                    companyPresenter.ShowTable();
+                    companyPresenter.ShowTable(true);
                 }
                 if (selectedDGV == dataGridViewObject)
                 {
                     objectController.checkDelete(id);
-                    objectPresenter.ShowTable();
+                    objectPresenter.ShowTable(true);
                 }
                 if(selectedDGV == dataGridViewOwner)
                 {
                     ownerController.checkDelete(id);
-                    ownerPresenter.ShowTable();
+                    ownerPresenter.ShowTable(true);
+                }
+                if (selectedDGV == dataGridViewStaff)
+                {
+                    staffController.checkDelete(id);
+                    staffPresenter.ShowTable(true);
+                }
+                if (selectedDGV == dataGridViewClient)
+                {
+                    clientController.checkDelete(id);
+                    clientPresenter.ShowTable(true);
                 }
             }
         }
@@ -137,15 +173,21 @@ namespace Admin
         {
             new FormAddUpdateCompanyTable(dataGridViewCompany).ShowDialog();
         }
-
         private void buttonObjectAdd_Click(object sender, EventArgs e)
         {
             new FormAddUpdateObjectTable(dataGridViewObject).ShowDialog();
         }
-
         private void buttonOwnerAdd_Click(object sender, EventArgs e)
         {
             new FormAddUpdatePersonTable(dataGridViewOwner, "Owner").ShowDialog();
+        }
+        private void buttonStaffAdd_Click(object sender, EventArgs e)
+        {
+            new FormAddUpdatePersonTable(dataGridViewStaff, "Staff").ShowDialog();
+        }
+        private void buttonClientAdd_Click(object sender, EventArgs e)
+        {
+            new FormAddUpdatePersonTable(dataGridViewClient, "Client").ShowDialog();
         }
     }
 }

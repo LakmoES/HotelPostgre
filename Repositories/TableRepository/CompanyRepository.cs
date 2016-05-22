@@ -46,6 +46,36 @@ namespace Repositories
             }
             return companyTable;
         }
+        public DBCompany GetConcreteRecord(int id)
+        {
+            DBCompany companyTbl = null;
+
+            try
+            {
+                NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"HomeBUY\".\"Company\" WHERE \"id\" = @id", DBConnection.Instance.connection);
+                queryCommand.Parameters.AddWithValue("@id", id);
+                NpgsqlDataReader companyTableReader = queryCommand.ExecuteReader();
+
+                if (companyTableReader.HasRows)
+                    foreach (DbDataRecord dbDataRecord in companyTableReader)
+                    {
+                        Application.DoEvents();
+                        companyTbl = new DBCompany(
+                            Convert.ToInt32(dbDataRecord["id"]),
+                            dbDataRecord["Title"].ToString(),
+                            dbDataRecord["Telephone"].ToString(),
+                            dbDataRecord["Address"].ToString()
+                            );
+                        break;
+                    }
+                companyTableReader.Close();
+            }
+            catch (NpgsqlException exp)
+            {
+                MessageBox.Show(Convert.ToString(exp), "Ошибка");
+            }
+            return companyTbl;
+        }
         public void AddToTable(DBCompany company)
         {
             NpgsqlCommand queryCommand;

@@ -17,6 +17,7 @@ namespace Admin
         ObjectPresenter objectPresenter;
         PersonRepository ownerRepository;
         DBObject obj;
+        Regex regex; // [id]
         bool adding;
         public FormAddUpdateObjectTable(DataGridView dgv, int index) //редактирование
         {
@@ -34,11 +35,13 @@ namespace Admin
             this.textBoxAddress.ReadOnly = true;
             this.comboBoxType.Enabled = false;
 
+            Match match = regex.Match(dgv.Rows[index].Cells[4].Value.ToString());
+
             obj = new DBObject(Convert.ToInt32(dgv.Rows[index].Cells[0].Value.ToString()),
                 dgv.Rows[index].Cells[1].Value.ToString(),
                 Convert.ToDateTime(dgv.Rows[index].Cells[2].Value.ToString()),
                 Convert.ToInt32(dgv.Rows[index].Cells[3].Value.ToString()),
-                Convert.ToInt32(dgv.Rows[index].Cells[4].Value.ToString()),
+                Convert.ToInt32(match.Value.Substring(1, match.Value.Length - 2)), //owner id
                 dgv.Rows[index].Cells[5].Value.ToString(),
                 Convert.ToInt32(dgv.Rows[index].Cells[6].Value.ToString()),
                 Convert.ToInt32(dgv.Rows[index].Cells[7].Value.ToString()));
@@ -70,6 +73,7 @@ namespace Admin
         }
         private void FillTheFields()
         {
+            regex = new Regex("\\[[0-9]+\\]");
             textBoxCurrency.Text = "у.е.";
             var ownersList = ownerRepository.GetTable();
             foreach (var owner in ownersList)
@@ -97,7 +101,7 @@ namespace Admin
             obj.addDate = dateTimePickerToday.Value;
             obj.cost = Convert.ToInt32(this.numericUpDownCost.Value);
 
-            Regex regex = new Regex("\\[[0-9]+\\]"); // [id]
+            
             Match match = regex.Match(this.comboBoxOwner.Text);
             int ownerID = Convert.ToInt32(match.Value.Substring(1, match.Value.Length - 2));
             obj.owner = ownerID;
