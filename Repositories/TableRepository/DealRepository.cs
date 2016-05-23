@@ -16,7 +16,6 @@ namespace Repositories
         {
             List<DBDeal> dealTable = new List<DBDeal>();
             DBDeal dealTbl;
-
             try
             {
                 NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"HomeBUY\".\"Deal\"", DBConnection.Instance.connection);
