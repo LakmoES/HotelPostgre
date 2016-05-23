@@ -14,31 +14,33 @@ namespace Admin
 {
     public partial class FormAdmin : Form
     {
-        NpgsqlConnection conn;
+        //NpgsqlConnection conn;
         ObjectPresenter objectPresenter;
         CompanyPresenter companyPresenter;
         PersonPresenter ownerPresenter;
         StaffPresenter staffPresenter;
         PersonPresenter clientPresenter;
+        DealPresenter dealPresenter;
 
         CompanyController companyController;
         ObjectController objectController;
         PersonController ownerController;
         StaffController staffController;
         PersonController clientController;
+        DealController dealController;
 
         ContextMenu contextMenu;
         DataGridView selectedDGV;
         public FormAdmin(NpgsqlConnection conn)
         {
             InitializeComponent();
-            this.conn = conn;
 
             companyController = new CompanyController(dataGridViewCompany);
             objectController = new ObjectController(dataGridViewObject);
             ownerController = new PersonController(dataGridViewOwner, "Owner");
             staffController = new StaffController(dataGridViewStaff);
             clientController = new PersonController(dataGridViewClient, "Client");
+            dealController = new DealController(dataGridViewDeal);
 
             DBConnection.Instance.setConnection(conn);
             DBConnection.Instance.openConnection();
@@ -66,6 +68,9 @@ namespace Admin
 
             clientPresenter = new PersonPresenter(this.dataGridViewClient, "Client");
             clientPresenter.ShowTable(true);
+
+            dealPresenter = new DealPresenter(this.dataGridViewDeal);
+            dealPresenter.ShowTable(true);
         }
         private void buttonCompanyRefresh_Click(object sender, EventArgs e)
         {
@@ -86,6 +91,10 @@ namespace Admin
         private void buttonClientRefresh_Click(object sender, EventArgs e)
         {
             clientPresenter.ShowTable(true);
+        }
+        private void buttonDealRefresh_Click(object sender, EventArgs e)
+        {
+            dealPresenter.ShowTable(true);
         }
 
         private void FormAdmin_FormClosed(object sender, FormClosedEventArgs e)
@@ -133,6 +142,10 @@ namespace Admin
             {
                 new FormAddUpdatePersonTable(selectedDGV, selectedDGV.CurrentRow.Index, "Client").ShowDialog();
             }
+            if (selectedDGV == dataGridViewDeal)
+            {
+                new FormAddUpdateDealTable(selectedDGV, selectedDGV.CurrentRow.Index).ShowDialog();
+            }
         }
         private void dataGridView_Remove_Click(object sender, EventArgs e)
         {
@@ -166,6 +179,11 @@ namespace Admin
                     clientController.checkDelete(id);
                     clientPresenter.ShowTable(true);
                 }
+                if (selectedDGV == dataGridViewDeal)
+                {
+                    dealController.checkDelete(id);
+                    dealPresenter.ShowTable(true);
+                }
             }
         }
 
@@ -188,6 +206,10 @@ namespace Admin
         private void buttonClientAdd_Click(object sender, EventArgs e)
         {
             new FormAddUpdatePersonTable(dataGridViewClient, "Client").ShowDialog();
+        }
+        private void buttonDealAdd_Click(object sender, EventArgs e)
+        {
+            new FormAddUpdateDealTable(dataGridViewDeal).ShowDialog();
         }
     }
 }

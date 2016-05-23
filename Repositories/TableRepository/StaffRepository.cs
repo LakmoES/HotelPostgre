@@ -20,8 +20,8 @@ namespace Repositories
             List<DBStaff> staffsTable = new List<DBStaff>();
             DBStaff staffTbl;
 
-            try
-            {
+            //try
+            //{
                 NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"HomeBUY\".\"Staff\"", DBConnection.Instance.connection);
                 NpgsqlDataReader staffTableReader = queryCommand.ExecuteReader();
 
@@ -39,19 +39,19 @@ namespace Repositories
                         staffsTable.Add(staffTbl);
                     }
                 staffTableReader.Close();
-            }
-            catch (NpgsqlException exp)
-            {
-                MessageBox.Show(Convert.ToString(exp), "Ошибка");
-            }
+            //}
+            //catch (NpgsqlException exp)
+            //{
+            //    MessageBox.Show(Convert.ToString(exp), "Ошибка");
+            //}
             return staffsTable;
         }
         public DBStaff GetConcreteRecord(int id)
         {
             DBStaff staffTbl = null;
 
-            try
-            {
+            //try
+            //{
                 NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"HomeBUY\".\"Staff\" WHERE \"id\" = @id", DBConnection.Instance.connection);
                 queryCommand.Parameters.AddWithValue("@id", id);
                 NpgsqlDataReader staffTableReader = queryCommand.ExecuteReader();
@@ -70,18 +70,18 @@ namespace Repositories
                         break;
                     }
                 staffTableReader.Close();
-            }
-            catch (NpgsqlException exp)
-            {
-                MessageBox.Show(Convert.ToString(exp), "Ошибка");
-            }
+            //}
+            //catch (NpgsqlException exp)
+            //{
+            //    MessageBox.Show(Convert.ToString(exp), "Ошибка");
+            //}
             return staffTbl;
         }
         public void AddToTable(DBStaff staff)
         {
             NpgsqlCommand queryCommand;
-            try
-            {
+            //try
+            //{
                 queryCommand = new NpgsqlCommand("INSERT INTO \"HomeBUY\".\"Staff\" (\"Name\", \"Surname\", \"Telephone\", \"Company\")" +
                     "VALUES(@Name, @Surname, @Telephone, @Company)", DBConnection.Instance.connection);
                 queryCommand.Parameters.AddWithValue("@Name", staff.name);
@@ -89,14 +89,14 @@ namespace Repositories
                 queryCommand.Parameters.AddWithValue("@Telephone", staff.telephone);
                 queryCommand.Parameters.AddWithValue("@Company", staff.company);
                 queryCommand.ExecuteNonQuery();
-            }
-            catch (NpgsqlException)
-            { }
+            //}
+            //catch (NpgsqlException)
+            //{ }
         }
         public void UpdateTable(DBStaff staff)
         {
-            try
-            {
+            //try
+            //{
                 NpgsqlCommand queryCommand = new NpgsqlCommand("UPDATE \"HomeBUY\".\"Staff\" SET \"Name\" = @Name, \"Surname\" = @Surname, \"Telephone\" = @Telephone, \"Company\" = @Company" +
                     " WHERE \"id\" = @id", DBConnection.Instance.connection);
                 queryCommand.Parameters.AddWithValue("@Name", staff.name);
@@ -105,18 +105,18 @@ namespace Repositories
                 queryCommand.Parameters.AddWithValue("@Company", staff.company);
                 queryCommand.Parameters.AddWithValue("@id", staff.id);
                 queryCommand.ExecuteNonQuery();
-            }
-            catch (NpgsqlException) { }
+            //}
+            //catch (NpgsqlException) { }
         }
         public void DeleteFromTable(int id)
         {
-            try
-            {
+            //try
+            //{
                 NpgsqlCommand queryCommand = new NpgsqlCommand("DELETE FROM \"HomeBUY\".\"Staff\" WHERE \"id\" = @id", DBConnection.Instance.connection);
                 queryCommand.Parameters.AddWithValue("@id", id);
                 queryCommand.ExecuteNonQuery();
-            }
-            catch (NpgsqlException) { }
+            //}
+            //catch (NpgsqlException) { }
         }
     }
 }

@@ -55,13 +55,16 @@
   <ItemGroup>
     <Compile Include="Connection\DBConnection.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
+    <Compile Include="Controllers\DealController.cs" />
     <Compile Include="Controllers\ObjectController.cs" />
     <Compile Include="Controllers\PersonController.cs" />
     <Compile Include="Controllers\StaffController.cs" />
+    <Compile Include="DBObjects\DBDeal.cs" />
     <Compile Include="DBObjects\DBPerson.cs" />
     <Compile Include="DBObjects\DBCompany.cs" />
     <Compile Include="DBObjects\DBObject.cs" />
     <Compile Include="DBObjects\DBStaff.cs" />
+    <Compile Include="Presenters\DealPresenter.cs" />
     <Compile Include="Presenters\PersonPresenter.cs" />
     <Compile Include="Presenters\CompanyPresenter.cs" />
     <Compile Include="Presenters\ObjectPresenter.cs" />

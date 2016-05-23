@@ -21,8 +21,8 @@ namespace Repositories
             List<DBCompany> companyTable = new List<DBCompany>();
             DBCompany companyTbl;
 
-            try
-            {
+            //try
+            //{
                 NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"HomeBUY\".\"Company\"", DBConnection.Instance.connection);
                 NpgsqlDataReader companyTableReader = queryCommand.ExecuteReader();
 
@@ -39,19 +39,19 @@ namespace Repositories
                         companyTable.Add(companyTbl);
                     }
                 companyTableReader.Close();
-            }
-            catch (NpgsqlException exp)
-            {
-                MessageBox.Show(Convert.ToString(exp), "Ошибка");
-            }
+            //}
+            //catch (NpgsqlException exp)
+            //{
+            //    MessageBox.Show(Convert.ToString(exp), "Ошибка");
+            //}
             return companyTable;
         }
         public DBCompany GetConcreteRecord(int id)
         {
             DBCompany companyTbl = null;
 
-            try
-            {
+            //try
+            //{
                 NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"HomeBUY\".\"Company\" WHERE \"id\" = @id", DBConnection.Instance.connection);
                 queryCommand.Parameters.AddWithValue("@id", id);
                 NpgsqlDataReader companyTableReader = queryCommand.ExecuteReader();
@@ -69,18 +69,18 @@ namespace Repositories
                         break;
                     }
                 companyTableReader.Close();
-            }
-            catch (NpgsqlException exp)
-            {
-                MessageBox.Show(Convert.ToString(exp), "Ошибка");
-            }
+            //}
+            //catch (NpgsqlException exp)
+            //{
+            //    MessageBox.Show(Convert.ToString(exp), "Ошибка");
+            //}
             return companyTbl;
         }
         public void AddToTable(DBCompany company)
         {
             NpgsqlCommand queryCommand;
-            try
-            {
+            //try
+            //{
                 //id, Title, Telephone, Address
                 queryCommand = new NpgsqlCommand("INSERT INTO \"HomeBUY\".\"Company\" (\"Title\", \"Telephone\", \"Address\")" +
                     " VALUES(@Title, @Telephone, @Address)", DBConnection.Instance.connection);
@@ -88,14 +88,14 @@ namespace Repositories
                 queryCommand.Parameters.AddWithValue("@Telephone", company.telephone);
                 queryCommand.Parameters.AddWithValue("@Address", company.address);
                 queryCommand.ExecuteNonQuery();
-            }
-            catch (NpgsqlException)
-            { }
+            //}
+            //catch (NpgsqlException)
+            //{ }
         }
         public void UpdateTable(DBCompany companyToUpdate, DBCompany company)
         {
-            try
-            {
+            //try
+            //{
                 //id, Title, Telephone, Address
                 NpgsqlCommand queryCommand = new NpgsqlCommand("UPDATE \"HomeBUY\".\"Company\" SET \"Title\" = @Title, \"Telephone\" = @Telephone, \"Address\" = @Address" +
                     " WHERE \"id\" = @id", DBConnection.Instance.connection);
@@ -104,13 +104,13 @@ namespace Repositories
                 queryCommand.Parameters.AddWithValue("@Address", company.address);
                 queryCommand.Parameters.AddWithValue("@id", companyToUpdate.id);
                 queryCommand.ExecuteNonQuery();
-            }
-            catch (NpgsqlException) { }
+            //}
+            //catch (NpgsqlException) { }
         }
         public void UpdateTable(DBCompany updatedCompany)
         {
-            try
-            {
+            //try
+            //{
                 //id, Title, Telephone, Address
                 NpgsqlCommand queryCommand = new NpgsqlCommand("UPDATE \"HomeBUY\".\"Company\" SET \"Title\" = @Title, \"Telephone\" = @Telephone, \"Address\" = @Address" +
                     " WHERE \"id\" = @id", DBConnection.Instance.connection);
@@ -119,8 +119,8 @@ namespace Repositories
                 queryCommand.Parameters.AddWithValue("@Address", updatedCompany.address);
                 queryCommand.Parameters.AddWithValue("@id", updatedCompany.id);
                 queryCommand.ExecuteNonQuery();
-            }
-            catch (NpgsqlException) { }
+            //}
+            //catch (NpgsqlException) { }
         }
         public void DeleteFromTable(DBCompany company)
         {

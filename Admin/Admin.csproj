@@ -53,6 +53,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormAddUpdateDealTable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAddUpdateDealTable.Designer.cs">
+      <DependentUpon>FormAddUpdateDealTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormAddUpdateObjectTable.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -78,6 +84,9 @@
       <DependentUpon>FormAddUpdateCompanyTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FormAddUpdateDealTable.resx">
+      <DependentUpon>FormAddUpdateDealTable.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormAddUpdateObjectTable.resx">
       <DependentUpon>FormAddUpdateObjectTable.cs</DependentUpon>
     </EmbeddedResource>

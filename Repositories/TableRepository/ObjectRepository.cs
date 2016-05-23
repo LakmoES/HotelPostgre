@@ -23,8 +23,8 @@ namespace Repositories
             List<DBObject> objectsTable = new List<DBObject>();
             DBObject objectTbl;
 
-            try
-            {
+            //try
+            //{
                 NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"HomeBUY\".\"Object\"", DBConnection.Instance.connection);
                 NpgsqlDataReader ObjectTableReader = queryCommand.ExecuteReader();
 
@@ -46,34 +46,52 @@ namespace Repositories
                         objectsTable.Add(objectTbl);
                     }
                 ObjectTableReader.Close();
-            }
-            catch (NpgsqlException exp)
-            {
-                MessageBox.Show(Convert.ToString(exp), "Ошибка");
-            }
+            //}
+            //catch (NpgsqlException exp)
+            //{
+            //    MessageBox.Show(Convert.ToString(exp), "Ошибка");
+            //}
             return objectsTable;
         }
-        //private static Money parseCost(string s)
-        //{
-        //    string ammount = "";
-        //    string currency = "";
-        //    bool searchForAmmount = true;
-        //    foreach (char c in s)
-        //    {
-        //        if (c == ',')
-        //            searchForAmmount = false;
-        //        if (searchForAmmount && c >= '0' && c <= '9')
-        //            ammount += c;
-        //        else if (!searchForAmmount && c != ' ' && c != ',')
-        //            currency += c;
-        //    }
-        //    return new Money(Convert.ToInt32(ammount), currency);
-        //}
+        public DBObject GetConcreteRecord(int id)
+        {
+            DBObject objectTbl = null;
+
+            //try
+            //{
+                NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"HomeBUY\".\"Object\" WHERE \"id\" = @id", DBConnection.Instance.connection);
+                queryCommand.Parameters.AddWithValue("@id", id);
+                NpgsqlDataReader ObjectTableReader = queryCommand.ExecuteReader();
+
+                if (ObjectTableReader.HasRows)
+                    foreach (DbDataRecord dbDataRecord in ObjectTableReader)
+                    {
+                        Application.DoEvents();
+                        objectTbl = new DBObject(
+                            Convert.ToInt32(dbDataRecord["id"]),
+                            dbDataRecord["Address"].ToString(),
+                            Convert.ToDateTime(dbDataRecord["AddDate"]),
+                            Convert.ToInt32(dbDataRecord["Cost"].ToString()),
+                            Convert.ToInt32(dbDataRecord["Owner"]),
+                            dbDataRecord["AppartamentOrHouse"].ToString(),
+                            Convert.ToInt32(dbDataRecord["Area"]),
+                            Convert.ToInt32(dbDataRecord["NumberOfRooms"])
+                            );
+                        break;
+                    }
+                ObjectTableReader.Close();
+            //}
+            //catch (NpgsqlException exp)
+            //{
+            //    MessageBox.Show(Convert.ToString(exp), "Ошибка");
+            //}
+            return objectTbl;
+        }
         public void AddToTable(DBObject obj)
         {
             NpgsqlCommand queryCommand;
-            try
-            {
+            //try
+            //{
                 queryCommand = new NpgsqlCommand("INSERT INTO \"HomeBUY\".\"Object\" (\"Address\", \"AddDate\", \"Cost\", \"Owner\", \"AppartamentOrHouse\", \"Area\", \"NumberOfRooms\")"+
                     "VALUES(@Address, @AddDate, @Cost, @Owner, @AppartamentOrHouse, @Area, @NumberOfRooms)", DBConnection.Instance.connection);
                 queryCommand.Parameters.AddWithValue("@Address", obj.address);
@@ -84,14 +102,14 @@ namespace Repositories
                 queryCommand.Parameters.AddWithValue("@Area", obj.area);
                 queryCommand.Parameters.AddWithValue("@NumberOfRooms", obj.numberOfRooms);
                 queryCommand.ExecuteNonQuery();
-            }
-            catch(NpgsqlException)
-            { }
+            //}
+            //catch(NpgsqlException)
+            //{ }
         }
         public void UpdateTable(DBObject objToUpdate)
         {
-            try
-            {
+            //try
+            //{
                 NpgsqlCommand queryCommand = new NpgsqlCommand("UPDATE \"HomeBUY\".\"Object\" SET \"Address\" = @Address, \"AddDate\" = @AddDate, \"Cost\" = @Cost, \"Owner\" = @Owner, \"AppartamentOrHouse\" = @AppartamentOrHouse, \"Area\" = @Area, \"NumberOfRooms\" = @NumberOfRooms" +
                     " WHERE \"id\" = @id", DBConnection.Instance.connection);
                 queryCommand.Parameters.AddWithValue("@Address", objToUpdate.address);
@@ -103,18 +121,18 @@ namespace Repositories
                 queryCommand.Parameters.AddWithValue("@NumberOfRooms", objToUpdate.numberOfRooms);
                 queryCommand.Parameters.AddWithValue("@id", objToUpdate.id);
                 queryCommand.ExecuteNonQuery();
-            }
-            catch (NpgsqlException) { }
+            //}
+            //catch (NpgsqlException) { }
         }
         public void DeleteFromTable(int id)
         {
-            try
-            {
+            //try
+            //{
                 NpgsqlCommand queryCommand = new NpgsqlCommand("DELETE FROM \"HomeBUY\".\"Object\" WHERE \"id\" = @id", DBConnection.Instance.connection);
                 queryCommand.Parameters.AddWithValue("@id", id);
                 queryCommand.ExecuteNonQuery();
-            }
-            catch (NpgsqlException) { }
+            //}
+            //catch (NpgsqlException) { }
         }
     }
 }
