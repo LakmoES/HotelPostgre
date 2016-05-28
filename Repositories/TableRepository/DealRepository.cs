@@ -80,7 +80,6 @@ namespace Repositories
             NpgsqlCommand queryCommand;
             //try
             //{
-                //id, Title, Telephone, Address
                 queryCommand = new NpgsqlCommand("INSERT INTO \"HomeBUY\".\"Deal\" (\"Dealer\", \"Buyer\", \"Object\", \"Cost\", \"Date\")" +
                     " VALUES(@Dealer, @Buyer, @Object, @Cost, @Date)", DBConnection.Instance.connection);
                 queryCommand.Parameters.AddWithValue("@Dealer", deal.dealer);
@@ -97,7 +96,6 @@ namespace Repositories
         {
             //try
             //{
-                //id, Title, Telephone, Address
                 NpgsqlCommand queryCommand = new NpgsqlCommand("UPDATE \"HomeBUY\".\"Deal\" SET \"Dealer\" = @Dealer, \"Buyer\" = @Buyer, \"Object\" = @Object, \"Cost\" = @Cost, \"Date\" = @Date" +
                     " WHERE \"id\" = @id", DBConnection.Instance.connection);
                 queryCommand.Parameters.AddWithValue("@Dealer", updatedDeal.dealer);

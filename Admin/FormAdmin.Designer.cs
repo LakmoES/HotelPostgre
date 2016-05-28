@@ -75,15 +75,24 @@
             this.dataGridViewTextBoxColumn15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage6 = new System.Windows.Forms.TabPage();
-            this.dataGridViewDeal = new System.Windows.Forms.DataGridView();
             this.buttonDealAdd = new System.Windows.Forms.Button();
             this.buttonDealRefresh = new System.Windows.Forms.Button();
+            this.dataGridViewDeal = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn17 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn18 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn19 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn20 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn21 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn22 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.buttonShowAdd = new System.Windows.Forms.Button();
+            this.buttonShowRefresh = new System.Windows.Forms.Button();
+            this.dataGridViewShow = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn23 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn24 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn25 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn26 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn28 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControlMain.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCompany)).BeginInit();
@@ -97,6 +106,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewClient)).BeginInit();
             this.tabPage6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDeal)).BeginInit();
+            this.tabPage7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewShow)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControlMain
@@ -107,6 +118,7 @@
             this.tabControlMain.Controls.Add(this.tabPage4);
             this.tabControlMain.Controls.Add(this.tabPage5);
             this.tabControlMain.Controls.Add(this.tabPage6);
+            this.tabControlMain.Controls.Add(this.tabPage7);
             this.tabControlMain.Location = new System.Drawing.Point(12, 12);
             this.tabControlMain.Name = "tabControlMain";
             this.tabControlMain.SelectedIndex = 0;
@@ -548,24 +560,6 @@
             this.tabPage6.Text = "Сделки";
             this.tabPage6.UseVisualStyleBackColor = true;
             // 
-            // dataGridViewDeal
-            // 
-            this.dataGridViewDeal.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewDeal.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn17,
-            this.dataGridViewTextBoxColumn18,
-            this.dataGridViewTextBoxColumn19,
-            this.dataGridViewTextBoxColumn20,
-            this.dataGridViewTextBoxColumn21,
-            this.dataGridViewTextBoxColumn22});
-            this.dataGridViewDeal.Location = new System.Drawing.Point(3, 3);
-            this.dataGridViewDeal.MultiSelect = false;
-            this.dataGridViewDeal.Name = "dataGridViewDeal";
-            this.dataGridViewDeal.ReadOnly = true;
-            this.dataGridViewDeal.Size = new System.Drawing.Size(639, 247);
-            this.dataGridViewDeal.TabIndex = 4;
-            this.dataGridViewDeal.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataGridView_SelectAndShowMenu);
-            // 
             // buttonDealAdd
             // 
             this.buttonDealAdd.Location = new System.Drawing.Point(693, 227);
@@ -585,6 +579,24 @@
             this.buttonDealRefresh.Text = "Обновить";
             this.buttonDealRefresh.UseVisualStyleBackColor = true;
             this.buttonDealRefresh.Click += new System.EventHandler(this.buttonDealRefresh_Click);
+            // 
+            // dataGridViewDeal
+            // 
+            this.dataGridViewDeal.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewDeal.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn17,
+            this.dataGridViewTextBoxColumn18,
+            this.dataGridViewTextBoxColumn19,
+            this.dataGridViewTextBoxColumn20,
+            this.dataGridViewTextBoxColumn21,
+            this.dataGridViewTextBoxColumn22});
+            this.dataGridViewDeal.Location = new System.Drawing.Point(3, 3);
+            this.dataGridViewDeal.MultiSelect = false;
+            this.dataGridViewDeal.Name = "dataGridViewDeal";
+            this.dataGridViewDeal.ReadOnly = true;
+            this.dataGridViewDeal.Size = new System.Drawing.Size(639, 247);
+            this.dataGridViewDeal.TabIndex = 4;
+            this.dataGridViewDeal.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataGridView_SelectAndShowMenu);
             // 
             // dataGridViewTextBoxColumn17
             // 
@@ -626,6 +638,90 @@
             this.dataGridViewTextBoxColumn22.Name = "dataGridViewTextBoxColumn22";
             this.dataGridViewTextBoxColumn22.ReadOnly = true;
             // 
+            // tabPage7
+            // 
+            this.tabPage7.Controls.Add(this.buttonShowAdd);
+            this.tabPage7.Controls.Add(this.buttonShowRefresh);
+            this.tabPage7.Controls.Add(this.dataGridViewShow);
+            this.tabPage7.Location = new System.Drawing.Point(4, 22);
+            this.tabPage7.Name = "tabPage7";
+            this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage7.Size = new System.Drawing.Size(774, 253);
+            this.tabPage7.TabIndex = 6;
+            this.tabPage7.Text = "Показы";
+            this.tabPage7.UseVisualStyleBackColor = true;
+            // 
+            // buttonShowAdd
+            // 
+            this.buttonShowAdd.Location = new System.Drawing.Point(693, 227);
+            this.buttonShowAdd.Name = "buttonShowAdd";
+            this.buttonShowAdd.Size = new System.Drawing.Size(75, 23);
+            this.buttonShowAdd.TabIndex = 12;
+            this.buttonShowAdd.Text = "Добавить";
+            this.buttonShowAdd.UseVisualStyleBackColor = true;
+            this.buttonShowAdd.Click += new System.EventHandler(this.buttonShowAdd_Click);
+            // 
+            // buttonShowRefresh
+            // 
+            this.buttonShowRefresh.Location = new System.Drawing.Point(693, 108);
+            this.buttonShowRefresh.Name = "buttonShowRefresh";
+            this.buttonShowRefresh.Size = new System.Drawing.Size(75, 23);
+            this.buttonShowRefresh.TabIndex = 11;
+            this.buttonShowRefresh.Text = "Обновить";
+            this.buttonShowRefresh.UseVisualStyleBackColor = true;
+            this.buttonShowRefresh.Click += new System.EventHandler(this.buttonShowRefresh_Click);
+            // 
+            // dataGridViewShow
+            // 
+            this.dataGridViewShow.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewShow.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn23,
+            this.dataGridViewTextBoxColumn24,
+            this.dataGridViewTextBoxColumn25,
+            this.dataGridViewTextBoxColumn26,
+            this.dataGridViewTextBoxColumn28});
+            this.dataGridViewShow.Location = new System.Drawing.Point(3, 3);
+            this.dataGridViewShow.MultiSelect = false;
+            this.dataGridViewShow.Name = "dataGridViewShow";
+            this.dataGridViewShow.ReadOnly = true;
+            this.dataGridViewShow.Size = new System.Drawing.Size(543, 247);
+            this.dataGridViewShow.TabIndex = 10;
+            this.dataGridViewShow.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataGridView_SelectAndShowMenu);
+            // 
+            // dataGridViewTextBoxColumn23
+            // 
+            this.dataGridViewTextBoxColumn23.HeaderText = "id";
+            this.dataGridViewTextBoxColumn23.Name = "dataGridViewTextBoxColumn23";
+            this.dataGridViewTextBoxColumn23.ReadOnly = true;
+            this.dataGridViewTextBoxColumn23.Width = 30;
+            // 
+            // dataGridViewTextBoxColumn24
+            // 
+            this.dataGridViewTextBoxColumn24.HeaderText = "Сотрудник";
+            this.dataGridViewTextBoxColumn24.Name = "dataGridViewTextBoxColumn24";
+            this.dataGridViewTextBoxColumn24.ReadOnly = true;
+            this.dataGridViewTextBoxColumn24.Width = 120;
+            // 
+            // dataGridViewTextBoxColumn25
+            // 
+            this.dataGridViewTextBoxColumn25.HeaderText = "Клиент";
+            this.dataGridViewTextBoxColumn25.Name = "dataGridViewTextBoxColumn25";
+            this.dataGridViewTextBoxColumn25.ReadOnly = true;
+            this.dataGridViewTextBoxColumn25.Width = 120;
+            // 
+            // dataGridViewTextBoxColumn26
+            // 
+            this.dataGridViewTextBoxColumn26.HeaderText = "Объект";
+            this.dataGridViewTextBoxColumn26.Name = "dataGridViewTextBoxColumn26";
+            this.dataGridViewTextBoxColumn26.ReadOnly = true;
+            this.dataGridViewTextBoxColumn26.Width = 120;
+            // 
+            // dataGridViewTextBoxColumn28
+            // 
+            this.dataGridViewTextBoxColumn28.HeaderText = "Дата";
+            this.dataGridViewTextBoxColumn28.Name = "dataGridViewTextBoxColumn28";
+            this.dataGridViewTextBoxColumn28.ReadOnly = true;
+            // 
             // FormAdmin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -651,6 +747,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewClient)).EndInit();
             this.tabPage6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDeal)).EndInit();
+            this.tabPage7.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewShow)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -713,6 +811,15 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn20;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn21;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn22;
+        private System.Windows.Forms.TabPage tabPage7;
+        private System.Windows.Forms.Button buttonShowAdd;
+        private System.Windows.Forms.Button buttonShowRefresh;
+        private System.Windows.Forms.DataGridView dataGridViewShow;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn23;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn24;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn25;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn26;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn28;
     }
 }
 
