@@ -77,6 +77,12 @@
     <Compile Include="FormAddUpdateShowTable.Designer.cs">
       <DependentUpon>FormAddUpdateShowTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormAddUpdateWishTable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAddUpdateWishTable.Designer.cs">
+      <DependentUpon>FormAddUpdateWishTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormAdmin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -101,6 +107,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormAddUpdateShowTable.resx">
       <DependentUpon>FormAddUpdateShowTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormAddUpdateWishTable.resx">
+      <DependentUpon>FormAddUpdateWishTable.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormAdmin.resx">
       <DependentUpon>FormAdmin.cs</DependentUpon>

@@ -22,6 +22,7 @@ namespace Admin
         PersonPresenter clientPresenter;
         DealPresenter dealPresenter;
         ShowPresenter showPresenter;
+        WishPresenter wishPresenter;
 
         CompanyController companyController;
         ObjectController objectController;
@@ -30,6 +31,7 @@ namespace Admin
         PersonController clientController;
         DealController dealController;
         ShowController showController;
+        WishController wishController;
 
         ContextMenu contextMenu;
         DataGridView selectedDGV;
@@ -44,6 +46,7 @@ namespace Admin
             clientController = new PersonController(dataGridViewClient, "Client");
             dealController = new DealController(dataGridViewDeal);
             showController = new ShowController(dataGridViewShow);
+            wishController = new WishController(dataGridViewWish);
 
             DBConnection.Instance.setConnection(conn);
             DBConnection.Instance.openConnection();
@@ -77,6 +80,9 @@ namespace Admin
 
             showPresenter = new ShowPresenter(this.dataGridViewShow);
             showPresenter.ShowTable(true);
+
+            wishPresenter = new WishPresenter(this.dataGridViewWish);
+            wishPresenter.ShowTable(true);
         }
         private void buttonCompanyRefresh_Click(object sender, EventArgs e)
         {
@@ -105,6 +111,10 @@ namespace Admin
         private void buttonShowRefresh_Click(object sender, EventArgs e)
         {
             showPresenter.ShowTable(true);
+        }
+        private void buttonWishRefresh_Click(object sender, EventArgs e)
+        {
+            wishPresenter.ShowTable(true);
         }
 
         private void FormAdmin_FormClosed(object sender, FormClosedEventArgs e)
@@ -158,8 +168,11 @@ namespace Admin
             }
             if(selectedDGV == dataGridViewShow)
             {
-                //MessageBox.Show("[Заглушка]", "Редактирование");
                 new FormAddUpdateShowTable(selectedDGV, selectedDGV.CurrentRow.Index).ShowDialog();
+            }
+            if(selectedDGV == dataGridViewWish)
+            {
+                MessageBox.Show("Редактирование","[Заглушка]");
             }
         }
         private void dataGridView_Remove_Click(object sender, EventArgs e)
@@ -204,6 +217,11 @@ namespace Admin
                     showController.checkDelete(id);
                     showPresenter.ShowTable(true);
                 }
+                if(selectedDGV == dataGridViewWish)
+                {
+                    wishController.checkDelete(id);
+                    wishPresenter.ShowTable(true);
+                }
             }
         }
 
@@ -234,6 +252,10 @@ namespace Admin
         private void buttonShowAdd_Click(object sender, EventArgs e)
         {
             new FormAddUpdateShowTable(selectedDGV).ShowDialog();
+        }
+        private void buttonWishAdd_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Добавление", "[Заглушка]");
         }
     }
 }

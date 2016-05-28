@@ -93,6 +93,17 @@
             this.dataGridViewTextBoxColumn25 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn26 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn28 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabPage8 = new System.Windows.Forms.TabPage();
+            this.buttonWishAdd = new System.Windows.Forms.Button();
+            this.buttonWishRefresh = new System.Windows.Forms.Button();
+            this.dataGridViewWish = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn27 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn30 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControlMain.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCompany)).BeginInit();
@@ -108,6 +119,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDeal)).BeginInit();
             this.tabPage7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewShow)).BeginInit();
+            this.tabPage8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewWish)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControlMain
@@ -119,6 +132,7 @@
             this.tabControlMain.Controls.Add(this.tabPage5);
             this.tabControlMain.Controls.Add(this.tabPage6);
             this.tabControlMain.Controls.Add(this.tabPage7);
+            this.tabControlMain.Controls.Add(this.tabPage8);
             this.tabControlMain.Location = new System.Drawing.Point(12, 12);
             this.tabControlMain.Name = "tabControlMain";
             this.tabControlMain.SelectedIndex = 0;
@@ -722,6 +736,105 @@
             this.dataGridViewTextBoxColumn28.Name = "dataGridViewTextBoxColumn28";
             this.dataGridViewTextBoxColumn28.ReadOnly = true;
             // 
+            // tabPage8
+            // 
+            this.tabPage8.Controls.Add(this.buttonWishAdd);
+            this.tabPage8.Controls.Add(this.buttonWishRefresh);
+            this.tabPage8.Controls.Add(this.dataGridViewWish);
+            this.tabPage8.Location = new System.Drawing.Point(4, 22);
+            this.tabPage8.Name = "tabPage8";
+            this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage8.Size = new System.Drawing.Size(774, 253);
+            this.tabPage8.TabIndex = 7;
+            this.tabPage8.Text = "Пожелания";
+            this.tabPage8.UseVisualStyleBackColor = true;
+            // 
+            // buttonWishAdd
+            // 
+            this.buttonWishAdd.Location = new System.Drawing.Point(693, 227);
+            this.buttonWishAdd.Name = "buttonWishAdd";
+            this.buttonWishAdd.Size = new System.Drawing.Size(75, 23);
+            this.buttonWishAdd.TabIndex = 15;
+            this.buttonWishAdd.Text = "Добавить";
+            this.buttonWishAdd.UseVisualStyleBackColor = true;
+            this.buttonWishAdd.Click += new System.EventHandler(this.buttonWishAdd_Click);
+            // 
+            // buttonWishRefresh
+            // 
+            this.buttonWishRefresh.Location = new System.Drawing.Point(693, 108);
+            this.buttonWishRefresh.Name = "buttonWishRefresh";
+            this.buttonWishRefresh.Size = new System.Drawing.Size(75, 23);
+            this.buttonWishRefresh.TabIndex = 14;
+            this.buttonWishRefresh.Text = "Обновить";
+            this.buttonWishRefresh.UseVisualStyleBackColor = true;
+            this.buttonWishRefresh.Click += new System.EventHandler(this.buttonWishRefresh_Click);
+            // 
+            // dataGridViewWish
+            // 
+            this.dataGridViewWish.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewWish.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn27,
+            this.dataGridViewTextBoxColumn30,
+            this.Column2,
+            this.Column3,
+            this.Column4,
+            this.Column5,
+            this.Column6});
+            this.dataGridViewWish.Location = new System.Drawing.Point(3, 3);
+            this.dataGridViewWish.MultiSelect = false;
+            this.dataGridViewWish.Name = "dataGridViewWish";
+            this.dataGridViewWish.ReadOnly = true;
+            this.dataGridViewWish.Size = new System.Drawing.Size(575, 247);
+            this.dataGridViewWish.TabIndex = 13;
+            this.dataGridViewWish.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataGridView_SelectAndShowMenu);
+            // 
+            // dataGridViewTextBoxColumn27
+            // 
+            this.dataGridViewTextBoxColumn27.HeaderText = "id";
+            this.dataGridViewTextBoxColumn27.Name = "dataGridViewTextBoxColumn27";
+            this.dataGridViewTextBoxColumn27.ReadOnly = true;
+            this.dataGridViewTextBoxColumn27.Width = 30;
+            // 
+            // dataGridViewTextBoxColumn30
+            // 
+            this.dataGridViewTextBoxColumn30.HeaderText = "Клиент";
+            this.dataGridViewTextBoxColumn30.Name = "dataGridViewTextBoxColumn30";
+            this.dataGridViewTextBoxColumn30.ReadOnly = true;
+            this.dataGridViewTextBoxColumn30.Width = 120;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "Район";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "Тип";
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "Площадь";
+            this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
+            this.Column4.Width = 60;
+            // 
+            // Column5
+            // 
+            this.Column5.HeaderText = "Комнаты";
+            this.Column5.Name = "Column5";
+            this.Column5.ReadOnly = true;
+            this.Column5.Width = 60;
+            // 
+            // Column6
+            // 
+            this.Column6.HeaderText = "Стоимость";
+            this.Column6.Name = "Column6";
+            this.Column6.ReadOnly = true;
+            this.Column6.Width = 60;
+            // 
             // FormAdmin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -749,6 +862,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDeal)).EndInit();
             this.tabPage7.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewShow)).EndInit();
+            this.tabPage8.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewWish)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -820,6 +935,17 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn25;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn26;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn28;
+        private System.Windows.Forms.TabPage tabPage8;
+        private System.Windows.Forms.Button buttonWishAdd;
+        private System.Windows.Forms.Button buttonWishRefresh;
+        private System.Windows.Forms.DataGridView dataGridViewWish;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn27;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn30;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
     }
 }
 
