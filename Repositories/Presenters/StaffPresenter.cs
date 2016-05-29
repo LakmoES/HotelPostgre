@@ -13,14 +13,14 @@ namespace Repositories
         DataGridView dgv;
         StaffRepository staffRepository;
         List<DBStaff> dgvElements;
-        CompanyRepository companyRepository;
+        ICompanyRepository companyRepository;
 
         public StaffPresenter(DataGridView dgv)
         {
             dgvElements = new List<DBStaff>();
             this.dgv = dgv;
             staffRepository = new StaffRepository();
-            companyRepository = new CompanyRepository();
+            companyRepository = RepositoryFactory.GetCompanyRepository();//new CompanyRepository();
         }
         public void ShowTable(bool sort = false)
         {

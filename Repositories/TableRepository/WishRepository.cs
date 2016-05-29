@@ -9,9 +9,8 @@ using Npgsql;
 
 namespace Repositories
 {
-    public class WishRepository
+    public class WishRepository : IWishRepository
     {
-        public WishRepository() { }
         private object FixDBValue(object value)
         {
             if (value is DBNull)

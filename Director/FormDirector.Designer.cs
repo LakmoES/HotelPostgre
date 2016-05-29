@@ -1,6 +1,6 @@
-﻿namespace Admin
+﻿namespace Director
 {
-    partial class FormAdmin
+    partial class FormDirector
     {
         /// <summary>
         /// Required designer variable.
@@ -835,7 +835,7 @@
             this.Column6.ReadOnly = true;
             this.Column6.Width = 60;
             // 
-            // FormAdmin
+            // FormDirector
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -843,8 +843,8 @@
             this.Controls.Add(this.tabControlMain);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
-            this.Name = "FormAdmin";
-            this.Text = "База данных [Администратор]";
+            this.Name = "FormDirector";
+            this.Text = "База данных [Директор]";
             this.Load += new System.EventHandler(this.FormAdmin_Load);
             this.tabControlMain.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
@@ -947,4 +947,3 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
     }
 }
-

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Admin.Properties
+namespace EditForms.Properties
 {
 
 

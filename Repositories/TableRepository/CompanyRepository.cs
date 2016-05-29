@@ -9,13 +9,8 @@ using Npgsql;
 
 namespace Repositories
 {
-    public class CompanyRepository
+    public class CompanyRepository : ICompanyRepository
     {
-        public CompanyRepository(/*DBConnection dbc*/)
-        {
-            //this.dbc = dbc;
-        }
-
         public List<DBCompany> GetTable()
         {
             List<DBCompany> companyTable = new List<DBCompany>();
@@ -92,21 +87,6 @@ namespace Repositories
             //catch (NpgsqlException)
             //{ }
         }
-        public void UpdateTable(DBCompany companyToUpdate, DBCompany company)
-        {
-            //try
-            //{
-                //id, Title, Telephone, Address
-                NpgsqlCommand queryCommand = new NpgsqlCommand("UPDATE \"HomeBUY\".\"Company\" SET \"Title\" = @Title, \"Telephone\" = @Telephone, \"Address\" = @Address" +
-                    " WHERE \"id\" = @id", DBConnection.Instance.connection);
-                queryCommand.Parameters.AddWithValue("@Title", company.title);
-                queryCommand.Parameters.AddWithValue("@Telephone", company.telephone);
-                queryCommand.Parameters.AddWithValue("@Address", company.address);
-                queryCommand.Parameters.AddWithValue("@id", companyToUpdate.id);
-                queryCommand.ExecuteNonQuery();
-            //}
-            //catch (NpgsqlException) { }
-        }
         public void UpdateTable(DBCompany updatedCompany)
         {
             //try
@@ -122,21 +102,15 @@ namespace Repositories
             //}
             //catch (NpgsqlException) { }
         }
-        public void DeleteFromTable(DBCompany company)
+        public void DeleteFromTable(int id)
         {
             //try
             //{
                 NpgsqlCommand queryCommand = new NpgsqlCommand("DELETE FROM \"HomeBUY\".\"Company\" WHERE \"id\" = @id", DBConnection.Instance.connection);
-                queryCommand.Parameters.AddWithValue("@id", company.id);
+                queryCommand.Parameters.AddWithValue("@id", id);
                 queryCommand.ExecuteNonQuery();
             //}
             //catch (NpgsqlException) { }
-        }
-
-        //Перегрузка для удаления по id
-        public void DeleteFromTable(int id)
-        {
-            DeleteFromTable(new DBCompany(id, null, null, null));
         }
     }
 }

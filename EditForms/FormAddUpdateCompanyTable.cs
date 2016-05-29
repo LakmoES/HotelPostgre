@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Repositories;
 
-namespace Admin
+namespace EditForms
 {
     public partial class FormAddUpdateCompanyTable : Form
     {

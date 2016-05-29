@@ -7,24 +7,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Director;
 using Admin;
+using EditForms;
+using Repositories;
 using Npgsql;
 
 namespace Enter
 {
     public partial class FormLogin : Form
     {
-        public FormLogin()
+        //IRepositoryFactory repositoryFactory;
+        public FormLogin(/*IRepositoryFactory repositoryFactory*/)
         {
             InitializeComponent();
+            //this.repositoryFactory = repositoryFactory;
         }
 
         private void buttonEnter_Click(object sender, EventArgs e)
         {
             this.Hide();
-            NpgsqlConnection conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres;Password=root;Database=postgres;");
-            if(checkBoxAdmin.Checked)
-                new FormAdmin(conn).ShowDialog();
+            if (radioButtonAdmin.Checked)
+                new FormAdmin().ShowDialog();
+            else if (radioButtonDirector.Checked)
+                new FormDirector().ShowDialog();
             this.Show();
         }
     }

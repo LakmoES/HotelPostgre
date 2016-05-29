@@ -32,11 +32,7 @@ namespace Repositories
         {
             if (conn == null)
                 throw new NullReferenceException("conn is null");
-            //try
-            //{
-                conn.Open();
-            //}
-            //catch (NpgsqlException ne) { }
+            conn.Open();
         }
 
         public NpgsqlConnection connection

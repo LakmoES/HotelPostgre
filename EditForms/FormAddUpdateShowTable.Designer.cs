@@ -1,4 +1,4 @@
-﻿namespace Admin
+﻿namespace EditForms
 {
     partial class FormAddUpdateShowTable
     {
@@ -170,7 +170,7 @@
             this.Controls.Add(this.buttonCancel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "FormAddUpdateShowTable";
-            this.Text = "FormAddUpdateShowTable";
+            this.Text = "Показ";
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -7,28 +7,22 @@ using System.Windows.Forms;
 
 namespace Repositories
 {
-    public class PersonController
+    public static class PersonController
     {
-        PersonPresenter personPresenter;
-        DataGridView dgv;
-
-        public PersonController(DataGridView dgv, string tableName)
-        {
-            personPresenter = new PersonPresenter(dgv, tableName);
-            this.dgv = dgv;
-        }
-        public void checkAddition(DBPerson person)
+        public static bool checkAddition(DBPerson person)
         {
             if (person.name.Trim(' ').Length >= 1 && person.surname.Trim(' ').Length >= 1 && person.telephone.Trim(' ').Length >= 1)
             {
                 //OK. Add the company
-                personPresenter.AddToTable(person);
+                return true;
             }
+            return false;
         }
-        public void checkDelete(int id)
+        public static bool checkDelete(int id)
         {
             if (id > 0)
-                personPresenter.DeleteFromTable(id);
+                return true;
+            return false;
         }
     }
 }

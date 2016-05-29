@@ -9,26 +9,20 @@ namespace Repositories
 {
     public class WishController
     {
-        WishPresenter wishPresenter;
-        DataGridView dgv;
-
-        public WishController(DataGridView dgv)
+        public static bool checkAddition(DBWish wish)
         {
-            wishPresenter = new WishPresenter(dgv);
-            this.dgv = dgv;
-        }
-        public void checkAddition(DBWish wish)
-        {
-            if (true)
+            if (wish.client > 0)
             {
                 //OK. Add the wish
-                wishPresenter.AddToTable(wish);
+                return true;
             }
+            return false;
         }
-        public void checkDelete(int id)
+        public static bool checkDelete(int id)
         {
             if (id > 0)
-                wishPresenter.DeleteFromTable(id);
+                return true;
+            return false;
         }
     }
 }

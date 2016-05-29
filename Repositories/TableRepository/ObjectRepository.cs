@@ -9,15 +9,8 @@ using System.Windows.Forms;
 
 namespace Repositories
 {
-    public class ObjectRepository
+    public class ObjectRepository : IObjectRepository
     {
-        //private DBConnection dbc;
-
-        public ObjectRepository(/*DBConnection dbc*/)
-        {
-            //this.dbc = dbc;
-        }
-
         public List<DBObject> GetTable()
         {
             List<DBObject> objectsTable = new List<DBObject>();

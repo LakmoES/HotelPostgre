@@ -36,8 +36,8 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Npgsql, Version=3.0.7.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
-      <HintPath>..\packages\Npgsql.3.0.7\lib\net45\Npgsql.dll</HintPath>
+    <Reference Include="Npgsql, Version=3.1.2.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Npgsql.3.1.2\lib\net451\Npgsql.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -68,6 +68,15 @@
     <Compile Include="DBObjects\DBShow.cs" />
     <Compile Include="DBObjects\DBStaff.cs" />
     <Compile Include="DBObjects\DBWish.cs" />
+    <Compile Include="Factories\RepositoryFactory.cs" />
+    <Compile Include="Interfaces\ICompanyRepository.cs" />
+    <Compile Include="Interfaces\IDealRepository.cs" />
+    <Compile Include="Interfaces\IObjectRepository.cs" />
+    <Compile Include="Interfaces\IPersonRepository.cs" />
+    <Compile Include="Interfaces\IRepositoryFactory.cs" />
+    <Compile Include="Interfaces\IShowRepository.cs" />
+    <Compile Include="Interfaces\IStaffRepository.cs" />
+    <Compile Include="Interfaces\IWishRepository.cs" />
     <Compile Include="Presenters\DealPresenter.cs" />
     <Compile Include="Presenters\PersonPresenter.cs" />
     <Compile Include="Presenters\CompanyPresenter.cs" />

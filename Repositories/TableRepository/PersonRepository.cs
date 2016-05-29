@@ -9,7 +9,7 @@ using Npgsql;
 
 namespace Repositories
 {
-    public class PersonRepository
+    public class PersonRepository : IPersonRepository
     {
         string tableName;
         public PersonRepository(string tableName)

@@ -11,22 +11,22 @@ namespace Repositories
     public class DealPresenter
     {
         DataGridView dgv;
-        DealRepository dealRepository;
+        IDealRepository dealRepository;
         List<DBDeal> dgvElements;
 
-        StaffRepository staffRepository;
-        PersonRepository clientRepository;
-        ObjectRepository objectRepository;
+        IStaffRepository staffRepository;
+        IPersonRepository clientRepository;
+        IObjectRepository objectRepository;
 
         public DealPresenter(DataGridView dgv)
         {
             dgvElements = new List<DBDeal>();
             this.dgv = dgv;
-            dealRepository = new DealRepository();
+            dealRepository = RepositoryFactory.GetDealRepository();//new DealRepository();
 
-            staffRepository = new StaffRepository();
-            clientRepository = new PersonRepository("Client");
-            objectRepository = new ObjectRepository();
+            staffRepository = RepositoryFactory.GetStaffRepository();//new StaffRepository();
+            clientRepository = RepositoryFactory.GetClientRepository();//new PersonRepository("Client");
+            objectRepository = RepositoryFactory.GetObjectRepository();//new ObjectRepository();
             
         }
         private Dictionary<int, DBStaff> GetStaffs()

@@ -7,28 +7,22 @@ using System.Windows.Forms;
 
 namespace Repositories
 {
-    public class DealController
+    public static class DealController
     {
-        DealPresenter dealPresenter;
-        DataGridView dgv;
-
-        public DealController(DataGridView dgv)
+        public static bool checkAddition(DBDeal deal)
         {
-            dealPresenter = new DealPresenter(dgv);
-            this.dgv = dgv;
-        }
-        public void checkAddition(DBDeal deal)
-        {
-            if (true)
+            if (deal.buyer > 0 && deal.dealer > 0 && deal.obj > 0 && deal.cost >= 0)
             {
                 //OK. Add the company
-                dealPresenter.AddToTable(deal);
+                return true;
             }
+            return false;
         }
-        public void checkDelete(int id)
+        public static bool checkDelete(int id)
         {
             if (id > 0)
-                dealPresenter.DeleteFromTable(id);
+                return true;
+            return false;
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace Admin
+﻿namespace EditForms
 {
     partial class FormAddUpdateDealTable
     {
@@ -202,8 +202,9 @@
             this.Controls.Add(this.textBoxID);
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.buttonCancel);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "FormAddUpdateDealTable";
-            this.Text = "FormAddUpdateDealTable";
+            this.Text = "Сделка";
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCost)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

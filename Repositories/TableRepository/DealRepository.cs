@@ -9,9 +9,8 @@ using Npgsql;
 
 namespace Repositories
 {
-    public class DealRepository
+    public class DealRepository : IDealRepository
     {
-        public DealRepository() { }
         public List<DBDeal> GetTable()
         {
             List<DBDeal> dealTable = new List<DBDeal>();

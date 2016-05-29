@@ -11,22 +11,22 @@ namespace Repositories
     public class ShowPresenter
     {
         DataGridView dgv;
-        ShowRepository showRepository;
+        IShowRepository showRepository;
         List<DBShow> dgvElements;
 
-        StaffRepository staffRepository;
-        PersonRepository clientRepository;
-        ObjectRepository objectRepository;
+        IStaffRepository staffRepository;
+        IPersonRepository clientRepository;
+        IObjectRepository objectRepository;
 
         public ShowPresenter(DataGridView dgv)
         {
             dgvElements = new List<DBShow>();
             this.dgv = dgv;
-            showRepository = new ShowRepository();
+            showRepository = RepositoryFactory.GetShowRepository();//new ShowRepository();
 
-            staffRepository = new StaffRepository();
-            clientRepository = new PersonRepository("Client");
-            objectRepository = new ObjectRepository();
+            staffRepository = RepositoryFactory.GetStaffRepository();//new StaffRepository();
+            clientRepository = RepositoryFactory.GetClientRepository();//new PersonRepository("Client");
+            objectRepository = RepositoryFactory.GetObjectRepository();//new ObjectRepository();
 
         }
         private Dictionary<int, DBStaff> GetStaffs()

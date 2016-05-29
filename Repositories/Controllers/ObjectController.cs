@@ -7,31 +7,23 @@ using System.Windows.Forms;
 
 namespace Repositories
 {
-    public class ObjectController
+    public static class ObjectController
     {
-        //DBConnection dbc;
-        ObjectPresenter objectPresenter;
-        DataGridView dgv;
-
-        public ObjectController(DataGridView dgv/*, DBConnection dbc*/)
-        {
-            objectPresenter = new ObjectPresenter(dgv /*, dbc*/);
-            this.dgv = dgv;
-        }
-        public void checkAddition(DBObject obj)
+        public static bool checkAddition(DBObject obj)
         {
             if (obj.numberOfRooms <= 0 || obj.cost <= 0 || obj.address.Length == 0 || obj.area <= 0 || obj.owner <= 0)
-            { }
+            { return false; }
             else
             {
                 //OK. Add the obj
-                objectPresenter.AddToTable(obj);
+                return true;
             }
         }
-        public void checkDelete(int id)
+        public static bool checkDelete(int id)
         {
             if (id > 0)
-                objectPresenter.DeleteFromTable(id);
+                return true;
+            return false;
         }
     }
 }

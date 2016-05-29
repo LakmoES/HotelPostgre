@@ -11,7 +11,7 @@ using System.Text.RegularExpressions;
 using Repositories;
 using Npgsql;
 
-namespace Admin
+namespace EditForms
 {
     public partial class FormAddUpdateWishTable : Form
     {

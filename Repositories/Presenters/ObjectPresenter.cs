@@ -11,16 +11,16 @@ namespace Repositories
     public class ObjectPresenter
     {
         DataGridView dgv;
-        ObjectRepository objectRepository;
-        PersonRepository ownerRepository;
+        IObjectRepository objectRepository;
+        IPersonRepository ownerRepository;
         List<DBObject> dgvElements;
 
         public ObjectPresenter(DataGridView dgv)
         {
             dgvElements = new List<DBObject>();
             this.dgv = dgv;
-            objectRepository = new ObjectRepository();
-            ownerRepository = new PersonRepository("Owner");
+            objectRepository = RepositoryFactory.GetObjectRepository();//new ObjectRepository();
+            ownerRepository = RepositoryFactory.GetOwnerRepository();//new PersonRepository("Owner");
         }
         public void ShowTable(bool sort = false)
         {

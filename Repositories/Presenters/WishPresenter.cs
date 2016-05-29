@@ -11,18 +11,18 @@ namespace Repositories
     public class WishPresenter
     {
         DataGridView dgv;
-        WishRepository wishRepository;
+        IWishRepository wishRepository;
         List<DBWish> dgvElements;
 
-        PersonRepository clientRepository;
+        IPersonRepository clientRepository;
 
         public WishPresenter(DataGridView dgv)
         {
             dgvElements = new List<DBWish>();
             this.dgv = dgv;
-            wishRepository = new WishRepository();
+            wishRepository = RepositoryFactory.GetWishRepository();//new WishRepository();
 
-            clientRepository = new PersonRepository("Client");
+            clientRepository = RepositoryFactory.GetClientRepository();//new PersonRepository("Client");
 
         }
         private Dictionary<int, DBPerson> GetClients()

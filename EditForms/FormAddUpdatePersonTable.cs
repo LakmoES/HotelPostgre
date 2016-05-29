@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using Repositories;
 
-namespace Admin
+namespace EditForms
 {
     public partial class FormAddUpdatePersonTable : Form
     {

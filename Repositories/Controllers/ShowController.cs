@@ -9,26 +9,20 @@ namespace Repositories
 {
     public class ShowController
     {
-        ShowPresenter showPresenter;
-        DataGridView dgv;
-
-        public ShowController(DataGridView dgv)
-        {
-            showPresenter = new ShowPresenter(dgv);
-            this.dgv = dgv;
-        }
-        public void checkAddition(DBShow show)
+        public static bool checkAddition(DBShow show)
         {
             if (true)
             {
                 //OK. Add the company
-                showPresenter.AddToTable(show);
+                return true;
             }
+            return false;
         }
-        public void checkDelete(int id)
+        public static bool checkDelete(int id)
         {
             if (id > 0)
-                showPresenter.DeleteFromTable(id);
+                return true;
+            return false;
         }
     }
 }

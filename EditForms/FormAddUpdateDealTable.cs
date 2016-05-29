@@ -10,7 +10,7 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Repositories;
 
-namespace Admin
+namespace EditForms
 {
     public partial class FormAddUpdateDealTable : Form
     {

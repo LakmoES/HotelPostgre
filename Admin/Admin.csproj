@@ -36,8 +36,8 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Npgsql, Version=3.0.7.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
-      <HintPath>..\packages\Npgsql.3.0.7\lib\net45\Npgsql.dll</HintPath>
+    <Reference Include="Npgsql, Version=3.1.2.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Npgsql.3.1.2\lib\net451\Npgsql.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -53,69 +53,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FormAddUpdateDealTable.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormAddUpdateDealTable.Designer.cs">
-      <DependentUpon>FormAddUpdateDealTable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormAddUpdateObjectTable.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormAddUpdateObjectTable.Designer.cs">
-      <DependentUpon>FormAddUpdateObjectTable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormAddUpdatePersonTable.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormAddUpdatePersonTable.Designer.cs">
-      <DependentUpon>FormAddUpdatePersonTable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormAddUpdateShowTable.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormAddUpdateShowTable.Designer.cs">
-      <DependentUpon>FormAddUpdateShowTable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormAddUpdateWishTable.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormAddUpdateWishTable.Designer.cs">
-      <DependentUpon>FormAddUpdateWishTable.cs</DependentUpon>
-    </Compile>
     <Compile Include="FormAdmin.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormAdmin.Designer.cs">
       <DependentUpon>FormAdmin.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormAddUpdateCompanyTable.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormAddUpdateCompanyTable.Designer.cs">
-      <DependentUpon>FormAddUpdateCompanyTable.cs</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="FormAddUpdateDealTable.resx">
-      <DependentUpon>FormAddUpdateDealTable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormAddUpdateObjectTable.resx">
-      <DependentUpon>FormAddUpdateObjectTable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormAddUpdatePersonTable.resx">
-      <DependentUpon>FormAddUpdatePersonTable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormAddUpdateShowTable.resx">
-      <DependentUpon>FormAddUpdateShowTable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormAddUpdateWishTable.resx">
-      <DependentUpon>FormAddUpdateWishTable.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="FormAdmin.resx">
       <DependentUpon>FormAdmin.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormAddUpdateCompanyTable.resx">
-      <DependentUpon>FormAddUpdateCompanyTable.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -141,6 +87,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\EditForms\EditForms.csproj">
+      <Project>{b7bce6a5-fd59-4ed4-bc44-9a60f0b07f8e}</Project>
+      <Name>EditForms</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Repositories\Repositories.csproj">
       <Project>{b5c27fa4-8601-4004-a314-25bb22979d76}</Project>
       <Name>Repositories</Name>

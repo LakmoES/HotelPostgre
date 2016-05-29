@@ -7,13 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Npgsql;
 using EditForms;
 using Repositories;
 
-namespace Admin
+namespace Director
 {
-    public partial class FormAdmin : Form
+    public partial class FormDirector : Form
     {
         ObjectPresenter objectPresenter;
         CompanyPresenter companyPresenter;
@@ -26,7 +25,8 @@ namespace Admin
 
         ContextMenu contextMenu;
         DataGridView selectedDGV;
-        public FormAdmin()
+
+        public FormDirector()
         {
             InitializeComponent();
 
@@ -116,7 +116,7 @@ namespace Admin
         }
         private void dataGridView_Edit_Click(object sender, EventArgs e)
         {
-            if(selectedDGV == dataGridViewCompany)
+            if (selectedDGV == dataGridViewCompany)
             {
                 new FormAddUpdateCompanyTable(selectedDGV, selectedDGV.SelectedRows[0].Index).ShowDialog();
             }
@@ -140,11 +140,11 @@ namespace Admin
             {
                 new FormAddUpdateDealTable(selectedDGV, selectedDGV.CurrentRow.Index).ShowDialog();
             }
-            if(selectedDGV == dataGridViewShow)
+            if (selectedDGV == dataGridViewShow)
             {
                 new FormAddUpdateShowTable(selectedDGV, selectedDGV.CurrentRow.Index).ShowDialog();
             }
-            if(selectedDGV == dataGridViewWish)
+            if (selectedDGV == dataGridViewWish)
             {
                 new FormAddUpdateWishTable(selectedDGV, selectedDGV.CurrentRow.Index).ShowDialog();
             }
@@ -166,7 +166,7 @@ namespace Admin
                     if (ObjectController.checkDelete(id))
                         objectPresenter.ShowTable(true);
                 }
-                if(selectedDGV == dataGridViewOwner)
+                if (selectedDGV == dataGridViewOwner)
                 {
                     if (PersonController.checkDelete(id))
                         ownerPresenter.ShowTable(true);
@@ -186,12 +186,12 @@ namespace Admin
                     if (DealController.checkDelete(id))
                         dealPresenter.ShowTable(true);
                 }
-                if(selectedDGV == dataGridViewShow)
+                if (selectedDGV == dataGridViewShow)
                 {
                     if (ShowController.checkDelete(id))
                         showPresenter.ShowTable(true);
                 }
-                if(selectedDGV == dataGridViewWish)
+                if (selectedDGV == dataGridViewWish)
                 {
                     if (WishController.checkDelete(id))
                         wishPresenter.ShowTable(true);

@@ -11,7 +11,7 @@ namespace Repositories
     public class PersonPresenter
     {
         DataGridView dgv;
-        PersonRepository personRepository;
+        IPersonRepository personRepository;
         List<DBPerson> dgvElements;
 
         public PersonPresenter(DataGridView dgv, string tableName)

@@ -9,12 +9,8 @@ using Npgsql;
 
 namespace Repositories
 {
-    public class StaffRepository
+    public class StaffRepository : IStaffRepository
     {
-        public StaffRepository()
-        {
-
-        }
         public List<DBStaff> GetTable()
         {
             List<DBStaff> staffsTable = new List<DBStaff>();

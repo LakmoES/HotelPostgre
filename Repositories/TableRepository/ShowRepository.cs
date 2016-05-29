@@ -9,9 +9,8 @@ using Npgsql;
 
 namespace Repositories
 {
-    public class ShowRepository
+    public class ShowRepository : IShowRepository
     {
-        public ShowRepository() { }
         public List<DBShow> GetTable()
         {
             List<DBShow> showTable = new List<DBShow>();

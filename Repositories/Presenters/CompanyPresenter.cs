@@ -11,14 +11,14 @@ namespace Repositories
     public class CompanyPresenter
     {
         DataGridView dgv;
-        CompanyRepository companyRepository;
+        ICompanyRepository companyRepository;
         List<DBCompany> dgvElements;
 
         public CompanyPresenter(DataGridView dgv)
         {
             dgvElements = new List<DBCompany>();
             this.dgv = dgv;
-            companyRepository = new CompanyRepository();
+            companyRepository = RepositoryFactory.GetCompanyRepository()/*new CompanyRepository()*/;
         }
         public void ShowTable(bool sort = false)
         {

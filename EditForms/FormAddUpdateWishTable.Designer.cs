@@ -1,4 +1,4 @@
-﻿namespace Admin
+﻿namespace EditForms
 {
     partial class FormAddUpdateWishTable
     {
@@ -220,7 +220,7 @@
             this.Controls.Add(this.buttonCancel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "FormAddUpdateWishTable";
-            this.Text = "FormAddUpdateWishTable";
+            this.Text = "Пожелание";
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownArea)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumberOfRooms)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCost)).EndInit();

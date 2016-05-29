@@ -1,4 +1,4 @@
-﻿namespace Admin
+﻿namespace EditForms
 {
     partial class FormAddUpdateCompanyTable
     {

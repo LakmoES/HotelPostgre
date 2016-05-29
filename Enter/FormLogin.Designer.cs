@@ -30,17 +30,21 @@
         {
             this.buttonEnter = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.labelUsername = new System.Windows.Forms.Label();
-            this.labelPassword = new System.Windows.Forms.Label();
-            this.textBoxUsername = new System.Windows.Forms.TextBox();
             this.textBoxPassword = new System.Windows.Forms.TextBox();
-            this.checkBoxAdmin = new System.Windows.Forms.CheckBox();
+            this.textBoxUsername = new System.Windows.Forms.TextBox();
+            this.labelPassword = new System.Windows.Forms.Label();
+            this.labelUsername = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.radioButtonAdmin = new System.Windows.Forms.RadioButton();
+            this.radioButtonDirector = new System.Windows.Forms.RadioButton();
+            this.radioButtonStaff = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonEnter
             // 
-            this.buttonEnter.Location = new System.Drawing.Point(217, 44);
+            this.buttonEnter.Location = new System.Drawing.Point(209, 112);
             this.buttonEnter.Name = "buttonEnter";
             this.buttonEnter.Size = new System.Drawing.Size(75, 23);
             this.buttonEnter.TabIndex = 0;
@@ -61,14 +65,20 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Данные входа";
             // 
-            // labelUsername
+            // textBoxPassword
             // 
-            this.labelUsername.AutoSize = true;
-            this.labelUsername.Location = new System.Drawing.Point(6, 27);
-            this.labelUsername.Name = "labelUsername";
-            this.labelUsername.Size = new System.Drawing.Size(29, 13);
-            this.labelUsername.TabIndex = 2;
-            this.labelUsername.Text = "Имя";
+            this.textBoxPassword.Location = new System.Drawing.Point(66, 50);
+            this.textBoxPassword.Name = "textBoxPassword";
+            this.textBoxPassword.PasswordChar = '•';
+            this.textBoxPassword.Size = new System.Drawing.Size(100, 20);
+            this.textBoxPassword.TabIndex = 4;
+            // 
+            // textBoxUsername
+            // 
+            this.textBoxUsername.Location = new System.Drawing.Point(66, 24);
+            this.textBoxUsername.Name = "textBoxUsername";
+            this.textBoxUsername.Size = new System.Drawing.Size(100, 20);
+            this.textBoxUsername.TabIndex = 2;
             // 
             // labelPassword
             // 
@@ -79,45 +89,77 @@
             this.labelPassword.TabIndex = 3;
             this.labelPassword.Text = "Пароль";
             // 
-            // textBoxUsername
+            // labelUsername
             // 
-            this.textBoxUsername.Location = new System.Drawing.Point(66, 24);
-            this.textBoxUsername.Name = "textBoxUsername";
-            this.textBoxUsername.Size = new System.Drawing.Size(100, 20);
-            this.textBoxUsername.TabIndex = 2;
+            this.labelUsername.AutoSize = true;
+            this.labelUsername.Location = new System.Drawing.Point(6, 27);
+            this.labelUsername.Name = "labelUsername";
+            this.labelUsername.Size = new System.Drawing.Size(29, 13);
+            this.labelUsername.TabIndex = 2;
+            this.labelUsername.Text = "Имя";
             // 
-            // textBoxPassword
+            // groupBox2
             // 
-            this.textBoxPassword.Location = new System.Drawing.Point(66, 50);
-            this.textBoxPassword.Name = "textBoxPassword";
-            this.textBoxPassword.PasswordChar = '•';
-            this.textBoxPassword.Size = new System.Drawing.Size(100, 20);
-            this.textBoxPassword.TabIndex = 4;
+            this.groupBox2.Controls.Add(this.radioButtonStaff);
+            this.groupBox2.Controls.Add(this.radioButtonDirector);
+            this.groupBox2.Controls.Add(this.radioButtonAdmin);
+            this.groupBox2.Location = new System.Drawing.Point(200, 12);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(100, 94);
+            this.groupBox2.TabIndex = 2;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Роль";
             // 
-            // checkBoxAdmin
+            // radioButtonAdmin
             // 
-            this.checkBoxAdmin.AutoSize = true;
-            this.checkBoxAdmin.Location = new System.Drawing.Point(217, 21);
-            this.checkBoxAdmin.Name = "checkBoxAdmin";
-            this.checkBoxAdmin.Size = new System.Drawing.Size(59, 17);
-            this.checkBoxAdmin.TabIndex = 2;
-            this.checkBoxAdmin.Text = "Админ";
-            this.checkBoxAdmin.UseVisualStyleBackColor = true;
+            this.radioButtonAdmin.AutoSize = true;
+            this.radioButtonAdmin.Checked = true;
+            this.radioButtonAdmin.Location = new System.Drawing.Point(6, 19);
+            this.radioButtonAdmin.Name = "radioButtonAdmin";
+            this.radioButtonAdmin.Size = new System.Drawing.Size(58, 17);
+            this.radioButtonAdmin.TabIndex = 0;
+            this.radioButtonAdmin.TabStop = true;
+            this.radioButtonAdmin.Text = "Админ";
+            this.radioButtonAdmin.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonDirector
+            // 
+            this.radioButtonDirector.AutoSize = true;
+            this.radioButtonDirector.Location = new System.Drawing.Point(6, 42);
+            this.radioButtonDirector.Name = "radioButtonDirector";
+            this.radioButtonDirector.Size = new System.Drawing.Size(75, 17);
+            this.radioButtonDirector.TabIndex = 1;
+            this.radioButtonDirector.Text = "Директор";
+            this.radioButtonDirector.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonStaff
+            // 
+            this.radioButtonStaff.AutoSize = true;
+            this.radioButtonStaff.Enabled = false;
+            this.radioButtonStaff.Location = new System.Drawing.Point(6, 65);
+            this.radioButtonStaff.Name = "radioButtonStaff";
+            this.radioButtonStaff.Size = new System.Drawing.Size(78, 17);
+            this.radioButtonStaff.TabIndex = 2;
+            this.radioButtonStaff.Text = "Сотрудник";
+            this.radioButtonStaff.UseVisualStyleBackColor = true;
             // 
             // FormLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(342, 116);
-            this.Controls.Add(this.checkBoxAdmin);
+            this.ClientSize = new System.Drawing.Size(342, 142);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.buttonEnter);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
             this.Name = "FormLogin";
             this.Text = "Вход";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -129,7 +171,10 @@
         private System.Windows.Forms.TextBox textBoxUsername;
         private System.Windows.Forms.Label labelPassword;
         private System.Windows.Forms.Label labelUsername;
-        private System.Windows.Forms.CheckBox checkBoxAdmin;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.RadioButton radioButtonStaff;
+        private System.Windows.Forms.RadioButton radioButtonDirector;
+        private System.Windows.Forms.RadioButton radioButtonAdmin;
     }
 }
 
