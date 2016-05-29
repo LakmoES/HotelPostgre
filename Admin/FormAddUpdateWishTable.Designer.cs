@@ -37,7 +37,6 @@
             this.textBoxTownship = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBoxApartamentOrHouse = new System.Windows.Forms.TextBox();
             this.numericUpDownArea = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownNumberOfRooms = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownCost = new System.Windows.Forms.NumericUpDown();
@@ -45,6 +44,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
+            this.comboBoxApartamentOrHouse = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownArea)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumberOfRooms)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCost)).BeginInit();
@@ -93,6 +93,7 @@
             this.buttonOK.TabIndex = 57;
             this.buttonOK.Text = "Готово";
             this.buttonOK.UseVisualStyleBackColor = true;
+            this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
             // 
             // buttonCancel
             // 
@@ -102,6 +103,7 @@
             this.buttonCancel.TabIndex = 56;
             this.buttonCancel.Text = "Отмена";
             this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
             // textBoxTownship
             // 
@@ -127,13 +129,6 @@
             this.label4.Size = new System.Drawing.Size(26, 13);
             this.label4.TabIndex = 68;
             this.label4.Text = "Тип";
-            // 
-            // textBoxApartamentOrHouse
-            // 
-            this.textBoxApartamentOrHouse.Location = new System.Drawing.Point(75, 97);
-            this.textBoxApartamentOrHouse.Name = "textBoxApartamentOrHouse";
-            this.textBoxApartamentOrHouse.Size = new System.Drawing.Size(100, 20);
-            this.textBoxApartamentOrHouse.TabIndex = 67;
             // 
             // numericUpDownArea
             // 
@@ -192,11 +187,21 @@
             this.label7.TabIndex = 75;
             this.label7.Text = "Стоимость";
             // 
+            // comboBoxApartamentOrHouse
+            // 
+            this.comboBoxApartamentOrHouse.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxApartamentOrHouse.FormattingEnabled = true;
+            this.comboBoxApartamentOrHouse.Location = new System.Drawing.Point(75, 97);
+            this.comboBoxApartamentOrHouse.Name = "comboBoxApartamentOrHouse";
+            this.comboBoxApartamentOrHouse.Size = new System.Drawing.Size(100, 21);
+            this.comboBoxApartamentOrHouse.TabIndex = 76;
+            // 
             // FormAddUpdateWishTable
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(198, 256);
+            this.Controls.Add(this.comboBoxApartamentOrHouse);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
@@ -205,7 +210,6 @@
             this.Controls.Add(this.numericUpDownNumberOfRooms);
             this.Controls.Add(this.numericUpDownArea);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.textBoxApartamentOrHouse);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.textBoxTownship);
             this.Controls.Add(this.comboBoxClient);
@@ -236,7 +240,6 @@
         private System.Windows.Forms.TextBox textBoxTownship;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBoxApartamentOrHouse;
         private System.Windows.Forms.NumericUpDown numericUpDownArea;
         private System.Windows.Forms.NumericUpDown numericUpDownNumberOfRooms;
         private System.Windows.Forms.NumericUpDown numericUpDownCost;
@@ -244,5 +247,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.ComboBox comboBoxApartamentOrHouse;
     }
 }

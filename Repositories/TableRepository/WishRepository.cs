@@ -24,7 +24,6 @@ namespace Repositories
             DBWish wishTbl;
             NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"HomeBUY\".\"Wish\"", DBConnection.Instance.connection);
             NpgsqlDataReader wishTableReader = queryCommand.ExecuteReader();
-            object obj = null;
 
             //int id, int client, string township, string apartamentOrHouse, int area, int numberOfRooms, int cost
             if (wishTableReader.HasRows)
@@ -77,14 +76,14 @@ namespace Repositories
         {
             //int id, int client, string township, string apartamentOrHouse, int area, int numberOfRooms, int cost
             NpgsqlCommand queryCommand;
-            queryCommand = new NpgsqlCommand("INSERT INTO \"HomeBUY\".\"Wish\" (\"id\", \"Client\", \"Township\", \"AppartamentOrHouse\", \"Area\", \"NumberOfRooms\", \"Cost\")" +
+            queryCommand = new NpgsqlCommand("INSERT INTO \"HomeBUY\".\"Wish\" (\"Client\", \"Township\", \"AppartamentOrHouse\", \"Area\", \"NumberOfRooms\", \"Cost\")" +
                 " VALUES(@Client, @Township, @ApartamentOrHouse, @Area, @NumberOfRooms, @Cost)", DBConnection.Instance.connection);
-            queryCommand.Parameters.AddWithValue("@Client", wish.client);
-            queryCommand.Parameters.AddWithValue("@Township", wish.township);
-            queryCommand.Parameters.AddWithValue("@ApartamentOrHouse", wish.apartamentOrHouse);
-            queryCommand.Parameters.AddWithValue("@Area", wish.area);
-            queryCommand.Parameters.AddWithValue("@NumberOfRooms", wish.numberOfRooms);
-            queryCommand.Parameters.AddWithValue("@Cost", wish.cost);
+            queryCommand.Parameters.AddWithValue("@Client", wish.client );
+            queryCommand.Parameters.AddWithValue("@Township", (wish.township ?? (object)DBNull.Value));
+            queryCommand.Parameters.AddWithValue("@ApartamentOrHouse", (wish.apartamentOrHouse ?? (object)DBNull.Value));
+            queryCommand.Parameters.AddWithValue("@Area", (wish.area ?? (object)DBNull.Value));
+            queryCommand.Parameters.AddWithValue("@NumberOfRooms", (wish.numberOfRooms ?? (object)DBNull.Value));
+            queryCommand.Parameters.AddWithValue("@Cost", (wish.cost ?? (object)DBNull.Value));
             queryCommand.ExecuteNonQuery();
 
         }
@@ -94,11 +93,11 @@ namespace Repositories
             NpgsqlCommand queryCommand = new NpgsqlCommand("UPDATE \"HomeBUY\".\"Wish\" SET \"Client\" = @Client, \"Township\" = @Township, \"AppartamentOrHouse\" = @ApartamentOrHouse, \"Area\" = @Area, \"NumberOfRooms\" = @NumberOfRooms, \"Cost\" = @Cost" +
                 " WHERE \"id\" = @id", DBConnection.Instance.connection);
             queryCommand.Parameters.AddWithValue("@Client", updatedWish.client);
-            queryCommand.Parameters.AddWithValue("@Township", updatedWish.township);
-            queryCommand.Parameters.AddWithValue("@ApartamentOrHouse", updatedWish.apartamentOrHouse);
-            queryCommand.Parameters.AddWithValue("@Area", updatedWish.area);
-            queryCommand.Parameters.AddWithValue("@NumberOfRooms", updatedWish.numberOfRooms);
-            queryCommand.Parameters.AddWithValue("@Cost", updatedWish.cost);
+            queryCommand.Parameters.AddWithValue("@Township", (updatedWish.township ?? (object)DBNull.Value));
+            queryCommand.Parameters.AddWithValue("@ApartamentOrHouse", (updatedWish.apartamentOrHouse ?? (object)DBNull.Value));
+            queryCommand.Parameters.AddWithValue("@Area", (updatedWish.area ?? (object)DBNull.Value));
+            queryCommand.Parameters.AddWithValue("@NumberOfRooms", (updatedWish.numberOfRooms ?? (object)DBNull.Value));
+            queryCommand.Parameters.AddWithValue("@Cost", (updatedWish.cost ?? (object)DBNull.Value));
 
             queryCommand.Parameters.AddWithValue("@id", updatedWish.id);
             queryCommand.ExecuteNonQuery();

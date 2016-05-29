@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using Repositories;
+using Npgsql;
 
 namespace Admin
 {
@@ -33,8 +34,10 @@ namespace Admin
             wish = new DBWish(Convert.ToInt32(dgv.Rows[index].Cells[0].Value.ToString()),
                 Convert.ToInt32(matchClient.Value.Substring(1, matchClient.Value.Length - 2)),
                 ConvertToStringOrNull(dgv.Rows[index].Cells[2].Value),
-                dgv.Rows[index].Cells[3].Value.ToString(),
-
+                ConvertToStringOrNull(dgv.Rows[index].Cells[3].Value),
+                ConvertToIntOrNull(dgv.Rows[index].Cells[4].Value),
+                ConvertToIntOrNull(dgv.Rows[index].Cells[5].Value),
+                ConvertToIntOrNull(dgv.Rows[index].Cells[6].Value)
                 );
             ExtractDataFromWish(wish);
 
@@ -65,7 +68,7 @@ namespace Admin
             this.numericUpDownCost.Minimum = 0;
             this.numericUpDownCost.Maximum = Int32.MaxValue;
         }
-        private void FillTheFields(int objID = -1)
+        private void FillTheFields()
         {
             var wishList = wishRepository.GetTable();
             Dictionary<int, DBWish> wishs = new Dictionary<int, DBWish>();
@@ -78,6 +81,8 @@ namespace Admin
                 string clientText = String.Format("[{0}] {1} {2}", client.id, client.surname, client.name);
                 comboBoxClient.Items.Add(clientText);
             }
+
+            comboBoxApartamentOrHouse.Items.AddRange(new string[] { "", "House", "Appartament" });
         }
         private void ExtractDataFromWish(DBWish wish)
         {
@@ -88,7 +93,7 @@ namespace Admin
                 DBPerson client = clientRepository.GetConcreteRecord(wish.client);
                 this.comboBoxClient.Text = String.Format("[{0}] {1} {2}", client.id, client.surname, client.name);
                 this.textBoxTownship.Text = wish.township;
-                this.textBoxApartamentOrHouse.Text = wish.apartamentOrHouse;
+                this.comboBoxApartamentOrHouse.Text = wish.apartamentOrHouse;
                 this.numericUpDownArea.Value = (wish.area ?? 0);
                 this.numericUpDownNumberOfRooms.Value = (wish.numberOfRooms ?? 0);
                 this.numericUpDownCost.Value = (wish.cost ?? 0);
@@ -108,21 +113,32 @@ namespace Admin
         }
         private void AddUpdateWish()
         {
-            //int id, int client, string township, string apartamentOrHouse, int area, int numberOfRooms, int cost
-            Match matchClient = regex.Match(this.comboBoxClient.Text);
+            try
+            {
+                //int id, int client, string township, string apartamentOrHouse, int area, int numberOfRooms, int cost
+                Match matchClient = regex.Match(this.comboBoxClient.Text);
 
-            wish.client = Convert.ToInt32(matchClient.Value.Substring(1, matchClient.Value.Length - 2));
-            wish.township = ConvertToStringOrNull(this.textBoxTownship.Text);
-            wish.apartamentOrHouse = ConvertToStringOrNull(this.textBoxApartamentOrHouse.Text);
-            wish.area = ConvertToIntOrNull(numericUpDownArea.Value);
-            wish.numberOfRooms = ConvertToIntOrNull(numericUpDownNumberOfRooms.Value);
-            wish.cost = ConvertToIntOrNull(numericUpDownCost.Value);
+                wish.client = Convert.ToInt32(matchClient.Value.Substring(1, matchClient.Value.Length - 2));
+                wish.township = ConvertToStringOrNull(this.textBoxTownship.Text);
+                wish.apartamentOrHouse = ConvertToStringOrNull(this.comboBoxApartamentOrHouse.Text);
+                wish.area = ConvertToIntOrNull(numericUpDownArea.Value);
+                wish.numberOfRooms = ConvertToIntOrNull(numericUpDownNumberOfRooms.Value);
+                wish.cost = ConvertToIntOrNull(numericUpDownCost.Value);
 
-            if (!adding)
-                wishPresenter.UpdateTable(wish);
-            else
-                wishPresenter.AddToTable(wish);
-            wishPresenter.ShowTable();
+                if (!adding)
+                    wishPresenter.UpdateTable(wish);
+                else
+                    wishPresenter.AddToTable(wish);
+                wishPresenter.ShowTable();
+            }
+            catch (NpgsqlException nEx)
+            {
+                MessageBox.Show(nEx.InnerException.ToString(), "Ошибка БД");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка");
+            }
         }
         private int? ConvertToIntOrNull(object obj)
         {

@@ -172,7 +172,7 @@ namespace Admin
             }
             if(selectedDGV == dataGridViewWish)
             {
-                MessageBox.Show("Редактирование","[Заглушка]");
+                new FormAddUpdateWishTable(selectedDGV, selectedDGV.CurrentRow.Index).ShowDialog();
             }
         }
         private void dataGridView_Remove_Click(object sender, EventArgs e)
@@ -255,7 +255,7 @@ namespace Admin
         }
         private void buttonWishAdd_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Добавление", "[Заглушка]");
+            new FormAddUpdateWishTable(dataGridViewWish).ShowDialog();
         }
     }
 }
