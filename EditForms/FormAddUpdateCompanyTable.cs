@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Npgsql;
 using Repositories;
 
 namespace EditForms
@@ -46,20 +47,38 @@ namespace EditForms
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            AddUpdateCompany();
-            this.Close();
+            try
+            {
+                if (AddUpdateCompany())
+                    this.Close();
+                else
+                    MessageBox.Show("Проверьте правильность заполнения полей", "Внимание" , MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            catch (PostgresException pEx)
+            {
+                MessageBox.Show("Произошла ошибка при выполнении запроса к базе данных.\r\n" + pEx.Message, "Ошибка БД", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Произошла ошибка.\r\n" + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
-        private void AddUpdateCompany()
+        private bool AddUpdateCompany()
         {
             company.title = this.textBoxTitle.Text.Trim(' ');
             company.telephone = this.textBoxTelephone.Text.Trim(' ');
             company.address = this.textBoxAddress.Text.Trim(' ');
 
-            if (!adding)
-                companyPresenter.UpdateTable(company);
-            else
-                companyPresenter.AddToTable(company);
-            companyPresenter.ShowTable();
+            if (CompanyController.checkAddition(company))
+            {
+                if (!adding)
+                    companyPresenter.UpdateTable(company);
+                else
+                    companyPresenter.AddToTable(company);
+                companyPresenter.ShowTable(true);
+                return true;
+            }
+            return false;
         }
     }
 }

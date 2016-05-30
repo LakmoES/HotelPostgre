@@ -156,45 +156,61 @@ namespace Admin
             DialogResult dialogResult = MessageBox.Show("Вы действительно хотите удалить запись?", "Подтверждение", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
-                if (selectedDGV == dataGridViewCompany)
-                {
-                    if (CompanyController.checkDelete(id))
-                        companyPresenter.ShowTable(true);
-                }
                 if (selectedDGV == dataGridViewObject)
                 {
                     if (ObjectController.checkDelete(id))
+                    {
+                        objectPresenter.DeleteFromTable(id);
                         objectPresenter.ShowTable(true);
+                    }
                 }
-                if(selectedDGV == dataGridViewOwner)
+                if (selectedDGV == dataGridViewOwner)
                 {
                     if (PersonController.checkDelete(id))
+                    {
+                        ownerPresenter.DeleteFromTable(id);
                         ownerPresenter.ShowTable(true);
+                    }
                 }
                 if (selectedDGV == dataGridViewStaff)
                 {
                     if (StaffController.checkDelete(id))
+                    {
+                        staffPresenter.DeleteFromTable(id);
                         staffPresenter.ShowTable(true);
+                    }
                 }
                 if (selectedDGV == dataGridViewClient)
                 {
                     if (PersonController.checkDelete(id))
+                    {
+                        clientPresenter.DeleteFromTable(id);
                         clientPresenter.ShowTable(true);
+                    }
                 }
                 if (selectedDGV == dataGridViewDeal)
                 {
                     if (DealController.checkDelete(id))
+                    {
+                        dealPresenter.DeleteFromTable(id);
                         dealPresenter.ShowTable(true);
+                    }
                 }
-                if(selectedDGV == dataGridViewShow)
+                if (selectedDGV == dataGridViewShow)
                 {
                     if (ShowController.checkDelete(id))
+                    {
+                        showPresenter.DeleteFromTable(id);
                         showPresenter.ShowTable(true);
+                    }
                 }
-                if(selectedDGV == dataGridViewWish)
+                if (selectedDGV == dataGridViewWish)
                 {
                     if (WishController.checkDelete(id))
+                    {
+                        wishPresenter.DeleteFromTable(id);
                         wishPresenter.ShowTable(true);
+                    }
                 }
             }
         }

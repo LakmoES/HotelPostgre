@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
+using Npgsql;
 using Repositories;
 
 namespace EditForms
@@ -46,6 +47,8 @@ namespace EditForms
                 Convert.ToInt32(dgv.Rows[index].Cells[6].Value.ToString()),
                 Convert.ToInt32(dgv.Rows[index].Cells[7].Value.ToString()));
 
+
+
             this.textBoxID.Text = obj.id.ToString();
             this.textBoxAddress.Text = obj.address;
             this.dateTimePickerToday.Value = obj.addDate;
@@ -83,7 +86,6 @@ namespace EditForms
             }
             comboBoxType.Items.AddRange(new string[] { "Apartament", "House" });
         }
-
         private void buttonCancel_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -91,10 +93,23 @@ namespace EditForms
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            AddUpdateObject();
-            this.Close();
+            try
+            {
+                if (AddUpdateObject())
+                    this.Close();
+                else
+                    MessageBox.Show("Проверьте правильность заполнения полей", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            catch(PostgresException pEx)
+            {
+                MessageBox.Show("Произошла ошибка при выполнении запроса к базе данных.\r\n" + pEx.Message, "Ошибка БД", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Произошла ошибка.\r\n" + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
-        private void AddUpdateObject()
+        private bool AddUpdateObject()
         {
             //address,adddate,cost,owner,apartamentorHouse,area,numberOfRooms
             obj.address = this.textBoxAddress.Text;
@@ -109,11 +124,17 @@ namespace EditForms
             obj.appartamentOrHouse = this.comboBoxType.Text;
             obj.area = Convert.ToInt32(this.numericUpDownArea.Value);
             obj.numberOfRooms = Convert.ToInt32(this.numericUpDownRooms.Value);
-            if (!adding)
-                objectPresenter.UpdateTable(obj);
-            else
-                objectPresenter.AddToTable(obj);
-            objectPresenter.ShowTable();
+
+            if (ObjectController.checkAddition(obj))
+            {
+                if (!adding)
+                    objectPresenter.UpdateTable(obj);
+                else
+                    objectPresenter.AddToTable(obj);
+                objectPresenter.ShowTable(true);
+                return true;
+            }
+            return false;
         }
     }
 }

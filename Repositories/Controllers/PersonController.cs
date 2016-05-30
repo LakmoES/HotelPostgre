@@ -11,7 +11,7 @@ namespace Repositories
     {
         public static bool checkAddition(DBPerson person)
         {
-            if (person.name.Trim(' ').Length >= 1 && person.surname.Trim(' ').Length >= 1 && person.telephone.Trim(' ').Length >= 1)
+            if (person.name.Trim(' ').Length > 0 && person.surname.Trim(' ').Length > 0 && person.telephone.Trim(' ').Length > 0)
             {
                 //OK. Add the company
                 return true;

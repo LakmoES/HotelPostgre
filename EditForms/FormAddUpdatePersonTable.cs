@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using Repositories;
+using Npgsql;
 
 namespace EditForms
 {
@@ -42,6 +43,8 @@ namespace EditForms
                 int pCompany = Convert.ToInt32(match.Value.Substring(1, match.Value.Length - 2));
                 person = new DBStaff(pID, pName, pSurname, pTel, pCompany);
                 this.comboBoxCompany.Text = dgv.Rows[index].Cells[4].Value.ToString();
+
+                CheckPermissions();
             }
             else
                 person = new DBPerson(pID, pName, pSurname, pTel);
@@ -92,6 +95,29 @@ namespace EditForms
             {
                 string companyText = String.Format("[{0}] {1}", company.id, company.title);
                 comboBoxCompany.Items.Add(companyText);
+
+                if (adding && company.id == User.subrole)
+                    comboBoxCompany.Text = companyText;
+            }
+
+            if (User.role == 2) //не админ
+            {
+                this.comboBoxCompany.Enabled = false;
+            }
+
+
+        }
+        private void CheckPermissions()
+        {
+            if (User.role == 1)
+                return;
+
+            if((person as DBStaff).company != User.subrole)
+            {
+                this.textBoxName.ReadOnly = true;
+                this.textBoxSurname.ReadOnly = true;
+                this.textBoxTelephone.ReadOnly = true;
+                this.buttonOK.Enabled = false;
             }
         }
 
@@ -102,10 +128,23 @@ namespace EditForms
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            AddUpdatePerson();
-            this.Close();
+            try
+            {
+                if (AddUpdatePerson())
+                    this.Close();
+                else
+                    MessageBox.Show("Проверьте правильность заполнения полей", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            catch (PostgresException pEx)
+            {
+                MessageBox.Show("Произошла ошибка при выполнении запроса к базе данных.\r\n" + pEx.Message, "Ошибка БД", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Произошла ошибка.\r\n" + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
-        private void AddUpdatePerson()
+        private bool AddUpdatePerson()
         {
             person.name = this.textBoxName.Text.Trim(' ');
             person.surname = this.textBoxSurname.Text.Trim(' ');
@@ -117,20 +156,29 @@ namespace EditForms
 
                 (person as DBStaff).company = companyID;
 
-                if (!adding)
-                    staffPresenter.UpdateTable(person as DBStaff);
-                else
-                    staffPresenter.AddToTable(person as DBStaff);
-                staffPresenter.ShowTable(true);
+                if (StaffController.checkAddition(person as DBStaff))
+                {
+                    if (!adding)
+                        staffPresenter.UpdateTable(person as DBStaff);
+                    else
+                        staffPresenter.AddToTable(person as DBStaff);
+                    staffPresenter.ShowTable(true);
+                    return true;
+                }
             }
             else
             {
-                if (!adding)
-                    personPresenter.UpdateTable(person);
-                else
-                    personPresenter.AddToTable(person);
-                personPresenter.ShowTable(true);
+                if (PersonController.checkAddition(person))
+                {
+                    if (!adding)
+                        personPresenter.UpdateTable(person);
+                    else
+                        personPresenter.AddToTable(person);
+                    personPresenter.ShowTable(true);
+                    return true;
+                }
             }
+            return false;
         }
     }
 }

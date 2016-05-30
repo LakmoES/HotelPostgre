@@ -18,6 +18,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Director", "Director\Direct
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EditForms", "EditForms\EditForms.csproj", "{B7BCE6A5-FD59-4ED4-BC44-9A60F0B07F8E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Staff", "Staff\Staff.csproj", "{70A61E2C-B650-4983-A12F-9CB121043C80}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +46,10 @@ Global
 		{B7BCE6A5-FD59-4ED4-BC44-9A60F0B07F8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B7BCE6A5-FD59-4ED4-BC44-9A60F0B07F8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B7BCE6A5-FD59-4ED4-BC44-9A60F0B07F8E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70A61E2C-B650-4983-A12F-9CB121043C80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70A61E2C-B650-4983-A12F-9CB121043C80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70A61E2C-B650-4983-A12F-9CB121043C80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70A61E2C-B650-4983-A12F-9CB121043C80}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

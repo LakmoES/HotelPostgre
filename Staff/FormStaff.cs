@@ -6,13 +6,13 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
-using EditForms;
 using Repositories;
+using EditForms;
+using System.Windows.Forms;
 
-namespace Director
+namespace Staff
 {
-    public partial class FormDirector : Form
+    public partial class FormStaff : Form
     {
         ObjectPresenter objectPresenter;
         PersonPresenter ownerPresenter;
@@ -25,7 +25,7 @@ namespace Director
         ContextMenu contextMenu;
         DataGridView selectedDGV;
 
-        public FormDirector()
+        public FormStaff()
         {
             InitializeComponent();
 
@@ -36,7 +36,7 @@ namespace Director
             selectedDGV = null;
         }
 
-        private void FormAdmin_Load(object sender, EventArgs e)
+        private void FormStaff_Load(object sender, EventArgs e)
         {
             objectPresenter = new ObjectPresenter(this.dataGridViewObject);
             objectPresenter.ShowTable(true);
@@ -116,21 +116,9 @@ namespace Director
             {
                 new FormAddUpdatePersonTable(selectedDGV, selectedDGV.CurrentRow.Index, "Owner").ShowDialog();
             }
-            if (selectedDGV == dataGridViewStaff)
-            {
-                new FormAddUpdatePersonTable(selectedDGV, selectedDGV.CurrentRow.Index, "Staff").ShowDialog();
-            }
             if (selectedDGV == dataGridViewClient)
             {
                 new FormAddUpdatePersonTable(selectedDGV, selectedDGV.CurrentRow.Index, "Client").ShowDialog();
-            }
-            if (selectedDGV == dataGridViewDeal)
-            {
-                new FormAddUpdateDealTable(selectedDGV, selectedDGV.CurrentRow.Index).ShowDialog();
-            }
-            if (selectedDGV == dataGridViewShow)
-            {
-                new FormAddUpdateShowTable(selectedDGV, selectedDGV.CurrentRow.Index).ShowDialog();
             }
             if (selectedDGV == dataGridViewWish)
             {
@@ -152,23 +140,7 @@ namespace Director
                 {
                     MessageBox.Show("У вас нет прав на удаление в этой таблице", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
-                if (selectedDGV == dataGridViewStaff)
-                {
-                    if (StaffController.checkDelete(id) && RepositoryFactory.GetStaffRepository().GetConcreteRecord(id).company == User.subrole)
-                    {
-                        staffPresenter.DeleteFromTable(id);
-                        staffPresenter.ShowTable(true);
-                    }
-                }
                 if (selectedDGV == dataGridViewClient)
-                {
-                    MessageBox.Show("У вас нет прав на удаление в этой таблице", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-                if (selectedDGV == dataGridViewDeal)
-                {
-                    MessageBox.Show("У вас нет прав на удаление в этой таблице", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-                if (selectedDGV == dataGridViewShow)
                 {
                     MessageBox.Show("У вас нет прав на удаление в этой таблице", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }

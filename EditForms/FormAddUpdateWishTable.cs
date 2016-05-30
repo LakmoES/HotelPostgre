@@ -108,10 +108,23 @@ namespace EditForms
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            AddUpdateWish();
-            this.Close();
+            try
+            { 
+            if (AddUpdateWish())
+                this.Close();
+                else
+                    MessageBox.Show("Проверьте правильность заполнения полей", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            catch (PostgresException pEx)
+            {
+                MessageBox.Show("Произошла ошибка при выполнении запроса к базе данных.\r\n" + pEx.Message, "Ошибка БД", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Произошла ошибка.\r\n" + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
-        private void AddUpdateWish()
+        private bool AddUpdateWish()
         {
             try
             {
@@ -125,20 +138,25 @@ namespace EditForms
                 wish.numberOfRooms = ConvertToIntOrNull(numericUpDownNumberOfRooms.Value);
                 wish.cost = ConvertToIntOrNull(numericUpDownCost.Value);
 
-                if (!adding)
-                    wishPresenter.UpdateTable(wish);
-                else
-                    wishPresenter.AddToTable(wish);
-                wishPresenter.ShowTable();
+                if (WishController.checkAddition(wish))
+                {
+                    if (!adding)
+                        wishPresenter.UpdateTable(wish);
+                    else
+                        wishPresenter.AddToTable(wish);
+                    wishPresenter.ShowTable(true);
+                    return true;
+                }
             }
-            catch (NpgsqlException nEx)
+            catch (PostgresException pEx)
             {
-                MessageBox.Show(nEx.InnerException.ToString(), "Ошибка БД");
+                MessageBox.Show(pEx.InnerException.ToString(), "Ошибка БД");
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Ошибка");
             }
+            return false;
         }
         private int? ConvertToIntOrNull(object obj)
         {

@@ -11,7 +11,7 @@ namespace Repositories
     {
         public static bool checkAddition(DBShow show)
         {
-            if (true)
+            if (show.client > 0 && show.dealer > 0 && show.obj > 0)
             {
                 //OK. Add the company
                 return true;

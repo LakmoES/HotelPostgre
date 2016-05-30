@@ -8,12 +8,9 @@ using Npgsql;
 
 namespace Repositories
 {
-    public class SecureProcessor
+    public static class SecureProcessor
     {
-        public SecureProcessor()
-        {
-        }
-        public bool Login(string name, string password)
+        public static bool Login(string name, string password)
         {
             Connect();
 
@@ -30,7 +27,7 @@ namespace Repositories
 
             return Reconnect(db_name, db_password);
         }
-        private bool Reconnect(string db_name, string db_password)
+        private static bool Reconnect(string db_name, string db_password)
         {
             if (DBConnection.Instance.connection != null)
                 DBConnection.Instance.closeConnection();
@@ -48,7 +45,7 @@ namespace Repositories
                 return false;
             }
         }
-        private bool Connect()
+        private static bool Connect()
         {
             if (DBConnection.Instance.connection != null)
                 DBConnection.Instance.closeConnection();

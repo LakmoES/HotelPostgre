@@ -11,30 +11,34 @@ namespace Repositories
 {
     public class StaffRepository : IStaffRepository
     {
-        public List<DBStaff> GetTable()
+        public List<DBStaff> GetTable(int companyID = -1)
         {
             List<DBStaff> staffsTable = new List<DBStaff>();
             DBStaff staffTbl;
 
             //try
             //{
-                NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"HomeBUY\".\"Staff\"", DBConnection.Instance.connection);
-                NpgsqlDataReader staffTableReader = queryCommand.ExecuteReader();
+            string queryText = "SELECT * FROM \"HomeBUY\".\"Staff\"";
+            if (companyID != -1)
+                queryText += " WHERE \"id\" = " + companyID.ToString();
 
-                if (staffTableReader.HasRows)
-                    foreach (DbDataRecord dbDataRecord in staffTableReader)
-                    {
-                        Application.DoEvents();
-                        staffTbl = new DBStaff(
-                            Convert.ToInt32(dbDataRecord["id"]),
-                            dbDataRecord["Name"].ToString(),
-                            dbDataRecord["Surname"].ToString(),
-                            dbDataRecord["Telephone"].ToString(),
-                            Convert.ToInt32(dbDataRecord["Company"])
-                            );
-                        staffsTable.Add(staffTbl);
-                    }
-                staffTableReader.Close();
+            NpgsqlCommand queryCommand = new NpgsqlCommand(queryText, DBConnection.Instance.connection);
+            NpgsqlDataReader staffTableReader = queryCommand.ExecuteReader();
+
+            if (staffTableReader.HasRows)
+                foreach (DbDataRecord dbDataRecord in staffTableReader)
+                {
+                    Application.DoEvents();
+                    staffTbl = new DBStaff(
+                        Convert.ToInt32(dbDataRecord["id"]),
+                        dbDataRecord["Name"].ToString(),
+                        dbDataRecord["Surname"].ToString(),
+                        dbDataRecord["Telephone"].ToString(),
+                        Convert.ToInt32(dbDataRecord["Company"])
+                        );
+                    staffsTable.Add(staffTbl);
+                }
+            staffTableReader.Close();
             //}
             //catch (NpgsqlException exp)
             //{

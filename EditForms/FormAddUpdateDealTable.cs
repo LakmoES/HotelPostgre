@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using Npgsql;
 using Repositories;
 
 namespace EditForms
@@ -46,6 +47,8 @@ namespace EditForms
 
             this.comboBoxObject.Enabled = false;
             this.comboBoxBuyer.Enabled = false;
+
+            CheckPermissions();
         }
         public FormAddUpdateDealTable(DataGridView dgv) //добавление
         {
@@ -82,8 +85,11 @@ namespace EditForms
             var staffList = staffRepository.GetTable();
             foreach (var staff in staffList)
             {
-                string staffText = String.Format("[{0}] {1} {2}", staff.id, staff.surname, staff.name);
-                comboBoxDealer.Items.Add(staffText);
+                if ((User.role == 1) || (User.role == 2 && User.subrole == staff.company)) //todo: исправить отсутствие продавца, если он из другого филиала
+                {
+                    string staffText = String.Format("[{0}] {1} {2}", staff.id, staff.surname, staff.name);
+                    comboBoxDealer.Items.Add(staffText);
+                }
             }
             var clientList = clientRepository.GetTable();
             foreach (var client in clientList)
@@ -126,6 +132,13 @@ namespace EditForms
             }
             catch(Exception ex) { MessageBox.Show(ex.Message, "Ошибка"); }
         }
+        void CheckPermissions()
+        {
+            if(User.role == 2)
+            {
+                this.buttonOK.Enabled = false;
+            }
+        }
 
         private void buttonCancel_Click(object sender, EventArgs e)
         {
@@ -134,10 +147,23 @@ namespace EditForms
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            AddUpdateDeal();
-            this.Close();
+            try
+            { 
+            if (AddUpdateDeal())
+                this.Close();
+                else
+                    MessageBox.Show("Проверьте правильность заполнения полей", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            catch (PostgresException pEx)
+            {
+                MessageBox.Show("Произошла ошибка при выполнении запроса к базе данных.\r\n" + pEx.Message, "Ошибка БД", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Произошла ошибка.\r\n" + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
-        private void AddUpdateDeal()
+        private bool AddUpdateDeal()
         {
             //id, Dealer, Buyer, Object, Cost, Date
             Match matchDealer = regex.Match(this.comboBoxDealer.Text);
@@ -151,11 +177,16 @@ namespace EditForms
             deal.cost = Convert.ToInt32(this.numericUpDownCost.Value);
             deal.date = this.dateTimePickerDate.Value;
 
-            if (!adding)
-                dealPresenter.UpdateTable(deal);
-            else
-                dealPresenter.AddToTable(deal);
-            dealPresenter.ShowTable();
+            if (DealController.checkAddition(deal))
+            {
+                if (!adding)
+                    dealPresenter.UpdateTable(deal);
+                else
+                    dealPresenter.AddToTable(deal);
+                dealPresenter.ShowTable(true);
+                return true;
+            }
+            return false;
         }
 
         private void comboBoxObject_TextChanged(object sender, EventArgs e)
