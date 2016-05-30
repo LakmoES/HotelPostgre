@@ -29,14 +29,6 @@
         private void InitializeComponent()
         {
             this.tabControlMain = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.buttonCompanyAdd = new System.Windows.Forms.Button();
-            this.buttonCompanyRefresh = new System.Windows.Forms.Button();
-            this.dataGridViewCompany = new System.Windows.Forms.DataGridView();
-            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.title = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.telephone = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.address = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.buttonObjectAdd = new System.Windows.Forms.Button();
             this.buttonObjectRefresh = new System.Windows.Forms.Button();
@@ -105,8 +97,6 @@
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControlMain.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCompany)).BeginInit();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewObject)).BeginInit();
             this.tabPage3.SuspendLayout();
@@ -125,7 +115,6 @@
             // 
             // tabControlMain
             // 
-            this.tabControlMain.Controls.Add(this.tabPage1);
             this.tabControlMain.Controls.Add(this.tabPage2);
             this.tabControlMain.Controls.Add(this.tabPage3);
             this.tabControlMain.Controls.Add(this.tabPage4);
@@ -138,81 +127,6 @@
             this.tabControlMain.SelectedIndex = 0;
             this.tabControlMain.Size = new System.Drawing.Size(782, 279);
             this.tabControlMain.TabIndex = 0;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.buttonCompanyAdd);
-            this.tabPage1.Controls.Add(this.buttonCompanyRefresh);
-            this.tabPage1.Controls.Add(this.dataGridViewCompany);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(774, 253);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Филиалы";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // buttonCompanyAdd
-            // 
-            this.buttonCompanyAdd.Location = new System.Drawing.Point(693, 227);
-            this.buttonCompanyAdd.Name = "buttonCompanyAdd";
-            this.buttonCompanyAdd.Size = new System.Drawing.Size(75, 23);
-            this.buttonCompanyAdd.TabIndex = 2;
-            this.buttonCompanyAdd.Text = "Добавить";
-            this.buttonCompanyAdd.UseVisualStyleBackColor = true;
-            this.buttonCompanyAdd.Click += new System.EventHandler(this.buttonCompanyAdd_Click);
-            // 
-            // buttonCompanyRefresh
-            // 
-            this.buttonCompanyRefresh.Location = new System.Drawing.Point(693, 108);
-            this.buttonCompanyRefresh.Name = "buttonCompanyRefresh";
-            this.buttonCompanyRefresh.Size = new System.Drawing.Size(75, 23);
-            this.buttonCompanyRefresh.TabIndex = 1;
-            this.buttonCompanyRefresh.Text = "Обновить";
-            this.buttonCompanyRefresh.UseVisualStyleBackColor = true;
-            this.buttonCompanyRefresh.Click += new System.EventHandler(this.buttonCompanyRefresh_Click);
-            // 
-            // dataGridViewCompany
-            // 
-            this.dataGridViewCompany.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewCompany.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.id,
-            this.title,
-            this.telephone,
-            this.address});
-            this.dataGridViewCompany.Location = new System.Drawing.Point(3, 3);
-            this.dataGridViewCompany.MultiSelect = false;
-            this.dataGridViewCompany.Name = "dataGridViewCompany";
-            this.dataGridViewCompany.ReadOnly = true;
-            this.dataGridViewCompany.Size = new System.Drawing.Size(534, 247);
-            this.dataGridViewCompany.TabIndex = 0;
-            this.dataGridViewCompany.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataGridView_SelectAndShowMenu);
-            // 
-            // id
-            // 
-            this.id.HeaderText = "id";
-            this.id.Name = "id";
-            this.id.ReadOnly = true;
-            this.id.Width = 30;
-            // 
-            // title
-            // 
-            this.title.HeaderText = "Название";
-            this.title.Name = "title";
-            this.title.ReadOnly = true;
-            // 
-            // telephone
-            // 
-            this.telephone.HeaderText = "Телефон";
-            this.telephone.Name = "telephone";
-            this.telephone.ReadOnly = true;
-            // 
-            // address
-            // 
-            this.address.HeaderText = "Адрес";
-            this.address.Name = "address";
-            this.address.ReadOnly = true;
-            this.address.Width = 250;
             // 
             // tabPage2
             // 
@@ -847,8 +761,6 @@
             this.Text = "База данных [Директор]";
             this.Load += new System.EventHandler(this.FormAdmin_Load);
             this.tabControlMain.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCompany)).EndInit();
             this.tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewObject)).EndInit();
             this.tabPage3.ResumeLayout(false);
@@ -870,20 +782,12 @@
         #endregion
 
         private System.Windows.Forms.TabControl tabControlMain;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.DataGridView dataGridViewCompany;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.Button buttonCompanyRefresh;
         private System.Windows.Forms.Button buttonObjectRefresh;
         private System.Windows.Forms.DataGridView dataGridViewObject;
-        private System.Windows.Forms.Button buttonCompanyAdd;
         private System.Windows.Forms.Button buttonObjectAdd;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.DataGridView dataGridViewOwner;
-        private System.Windows.Forms.DataGridViewTextBoxColumn id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn title;
-        private System.Windows.Forms.DataGridViewTextBoxColumn telephone;
-        private System.Windows.Forms.DataGridViewTextBoxColumn address;
         private System.Windows.Forms.Button buttonOwnerRefresh;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;

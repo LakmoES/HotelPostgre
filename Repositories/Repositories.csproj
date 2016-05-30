@@ -85,6 +85,14 @@
     <Compile Include="Presenters\StaffPresenter.cs" />
     <Compile Include="Presenters\WishPresenter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Secure\Repositories\SecureRoleRepository.cs" />
+    <Compile Include="Secure\SecureConst.cs" />
+    <Compile Include="Secure\Repositories\SecureUserRepository.cs" />
+    <Compile Include="Secure\DBObjects\SecureDBRole.cs" />
+    <Compile Include="Secure\DBObjects\SecureDBUser.cs" />
+    <Compile Include="Secure\SecureCrypt.cs" />
+    <Compile Include="Secure\SecureProcessor.cs" />
+    <Compile Include="Secure\User.cs" />
     <Compile Include="TableRepository\PersonRepository.cs" />
     <Compile Include="TableRepository\CompanyRepository.cs" />
     <Compile Include="TableRepository\DealRepository.cs" />

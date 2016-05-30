@@ -16,16 +16,20 @@ namespace Enter
         [STAThread]
         static void Main()
         {
-            //IRepositoryFactory repositoryFactory = new RepositoryFactory();
-            NpgsqlConnection conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres;Password=root;Database=postgres;");
-            DBConnection.Instance.setConnection(conn);
-            DBConnection.Instance.openConnection();
+            //string enc = SecureCrypt.Encrypt("user", SecureConst.sha1Key);
+            //string dec = SecureCrypt.Decrypt(enc, SecureConst.sha1Key);
+            //Clipboard.SetText(enc);
+            //MessageBox.Show(enc + "\r\n" + dec);
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new FormLogin());
 
-            DBConnection.Instance.closeConnection();
+            try
+            {
+                DBConnection.Instance.closeConnection();
+            }
+            catch (Exception) { }
         }
     }
 }

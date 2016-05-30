@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Director;
 using Admin;
-using EditForms;
 using Repositories;
 using Npgsql;
 
@@ -17,21 +16,30 @@ namespace Enter
 {
     public partial class FormLogin : Form
     {
-        //IRepositoryFactory repositoryFactory;
-        public FormLogin(/*IRepositoryFactory repositoryFactory*/)
+        SecureProcessor secureProcessor;
+        public FormLogin()
         {
             InitializeComponent();
-            //this.repositoryFactory = repositoryFactory;
+            secureProcessor = new SecureProcessor();
         }
 
         private void buttonEnter_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            if (radioButtonAdmin.Checked)
-                new FormAdmin().ShowDialog();
-            else if (radioButtonDirector.Checked)
-                new FormDirector().ShowDialog();
-            this.Show();
+            string username = textBoxUsername.Text;
+            string password = textBoxPassword.Text;
+
+            if (secureProcessor.Login(username, password))
+            {
+
+                this.Hide();
+                switch (User.role)
+                {
+                    case 0: new FormAdmin().ShowDialog(); break;
+                    case 1: new FormDirector().ShowDialog(); break;
+                }
+                this.Show();
+            }
+            else MessageBox.Show("Произошла ошибка. Проверьте правильность ввода имени и пароля.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }

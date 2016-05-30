@@ -15,7 +15,6 @@ namespace Director
     public partial class FormDirector : Form
     {
         ObjectPresenter objectPresenter;
-        CompanyPresenter companyPresenter;
         PersonPresenter ownerPresenter;
         StaffPresenter staffPresenter;
         PersonPresenter clientPresenter;
@@ -42,9 +41,6 @@ namespace Director
             objectPresenter = new ObjectPresenter(this.dataGridViewObject);
             objectPresenter.ShowTable(true);
 
-            companyPresenter = new CompanyPresenter(this.dataGridViewCompany);
-            companyPresenter.ShowTable(true);
-
             ownerPresenter = new PersonPresenter(this.dataGridViewOwner, "Owner");
             ownerPresenter.ShowTable(true);
 
@@ -62,10 +58,6 @@ namespace Director
 
             wishPresenter = new WishPresenter(this.dataGridViewWish);
             wishPresenter.ShowTable(true);
-        }
-        private void buttonCompanyRefresh_Click(object sender, EventArgs e)
-        {
-            companyPresenter.ShowTable(true);
         }
         private void buttonObjectRefresh_Click(object sender, EventArgs e)
         {
@@ -116,10 +108,6 @@ namespace Director
         }
         private void dataGridView_Edit_Click(object sender, EventArgs e)
         {
-            if (selectedDGV == dataGridViewCompany)
-            {
-                new FormAddUpdateCompanyTable(selectedDGV, selectedDGV.SelectedRows[0].Index).ShowDialog();
-            }
             if (selectedDGV == dataGridViewObject)
             {
                 new FormAddUpdateObjectTable(selectedDGV, selectedDGV.CurrentRow.Index).ShowDialog();
@@ -156,11 +144,6 @@ namespace Director
             DialogResult dialogResult = MessageBox.Show("Вы действительно хотите удалить запись?", "Подтверждение", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
-                if (selectedDGV == dataGridViewCompany)
-                {
-                    if (CompanyController.checkDelete(id))
-                        companyPresenter.ShowTable(true);
-                }
                 if (selectedDGV == dataGridViewObject)
                 {
                     if (ObjectController.checkDelete(id))
@@ -197,11 +180,6 @@ namespace Director
                         wishPresenter.ShowTable(true);
                 }
             }
-        }
-
-        private void buttonCompanyAdd_Click(object sender, EventArgs e)
-        {
-            new FormAddUpdateCompanyTable(dataGridViewCompany).ShowDialog();
         }
         private void buttonObjectAdd_Click(object sender, EventArgs e)
         {

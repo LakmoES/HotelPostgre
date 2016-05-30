@@ -39,13 +39,13 @@ namespace Repositories
         {
             get
             {
-                if (conn == null)
-                    throw new NullReferenceException("conn is null");
                 return conn;
             }
         }
         public void closeConnection()
         {
+            if (conn == null)
+                throw new NullReferenceException("conn is null");
             conn.Close();
         }
     }
