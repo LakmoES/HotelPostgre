@@ -32,7 +32,8 @@ namespace Repositories
         }
         private bool Reconnect(string db_name, string db_password)
         {
-            Connect();
+            if (DBConnection.Instance.connection != null)
+                DBConnection.Instance.closeConnection();
 
             try
             {
