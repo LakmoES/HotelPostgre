@@ -24,34 +24,83 @@ namespace Repositories
         }
         public void ShowTable(bool sort = false)
         {
-            var companies = companyRepository.GetTable();
-            dgvElements = staffRepository.GetTable();
-            dgv.Rows.Clear();
-            foreach (DBStaff staff in dgvElements)
+            try
             {
-                string companyText = null;
-                foreach(DBCompany company in companies)
-                    if(staff.company == company.id)
-                    {
-                        companyText = String.Format("[{0}] {1}", company.id, company.title);
-                        break;
-                    }
-                dgv.Rows.Add(staff.id, staff.name, staff.surname, staff.telephone, companyText);
+                var companies = companyRepository.GetTable();
+                dgvElements = staffRepository.GetTable();
+                dgv.Rows.Clear();
+                foreach (DBStaff staff in dgvElements)
+                {
+                    string companyText = null;
+                    foreach (DBCompany company in companies)
+                        if (staff.company == company.id)
+                        {
+                            companyText = String.Format("[{0}] {1}", company.id, company.title);
+                            break;
+                        }
+                    dgv.Rows.Add(staff.id, staff.name, staff.surname, staff.telephone, companyText);
+                }
             }
+            catch (Exception) { MessageBox.Show("Ошибка базы данных.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+
             if (sort)
                 dgv.Sort(dgv.Columns[0], ListSortDirection.Ascending);
         }
-        public void AddToTable(DBStaff staff)
+        public bool AddToTable(DBStaff staff)
         {
-            staffRepository.AddToTable(staff);
+            List<string> errorList;
+            bool checkFlag = StaffValidator.checkAddition(staff, out errorList);
+            try
+            {
+                if (checkFlag)
+                    staffRepository.AddToTable(staff);
+            }
+            catch (Exception) { errorList.Add("Ошибка базы данных."); }
+
+            ShowErrors(errorList);
+
+            return checkFlag;
         }
-        public void UpdateTable(DBStaff staff)
+        public bool UpdateTable(DBStaff staff)
         {
-            staffRepository.UpdateTable(staff);
+            List<string> errorList;
+            bool checkFlag = StaffValidator.checkAddition(staff, out errorList);
+            try
+            {
+                if (checkFlag)
+                    staffRepository.UpdateTable(staff);
+            }
+            catch (Exception) { errorList.Add("Ошибка базы данных."); }
+
+            ShowErrors(errorList);
+
+            return checkFlag;
         }
-        public void DeleteFromTable(int id)
+        public bool DeleteFromTable(int id)
         {
-            staffRepository.DeleteFromTable(id);
+            List<string> errorList;
+            bool checkFlag = StaffValidator.checkDelete(id, out errorList);
+            try
+            {
+                if (checkFlag)
+                    staffRepository.DeleteFromTable(id);
+            }
+            catch (Exception) { errorList.Add("Ошибка базы данных."); }
+
+            ShowErrors(errorList);
+
+            return checkFlag;
+        }
+
+        private void ShowErrors(List<string> errorList)
+        {
+            if (errorList.Count == 0)
+                return;
+
+            string errors = "";
+            foreach (string s in errorList)
+                errors += s + System.Environment.NewLine;
+            MessageBox.Show(errors, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }

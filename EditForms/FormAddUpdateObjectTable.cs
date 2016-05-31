@@ -96,7 +96,10 @@ namespace EditForms
             try
             {
                 if (AddUpdateObject())
+                {
+                    objectPresenter.ShowTable(true);
                     this.Close();
+                }
                 else
                     MessageBox.Show("Проверьте правильность заполнения полей", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
@@ -118,23 +121,20 @@ namespace EditForms
 
             
             Match match = regex.Match(this.comboBoxOwner.Text);
-            int ownerID = Convert.ToInt32(match.Value.Substring(1, match.Value.Length - 2));
+            int ownerID = 0;
+
+            if(match.Success)
+                ownerID = Convert.ToInt32(match.Value.Substring(1, match.Value.Length - 2));
             obj.owner = ownerID;
 
             obj.appartamentOrHouse = this.comboBoxType.Text;
             obj.area = Convert.ToInt32(this.numericUpDownArea.Value);
             obj.numberOfRooms = Convert.ToInt32(this.numericUpDownRooms.Value);
 
-            if (ObjectController.checkAddition(obj))
-            {
-                if (!adding)
-                    objectPresenter.UpdateTable(obj);
-                else
-                    objectPresenter.AddToTable(obj);
-                objectPresenter.ShowTable(true);
-                return true;
-            }
-            return false;
+            if (!adding)
+                return (objectPresenter.UpdateTable(obj));
+            else
+                return (objectPresenter.AddToTable(obj));
         }
     }
 }

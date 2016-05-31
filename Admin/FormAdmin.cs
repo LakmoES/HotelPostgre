@@ -153,65 +153,50 @@ namespace Admin
         {
             var cell = selectedDGV[0, selectedDGV.CurrentRow.Index];
             int id = Convert.ToInt32(cell.Value);
-            DialogResult dialogResult = MessageBox.Show("Вы действительно хотите удалить запись?", "Подтверждение", MessageBoxButtons.YesNo);
+            DialogResult dialogResult = MessageBox.Show("Вы действительно хотите удалить запись?", "Подтверждение", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dialogResult == DialogResult.Yes)
             {
+                bool succeedFlag = false;
                 if (selectedDGV == dataGridViewObject)
                 {
-                    if (ObjectController.checkDelete(id))
-                    {
-                        objectPresenter.DeleteFromTable(id);
-                        objectPresenter.ShowTable(true);
-                    }
+                    succeedFlag = objectPresenter.DeleteFromTable(id);
+                    if (succeedFlag) objectPresenter.ShowTable(true);
                 }
                 if (selectedDGV == dataGridViewOwner)
                 {
-                    if (PersonController.checkDelete(id))
-                    {
-                        ownerPresenter.DeleteFromTable(id);
-                        ownerPresenter.ShowTable(true);
-                    }
+                    succeedFlag = ownerPresenter.DeleteFromTable(id);
+                    if (succeedFlag) ownerPresenter.ShowTable(true);
                 }
                 if (selectedDGV == dataGridViewStaff)
                 {
-                    if (StaffController.checkDelete(id))
-                    {
-                        staffPresenter.DeleteFromTable(id);
-                        staffPresenter.ShowTable(true);
-                    }
+                    succeedFlag = staffPresenter.DeleteFromTable(id);
+                    if (succeedFlag) staffPresenter.ShowTable(true);
                 }
                 if (selectedDGV == dataGridViewClient)
                 {
-                    if (PersonController.checkDelete(id))
-                    {
-                        clientPresenter.DeleteFromTable(id);
-                        clientPresenter.ShowTable(true);
-                    }
+                    succeedFlag = clientPresenter.DeleteFromTable(id);
+                    if (succeedFlag) clientPresenter.ShowTable(true);
                 }
                 if (selectedDGV == dataGridViewDeal)
                 {
-                    if (DealController.checkDelete(id))
-                    {
-                        dealPresenter.DeleteFromTable(id);
-                        dealPresenter.ShowTable(true);
-                    }
+                    succeedFlag = dealPresenter.DeleteFromTable(id);
+                    if (succeedFlag) dealPresenter.ShowTable(true);
                 }
                 if (selectedDGV == dataGridViewShow)
                 {
-                    if (ShowController.checkDelete(id))
-                    {
-                        showPresenter.DeleteFromTable(id);
-                        showPresenter.ShowTable(true);
-                    }
+                    succeedFlag = showPresenter.DeleteFromTable(id);
+                    if (succeedFlag) showPresenter.ShowTable(true);
                 }
                 if (selectedDGV == dataGridViewWish)
                 {
-                    if (WishController.checkDelete(id))
-                    {
-                        wishPresenter.DeleteFromTable(id);
-                        wishPresenter.ShowTable(true);
-                    }
+                    succeedFlag = wishPresenter.DeleteFromTable(id);
+                    if (succeedFlag) wishPresenter.ShowTable(true);
                 }
+
+                if (succeedFlag)
+                    MessageBox.Show("Успешно удалено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                else
+                    MessageBox.Show("Удалить не удалось", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 

@@ -50,9 +50,12 @@ namespace EditForms
             try
             {
                 if (AddUpdateCompany())
+                {
+                    companyPresenter.ShowTable(true);
                     this.Close();
+                }
                 else
-                    MessageBox.Show("Проверьте правильность заполнения полей", "Внимание" , MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Операция не удалась.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             catch (PostgresException pEx)
             {
@@ -69,16 +72,10 @@ namespace EditForms
             company.telephone = this.textBoxTelephone.Text.Trim(' ');
             company.address = this.textBoxAddress.Text.Trim(' ');
 
-            if (CompanyController.checkAddition(company))
-            {
-                if (!adding)
-                    companyPresenter.UpdateTable(company);
-                else
-                    companyPresenter.AddToTable(company);
-                companyPresenter.ShowTable(true);
-                return true;
-            }
-            return false;
+            if (!adding)
+                return (companyPresenter.UpdateTable(company));
+            else
+                return (companyPresenter.AddToTable(company));
         }
     }
 }

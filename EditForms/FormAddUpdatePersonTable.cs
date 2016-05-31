@@ -131,7 +131,13 @@ namespace EditForms
             try
             {
                 if (AddUpdatePerson())
+                {
+                    if (tableName == "Staff")
+                        staffPresenter.ShowTable(true);
+                    else
+                        personPresenter.ShowTable(true);
                     this.Close();
+                }
                 else
                     MessageBox.Show("Проверьте правильность заполнения полей", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
@@ -152,33 +158,23 @@ namespace EditForms
             if (tableName == "Staff")
             {
                 Match match = regex.Match(this.comboBoxCompany.Text);
-                int companyID = Convert.ToInt32(match.Value.Substring(1, match.Value.Length - 2));
+                int companyID = -1;
+                if (match.Success)
+                    companyID = Convert.ToInt32(match.Value.Substring(1, match.Value.Length - 2));
 
                 (person as DBStaff).company = companyID;
-
-                if (StaffController.checkAddition(person as DBStaff))
-                {
-                    if (!adding)
-                        staffPresenter.UpdateTable(person as DBStaff);
-                    else
-                        staffPresenter.AddToTable(person as DBStaff);
-                    staffPresenter.ShowTable(true);
-                    return true;
-                }
+                if (!adding)
+                    return (staffPresenter.UpdateTable(person as DBStaff));
+                else
+                    return (staffPresenter.AddToTable(person as DBStaff));
             }
             else
             {
-                if (PersonController.checkAddition(person))
-                {
-                    if (!adding)
-                        personPresenter.UpdateTable(person);
-                    else
-                        personPresenter.AddToTable(person);
-                    personPresenter.ShowTable(true);
-                    return true;
-                }
+                if (!adding)
+                    return (personPresenter.UpdateTable(person));
+                else
+                    return (personPresenter.AddToTable(person));
             }
-            return false;
         }
     }
 }

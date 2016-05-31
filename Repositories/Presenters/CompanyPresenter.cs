@@ -22,24 +22,71 @@ namespace Repositories
         }
         public void ShowTable(bool sort = false)
         {
+            try
+            { 
             dgvElements = companyRepository.GetTable();
+            }
+            catch (Exception) { MessageBox.Show("Ошибка базы данных.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
             dgv.Rows.Clear();
             foreach (DBCompany company in dgvElements)
                 dgv.Rows.Add(company.id, company.title, company.telephone, company.address);
             if (sort)
                 dgv.Sort(dgv.Columns[0], ListSortDirection.Ascending);
         }
-        public void AddToTable(DBCompany company)
+        public bool AddToTable(DBCompany company)
         {
-            companyRepository.AddToTable(company);
+            List<string> errorList;
+            bool checkFlag = CompanyValidator.checkAddition(company, out errorList);
+            try
+            {
+                if (checkFlag)
+                    companyRepository.AddToTable(company);
+            }
+            catch (Exception) { errorList.Add("Ошибка базы данных."); }
+
+            ShowErrors(errorList);
+
+            return checkFlag;
         }
-        public void UpdateTable(DBCompany company)
+        public bool UpdateTable(DBCompany company)
         {
-            companyRepository.UpdateTable(company);
+            List<string> errorList;
+            bool checkFlag = CompanyValidator.checkAddition(company, out errorList);
+            try
+            {
+                if (checkFlag)
+                    companyRepository.UpdateTable(company);
+            }
+            catch (Exception) { errorList.Add("Ошибка базы данных."); }
+
+            ShowErrors(errorList);
+
+            return checkFlag;
         }
-        public void DeleteFromTable(int id)
+        public bool DeleteFromTable(int id)
         {
-            companyRepository.DeleteFromTable(id);
+            List<string> errorList;
+            bool checkFlag = CompanyValidator.checkDelete(id, out errorList);
+            try
+            {
+                if (checkFlag)
+                    companyRepository.DeleteFromTable(id);
+            }
+            catch(Exception) { errorList.Add("Ошибка базы данных."); }
+
+            ShowErrors(errorList);
+
+            return checkFlag;
+        }
+        private void ShowErrors(List<string> errorList)
+        {
+            if (errorList.Count == 0)
+                return;
+
+            string errors = "";
+            foreach (string s in errorList)
+                errors += s + System.Environment.NewLine;
+            MessageBox.Show(errors, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }

@@ -31,7 +31,7 @@ namespace Repositories
         public void openConnection()
         {
             if (conn == null)
-                throw new NullReferenceException("conn is null");
+                throw new NullReferenceException("connection is null");
             conn.Open();
         }
 
@@ -45,7 +45,7 @@ namespace Repositories
         public void closeConnection()
         {
             if (conn == null)
-                throw new NullReferenceException("conn is null");
+                throw new NullReferenceException("connection is null");
             conn.Close();
         }
     }

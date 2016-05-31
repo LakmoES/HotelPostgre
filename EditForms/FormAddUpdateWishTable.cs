@@ -109,9 +109,12 @@ namespace EditForms
         private void buttonOK_Click(object sender, EventArgs e)
         {
             try
-            { 
-            if (AddUpdateWish())
-                this.Close();
+            {
+                if (AddUpdateWish())
+                {
+                    wishPresenter.ShowTable(true);
+                    this.Close();
+                }
                 else
                     MessageBox.Show("Проверьте правильность заполнения полей", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
@@ -131,22 +134,17 @@ namespace EditForms
                 //int id, int client, string township, string apartamentOrHouse, int area, int numberOfRooms, int cost
                 Match matchClient = regex.Match(this.comboBoxClient.Text);
 
-                wish.client = Convert.ToInt32(matchClient.Value.Substring(1, matchClient.Value.Length - 2));
+                wish.client = matchClient.Success ? Convert.ToInt32(matchClient.Value.Substring(1, matchClient.Value.Length - 2)) : -1;
                 wish.township = ConvertToStringOrNull(this.textBoxTownship.Text);
                 wish.apartamentOrHouse = ConvertToStringOrNull(this.comboBoxApartamentOrHouse.Text);
                 wish.area = ConvertToIntOrNull(numericUpDownArea.Value);
                 wish.numberOfRooms = ConvertToIntOrNull(numericUpDownNumberOfRooms.Value);
                 wish.cost = ConvertToIntOrNull(numericUpDownCost.Value);
 
-                if (WishController.checkAddition(wish))
-                {
-                    if (!adding)
-                        wishPresenter.UpdateTable(wish);
-                    else
-                        wishPresenter.AddToTable(wish);
-                    wishPresenter.ShowTable(true);
-                    return true;
-                }
+                if (!adding)
+                    return (wishPresenter.UpdateTable(wish));
+                else
+                    return (wishPresenter.AddToTable(wish));
             }
             catch (PostgresException pEx)
             {

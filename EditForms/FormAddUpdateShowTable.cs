@@ -146,9 +146,12 @@ namespace EditForms
         private void buttonOK_Click(object sender, EventArgs e)
         {
             try
-            { 
-            if (AddUpdateShow())
-                this.Close();
+            {
+                if (AddUpdateShow())
+                {
+                    showPresenter.ShowTable(true);
+                    this.Close();
+                }
                 else
                     MessageBox.Show("Проверьте правильность заполнения полей", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
@@ -168,22 +171,16 @@ namespace EditForms
             Match matchClient = regex.Match(this.comboBoxClient.Text);
             Match matchObject = regex.Match(this.comboBoxObject.Text);
 
-            show.dealer = Convert.ToInt32(matchDealer.Value.Substring(1, matchDealer.Value.Length - 2));
-            show.client = Convert.ToInt32(matchClient.Value.Substring(1, matchClient.Value.Length - 2));
-            show.obj = Convert.ToInt32(matchObject.Value.Substring(1, matchObject.Value.Length - 2));
+            show.dealer = matchDealer.Success ? Convert.ToInt32(matchDealer.Value.Substring(1, matchDealer.Value.Length - 2)) : -1;
+            show.client = matchClient.Success ? Convert.ToInt32(matchClient.Value.Substring(1, matchClient.Value.Length - 2)) : -1;
+            show.obj = matchObject.Success ? Convert.ToInt32(matchObject.Value.Substring(1, matchObject.Value.Length - 2)) : -1;
             
             show.date = this.dateTimePickerDate.Value;
 
-            if (ShowController.checkAddition(show))
-            {
-                if (!adding)
-                    showPresenter.UpdateTable(show);
-                else
-                    showPresenter.AddToTable(show);
-                showPresenter.ShowTable(true);
-                return true;
-            }
-            return false;
+            if (!adding)
+                return (showPresenter.UpdateTable(show));
+            else
+                return (showPresenter.AddToTable(show));
         }
     }
 }

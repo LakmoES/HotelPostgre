@@ -148,9 +148,12 @@ namespace EditForms
         private void buttonOK_Click(object sender, EventArgs e)
         {
             try
-            { 
-            if (AddUpdateDeal())
-                this.Close();
+            {
+                if (AddUpdateDeal())
+                {
+                    dealPresenter.ShowTable(true);
+                    this.Close();
+                }
                 else
                     MessageBox.Show("Проверьте правильность заполнения полей", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
@@ -170,23 +173,23 @@ namespace EditForms
             Match matchClient = regex.Match(this.comboBoxBuyer.Text);
             Match matchObject = regex.Match(this.comboBoxObject.Text);
 
-            deal.dealer = Convert.ToInt32(matchDealer.Value.Substring(1, matchDealer.Value.Length - 2));
-            deal.buyer = Convert.ToInt32(matchClient.Value.Substring(1, matchClient.Value.Length - 2));
-            deal.obj = Convert.ToInt32(matchObject.Value.Substring(1, matchObject.Value.Length - 2));
+            deal.dealer = -1;
+            if (matchDealer.Success)
+                deal.dealer = Convert.ToInt32(matchDealer.Value.Substring(1, matchDealer.Value.Length - 2));
+            deal.buyer = -1;
+            if (matchClient.Success)
+                deal.buyer = Convert.ToInt32(matchClient.Value.Substring(1, matchClient.Value.Length - 2));
+            deal.obj = -1;
+            if (matchObject.Success)
+                deal.obj = Convert.ToInt32(matchObject.Value.Substring(1, matchObject.Value.Length - 2));
 
             deal.cost = Convert.ToInt32(this.numericUpDownCost.Value);
             deal.date = this.dateTimePickerDate.Value;
 
-            if (DealController.checkAddition(deal))
-            {
-                if (!adding)
-                    dealPresenter.UpdateTable(deal);
-                else
-                    dealPresenter.AddToTable(deal);
-                dealPresenter.ShowTable(true);
-                return true;
-            }
-            return false;
+            if (!adding)
+                return (dealPresenter.UpdateTable(deal));
+            else
+                return (dealPresenter.AddToTable(deal));
         }
 
         private void comboBoxObject_TextChanged(object sender, EventArgs e)

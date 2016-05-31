@@ -22,24 +22,73 @@ namespace Repositories
         }
         public void ShowTable(bool sort = false)
         {
-            dgvElements = personRepository.GetTable();
+            try
+            {
+                dgvElements = personRepository.GetTable();
+            }
+            catch (Exception) { MessageBox.Show("Ошибка базы данных.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+
             dgv.Rows.Clear();
             foreach (DBPerson person in dgvElements)
                 dgv.Rows.Add(person.id, person.name, person.surname, person.telephone);
             if (sort)
                 dgv.Sort(dgv.Columns[0], ListSortDirection.Ascending);
         }
-        public void AddToTable(DBPerson person)
+        public bool AddToTable(DBPerson person)
         {
-            personRepository.AddToTable(person);
+            List<string> errorList;
+            bool checkFlag = PersonValidator.checkAddition(person, out errorList);
+            try
+            {
+                if (checkFlag)
+                    personRepository.AddToTable(person);
+            }
+            catch (Exception) { errorList.Add("Ошибка базы данных."); }
+
+            ShowErrors(errorList);
+
+            return checkFlag;
         }
-        public void UpdateTable(DBPerson person)
+        public bool UpdateTable(DBPerson person)
         {
-            personRepository.UpdateTable(person);
+            List<string> errorList;
+            bool checkFlag = PersonValidator.checkAddition(person, out errorList);
+            try
+            {
+                if (checkFlag)
+                    personRepository.UpdateTable(person);
+            }
+            catch (Exception) { errorList.Add("Ошибка базы данных."); }
+
+            ShowErrors(errorList);
+
+            return checkFlag;
         }
-        public void DeleteFromTable(int id)
+        public bool DeleteFromTable(int id)
         {
-            personRepository.DeleteFromTable(id);
+            List<string> errorList;
+            bool checkFlag = PersonValidator.checkDelete(id, out errorList);
+            try
+            {
+                if (checkFlag)
+                    personRepository.DeleteFromTable(id);
+            }
+            catch (Exception) { errorList.Add("Ошибка базы данных."); }
+
+            ShowErrors(errorList);
+
+            return checkFlag;
+        }
+
+        private void ShowErrors(List<string> errorList)
+        {
+            if (errorList.Count == 0)
+                return;
+
+            string errors = "";
+            foreach (string s in errorList)
+                errors += s + System.Environment.NewLine;
+            MessageBox.Show(errors, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }

@@ -64,41 +64,91 @@ namespace Repositories
         }
         public void ShowTable(bool sort = false)
         {
-            var staffs = GetStaffs();
-            var clients = GetClients();
-            var objects = GetObjects(); 
-
-            dgvElements = dealRepository.GetTable();
-            dgv.Rows.Clear();
-            foreach (DBDeal deal in dgvElements)
+            try
             {
-                DBStaff dealer = null;
-                DBPerson buyer = null;
-                DBObject obj = null;
-                staffs.TryGetValue(deal.dealer, out dealer);
-                clients.TryGetValue(deal.buyer, out buyer);
-                objects.TryGetValue(deal.obj, out obj);
+                var staffs = GetStaffs();
+                var clients = GetClients();
+                var objects = GetObjects();
 
-                dgv.Rows.Add(deal.id, String.Format("[{0}] {1} {2}", dealer.id, dealer.surname, dealer.name),
-                    String.Format("[{0}] {1} {2}", buyer.id, buyer.surname, buyer.name),
-                    String.Format("[{0}] {1}", obj.id, obj.address),
-                    deal.cost.ToString(),
-                    deal.date.ToString("dd/MM/yyyy"));
+                dgvElements = dealRepository.GetTable();
+
+                dgv.Rows.Clear();
+                foreach (DBDeal deal in dgvElements)
+                {
+                    DBStaff dealer = null;
+                    DBPerson buyer = null;
+                    DBObject obj = null;
+                    staffs.TryGetValue(deal.dealer, out dealer);
+                    clients.TryGetValue(deal.buyer, out buyer);
+                    objects.TryGetValue(deal.obj, out obj);
+
+                    dgv.Rows.Add(deal.id, String.Format("[{0}] {1} {2}", dealer.id, dealer.surname, dealer.name),
+                        String.Format("[{0}] {1} {2}", buyer.id, buyer.surname, buyer.name),
+                        String.Format("[{0}] {1}", obj.id, obj.address),
+                        deal.cost.ToString(),
+                        deal.date.ToString("dd/MM/yyyy"));
+                }
             }
+            catch (Exception) { MessageBox.Show("Ошибка базы данных.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            
             if (sort)
                 dgv.Sort(dgv.Columns[0], ListSortDirection.Ascending);
         }
-        public void AddToTable(DBDeal deal)
+        public bool AddToTable(DBDeal deal)
         {
-            dealRepository.AddToTable(deal);
+            List<string> errorList;
+            bool checkFlag = DealValidator.checkAddition(deal, out errorList);
+            try
+            {
+                if (checkFlag)
+                    dealRepository.AddToTable(deal);
+            }
+            catch (Exception) { errorList.Add("Ошибка базы данных."); }
+
+            ShowErrors(errorList);
+
+            return checkFlag;
         }
-        public void UpdateTable(DBDeal deal)
+        public bool UpdateTable(DBDeal deal)
         {
-            dealRepository.UpdateTable(deal);
+            List<string> errorList;
+            bool checkFlag = DealValidator.checkAddition(deal, out errorList);
+            try
+            {
+                if (checkFlag)
+                    dealRepository.UpdateTable(deal);
+            }
+            catch(Exception) { errorList.Add("Ошибка базы данных."); }
+
+            ShowErrors(errorList);
+
+            return checkFlag;
         }
-        public void DeleteFromTable(int id)
+        public bool DeleteFromTable(int id)
         {
-            dealRepository.DeleteFromTable(id);
+            List<string> errorList;
+            bool checkFlag = DealValidator.checkDelete(id, out errorList);
+            try
+            { 
+            if (checkFlag)
+                dealRepository.DeleteFromTable(id);
+            }
+            catch (Exception) { errorList.Add("Ошибка базы данных."); }
+
+            ShowErrors(errorList);
+
+            return checkFlag;
+        }
+
+        private void ShowErrors(List<string> errorList)
+        {
+            if (errorList.Count == 0)
+                return;
+
+            string errors = "";
+            foreach (string s in errorList)
+                errors += s + System.Environment.NewLine;
+            MessageBox.Show(errors, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }

@@ -144,42 +144,46 @@ namespace Director
             DialogResult dialogResult = MessageBox.Show("Вы действительно хотите удалить запись?", "Подтверждение", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
-                if (selectedDGV == dataGridViewObject)
-                {
-                    MessageBox.Show("У вас нет прав на удаление в этой таблице", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-                if (selectedDGV == dataGridViewOwner)
-                {
-                    MessageBox.Show("У вас нет прав на удаление в этой таблице", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
+                bool succeedFlag = false;
+
+                //if (selectedDGV == dataGridViewObject)
+                //{
+                //    MessageBox.Show("У вас нет прав на удаление в этой таблице", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                //}
+                //if (selectedDGV == dataGridViewOwner)
+                //{
+                //    MessageBox.Show("У вас нет прав на удаление в этой таблице", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                //}
                 if (selectedDGV == dataGridViewStaff)
                 {
-                    if (StaffController.checkDelete(id) && RepositoryFactory.GetStaffRepository().GetConcreteRecord(id).company == User.subrole)
+                    if (RepositoryFactory.GetStaffRepository().GetConcreteRecord(id).company == User.subrole)
                     {
-                        staffPresenter.DeleteFromTable(id);
-                        staffPresenter.ShowTable(true);
+                        succeedFlag = staffPresenter.DeleteFromTable(id);
+                        if (succeedFlag) staffPresenter.ShowTable(true);
                     }
                 }
-                if (selectedDGV == dataGridViewClient)
-                {
-                    MessageBox.Show("У вас нет прав на удаление в этой таблице", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-                if (selectedDGV == dataGridViewDeal)
-                {
-                    MessageBox.Show("У вас нет прав на удаление в этой таблице", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-                if (selectedDGV == dataGridViewShow)
-                {
-                    MessageBox.Show("У вас нет прав на удаление в этой таблице", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
+                //if (selectedDGV == dataGridViewClient)
+                //{
+                //    MessageBox.Show("У вас нет прав на удаление в этой таблице", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                //}
+                //if (selectedDGV == dataGridViewDeal)
+                //{
+                //    MessageBox.Show("У вас нет прав на удаление в этой таблице", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                //}
+                //if (selectedDGV == dataGridViewShow)
+                //{
+                //    MessageBox.Show("У вас нет прав на удаление в этой таблице", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                //}
                 if (selectedDGV == dataGridViewWish)
                 {
-                    if (WishController.checkDelete(id))
-                    {
-                        wishPresenter.DeleteFromTable(id);
-                        wishPresenter.ShowTable(true);
-                    }
+                    succeedFlag = wishPresenter.DeleteFromTable(id);
+                    if (succeedFlag) wishPresenter.ShowTable(true);
                 }
+
+                if (succeedFlag)
+                    MessageBox.Show("Успешно удалено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                else
+                    MessageBox.Show("Удалить не удалось", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
         private void buttonObjectAdd_Click(object sender, EventArgs e)
