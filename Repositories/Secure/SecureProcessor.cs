@@ -10,7 +10,7 @@ namespace Repositories
 {
     public static class SecureProcessor
     {
-        public static bool Login(string name, string password)
+        public static bool Login(string name, string password, string database = "postgres")
         {
             Connect();
 
@@ -23,18 +23,18 @@ namespace Repositories
             string db_name = role.name;
             string db_password = SecureCrypt.Decrypt(role.password, SecureConst.sha1Key);
 
-            User.Set(user.name, user.db_role, user.subrole);
+            User.Set(user.name, password, user.db_role, user.subrole);
 
-            return Reconnect(db_name, db_password);
+            return Reconnect(db_name, db_password, database);
         }
-        private static bool Reconnect(string db_name, string db_password)
+        private static bool Reconnect(string db_name, string db_password, string database)
         {
             if (DBConnection.Instance.connection != null)
                 DBConnection.Instance.closeConnection();
 
             try
             {
-                NpgsqlConnection conn = new NpgsqlConnection("Server=127.0.0.1;User Id=" + db_name + ";Password=" + db_password + ";Database=postgres;");
+                NpgsqlConnection conn = new NpgsqlConnection("Server=127.0.0.1;User Id=" + db_name + ";Password=" + db_password + ";Database="+database+";");
                 DBConnection.Instance.setConnection(conn);
                 DBConnection.Instance.openConnection();
                 return true;

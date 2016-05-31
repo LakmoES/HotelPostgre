@@ -159,7 +159,7 @@ namespace EditForms
             {
                 MessageBox.Show("Произошла ошибка при выполнении запроса к базе данных.\r\n" + pEx.Message, "Ошибка БД", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 MessageBox.Show("Произошла ошибка. Проверьте поля.\r\n", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }

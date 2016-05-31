@@ -54,6 +54,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Connection\DBConnection.cs" />
+    <Compile Include="Secure\Presenters\SecureUserPresenter.cs" />
+    <Compile Include="Secure\Validators\SecureUserValidator.cs" />
     <Compile Include="Validators\CompanyValidator.cs" />
     <Compile Include="Validators\DealValidator.cs" />
     <Compile Include="Validators\ObjectValidator.cs" />

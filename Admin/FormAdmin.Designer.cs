@@ -104,6 +104,7 @@
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.buttonUserMenu = new System.Windows.Forms.Button();
             this.tabControlMain.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCompany)).BeginInit();
@@ -835,11 +836,22 @@
             this.Column6.ReadOnly = true;
             this.Column6.Width = 60;
             // 
+            // buttonUserMenu
+            // 
+            this.buttonUserMenu.Location = new System.Drawing.Point(2, 305);
+            this.buttonUserMenu.Name = "buttonUserMenu";
+            this.buttonUserMenu.Size = new System.Drawing.Size(75, 23);
+            this.buttonUserMenu.TabIndex = 1;
+            this.buttonUserMenu.Text = "User";
+            this.buttonUserMenu.UseVisualStyleBackColor = true;
+            this.buttonUserMenu.Click += new System.EventHandler(this.buttonUserMenu_Click);
+            // 
             // FormAdmin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(806, 330);
+            this.Controls.Add(this.buttonUserMenu);
             this.Controls.Add(this.tabControlMain);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -945,6 +957,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
+        private System.Windows.Forms.Button buttonUserMenu;
     }
 }
 

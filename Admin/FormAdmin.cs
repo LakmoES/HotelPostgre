@@ -232,5 +232,10 @@ namespace Admin
         {
             new FormAddUpdateWishTable(dataGridViewWish).ShowDialog();
         }
+
+        private void buttonUserMenu_Click(object sender, EventArgs e)
+        {
+            new FormAdminLogin().ShowDialog();
+        }
     }
 }
