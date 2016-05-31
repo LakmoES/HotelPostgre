@@ -18,10 +18,10 @@ namespace EditForms
         Regex regex;
         DBShow show;
         bool adding;
-        StaffRepository staffRepository;
-        PersonRepository clientRepository;
-        ObjectRepository objectRepository;
-        ShowRepository showRepository;
+        IStaffRepository staffRepository;
+        IPersonRepository clientRepository;
+        IObjectRepository objectRepository;
+        IShowRepository showRepository;
         ShowPresenter showPresenter;
         public FormAddUpdateShowTable(DataGridView dgv, int index) //редактирование
         {
@@ -60,10 +60,10 @@ namespace EditForms
         }
         private void Init(DataGridView dgv)
         {
-            staffRepository = new StaffRepository();
-            clientRepository = new PersonRepository("Client");
-            objectRepository = new ObjectRepository();
-            showRepository = new ShowRepository();
+            staffRepository = RepositoryFactory.GetStaffRepository();//new StaffRepository();
+            clientRepository = RepositoryFactory.GetClientRepository();//new PersonRepository("Client");
+            objectRepository = RepositoryFactory.GetObjectRepository();//new ObjectRepository();
+            showRepository = RepositoryFactory.GetShowRepository();//new ShowRepository();
 
             showPresenter = new ShowPresenter(dgv);
 

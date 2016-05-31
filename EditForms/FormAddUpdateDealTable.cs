@@ -18,10 +18,10 @@ namespace EditForms
         Regex regex;
         DBDeal deal;
         bool adding;
-        StaffRepository staffRepository;
-        PersonRepository clientRepository;
-        ObjectRepository objectRepository;
-        DealRepository dealRepository;
+        IStaffRepository staffRepository;
+        IPersonRepository clientRepository;
+        IObjectRepository objectRepository;
+        IDealRepository dealRepository;
         DealPresenter dealPresenter;
         public FormAddUpdateDealTable(DataGridView dgv, int index) //редактирование
         {
@@ -61,10 +61,10 @@ namespace EditForms
         }
         private void Init(DataGridView dgv)
         {
-            staffRepository = new StaffRepository();
-            clientRepository = new PersonRepository("Client");
-            objectRepository = new ObjectRepository();
-            dealRepository = new DealRepository();
+            staffRepository = RepositoryFactory.GetStaffRepository();//new StaffRepository();
+            clientRepository = RepositoryFactory.GetClientRepository();//new PersonRepository("Client");
+            objectRepository = RepositoryFactory.GetObjectRepository();//new ObjectRepository();
+            dealRepository = RepositoryFactory.GetDealRepository();//new DealRepository();
 
             dealPresenter = new DealPresenter(dgv);
 

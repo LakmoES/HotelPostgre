@@ -18,8 +18,8 @@ namespace EditForms
         Regex regex;
         DBWish wish;
         bool adding;
-        PersonRepository clientRepository;
-        WishRepository wishRepository;
+        IPersonRepository clientRepository;
+        IWishRepository wishRepository;
         WishPresenter wishPresenter;
         public FormAddUpdateWishTable(DataGridView dgv, int index) //редактирование
         {
@@ -54,8 +54,8 @@ namespace EditForms
         }
         private void Init(DataGridView dgv)
         {
-            clientRepository = new PersonRepository("Client");
-            wishRepository = new WishRepository();
+            clientRepository = RepositoryFactory.GetClientRepository();//new PersonRepository("Client");
+            wishRepository = RepositoryFactory.GetWishRepository();//new WishRepository();
 
             wishPresenter = new WishPresenter(dgv);
 

@@ -18,7 +18,7 @@ namespace EditForms
         Dictionary<string, string> role;
         PersonPresenter personPresenter;
         StaffPresenter staffPresenter;
-        CompanyRepository companyRepository;
+        ICompanyRepository companyRepository;
         DBPerson person;
         bool adding;
         string tableName;
@@ -74,7 +74,7 @@ namespace EditForms
             regex = new Regex("\\[[0-9]+\\]");
             personPresenter = new PersonPresenter(dgv, tableName);
             staffPresenter = new StaffPresenter(dgv);
-            companyRepository = new CompanyRepository();
+            companyRepository = RepositoryFactory.GetCompanyRepository();//new CompanyRepository();
 
             role = new Dictionary<string, string>();
             role.Add("Staff", "Работник");

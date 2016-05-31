@@ -16,7 +16,7 @@ namespace EditForms
     public partial class FormAddUpdateObjectTable : Form
     {
         ObjectPresenter objectPresenter;
-        PersonRepository ownerRepository;
+        IPersonRepository ownerRepository;
         DBObject obj;
         Regex regex; // [id]
         bool adding;
@@ -30,7 +30,7 @@ namespace EditForms
             numericUpDownArea.Maximum = Int32.MaxValue;
 
             objectPresenter = new ObjectPresenter(dgv);
-            ownerRepository = new PersonRepository("Owner");
+            ownerRepository = RepositoryFactory.GetOwnerRepository();//new PersonRepository("Owner");
 
             FillTheFields();
             this.textBoxAddress.ReadOnly = true;
@@ -69,7 +69,7 @@ namespace EditForms
             numericUpDownCost.Maximum = Int32.MaxValue;
 
             objectPresenter = new ObjectPresenter(dgv);
-            ownerRepository = new PersonRepository("Owner");
+            ownerRepository = RepositoryFactory.GetOwnerRepository();//new PersonRepository("Owner");
 
             FillTheFields();
             obj = new DBObject(-1, null, new DateTime(), -1, -1, null, -1, -1);
