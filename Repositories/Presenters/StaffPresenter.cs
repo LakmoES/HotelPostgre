@@ -12,27 +12,27 @@ namespace Repositories
     {
         DataGridView dgv;
         StaffRepository staffRepository;
-        List<DBStaff> dgvElements;
+        List<Staff> dgvElements;
         ICompanyRepository companyRepository;
 
         public StaffPresenter(DataGridView dgv)
         {
-            dgvElements = new List<DBStaff>();
+            dgvElements = new List<Staff>();
             this.dgv = dgv;
             staffRepository = new StaffRepository();
             companyRepository = RepositoryFactory.GetCompanyRepository();//new CompanyRepository();
         }
-        public Dictionary<int, DBStaff> ShowTable(bool sort = false)
+        public Dictionary<int, Staff> ShowTable(bool sort = false)
         {
             try
             {
                 var companies = companyRepository.GetTable();
                 dgvElements = staffRepository.GetTable();
                 dgv.Rows.Clear();
-                foreach (DBStaff staff in dgvElements)
+                foreach (Staff staff in dgvElements)
                 {
                     string companyText = null;
-                    foreach (DBCompany company in companies)
+                    foreach (Company company in companies)
                         if (staff.company == company.id)
                         {
                             companyText = String.Format("{1}", company.id, company.title);
@@ -46,12 +46,12 @@ namespace Repositories
             if (sort)
                 dgv.Sort(dgv.Columns[0], ListSortDirection.Ascending);
 
-            Dictionary<int, DBStaff> dict = new Dictionary<int, DBStaff>();
+            Dictionary<int, Staff> dict = new Dictionary<int, Staff>();
             foreach (var el in dgvElements)
                 dict.Add(el.id, el);
             return dict;
         }
-        public bool AddToTable(DBStaff staff)
+        public bool AddToTable(Staff staff)
         {
             List<string> errorList;
             bool checkFlag = StaffValidator.checkAddition(staff, out errorList);
@@ -66,7 +66,7 @@ namespace Repositories
 
             return checkFlag;
         }
-        public bool UpdateTable(DBStaff staff)
+        public bool UpdateTable(Staff staff)
         {
             List<string> errorList;
             bool checkFlag = StaffValidator.checkAddition(staff, out errorList);

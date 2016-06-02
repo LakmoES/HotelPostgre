@@ -12,7 +12,7 @@ namespace Repositories
     {
         DataGridView dgv;
         IDealRepository dealRepository;
-        List<DBDeal> dgvElements;
+        List<Deal> dgvElements;
 
         IStaffRepository staffRepository;
         IPersonRepository clientRepository;
@@ -20,7 +20,7 @@ namespace Repositories
 
         public DealPresenter(DataGridView dgv)
         {
-            dgvElements = new List<DBDeal>();
+            dgvElements = new List<Deal>();
             this.dgv = dgv;
             dealRepository = RepositoryFactory.GetDealRepository();//new DealRepository();
 
@@ -29,40 +29,40 @@ namespace Repositories
             objectRepository = RepositoryFactory.GetObjectRepository();//new ObjectRepository();
             
         }
-        private Dictionary<int, DBStaff> GetStaffs()
+        private Dictionary<int, Staff> GetStaffs()
         {
             var staffs = staffRepository.GetTable();
-            var assocArray = new Dictionary<int, DBStaff>();
+            var assocArray = new Dictionary<int, Staff>();
 
             //staffs.Sort((x, y) => x.id.CompareTo(y.id));
-            foreach (DBStaff staff in staffs)
+            foreach (Staff staff in staffs)
                 assocArray.Add(staff.id, staff);
 
             return assocArray;
         }
-        private Dictionary<int, DBPerson> GetClients()
+        private Dictionary<int, Person> GetClients()
         {
             var clients = clientRepository.GetTable();
-            var assocArray = new Dictionary<int, DBPerson>();
+            var assocArray = new Dictionary<int, Person>();
 
             //clients.Sort((x, y) => x.id.CompareTo(y.id));
-            foreach (DBPerson client in clients)
+            foreach (Person client in clients)
                 assocArray.Add(client.id, client);
 
             return assocArray;
         }
-        private Dictionary<int, DBObject> GetObjects()
+        private Dictionary<int, Entity> GetObjects()
         {
             var objects = objectRepository.GetTable();
-            var assocArray = new Dictionary<int, DBObject>();
+            var assocArray = new Dictionary<int, Entity>();
 
             //clients.Sort((x, y) => x.id.CompareTo(y.id));
-            foreach (DBObject obj in objects)
+            foreach (Entity obj in objects)
                 assocArray.Add(obj.id, obj);
 
             return assocArray;
         }
-        public Dictionary<int, DBDeal> ShowTable(bool sort = false)
+        public Dictionary<int, Deal> ShowTable(bool sort = false)
         {
             try
             {
@@ -73,11 +73,11 @@ namespace Repositories
                 dgvElements = dealRepository.GetTable();
 
                 dgv.Rows.Clear();
-                foreach (DBDeal deal in dgvElements)
+                foreach (Deal deal in dgvElements)
                 {
-                    DBStaff dealer = null;
-                    DBPerson buyer = null;
-                    DBObject obj = null;
+                    Staff dealer = null;
+                    Person buyer = null;
+                    Entity obj = null;
                     staffs.TryGetValue(deal.dealer, out dealer);
                     clients.TryGetValue(deal.buyer, out buyer);
                     objects.TryGetValue(deal.obj, out obj);
@@ -102,12 +102,12 @@ namespace Repositories
             if (sort)
                 dgv.Sort(dgv.Columns[0], ListSortDirection.Ascending);
 
-            Dictionary<int, DBDeal> dict = new Dictionary<int, DBDeal>();
+            Dictionary<int, Deal> dict = new Dictionary<int, Deal>();
             foreach (var el in dgvElements)
                 dict.Add(el.id, el);
             return dict;
         }
-        public bool AddToTable(DBDeal deal)
+        public bool AddToTable(Deal deal)
         {
             List<string> errorList;
             bool checkFlag = DealValidator.checkAddition(deal, out errorList);
@@ -123,7 +123,7 @@ namespace Repositories
 
             return checkFlag;
         }
-        public bool UpdateTable(DBDeal deal)
+        public bool UpdateTable(Deal deal)
         {
             List<string> errorList;
             bool checkFlag = DealValidator.checkAddition(deal, out errorList);

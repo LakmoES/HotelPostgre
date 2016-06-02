@@ -12,15 +12,15 @@ namespace Repositories
     {
         DataGridView dgv;
         ICompanyRepository companyRepository;
-        List<DBCompany> dgvElements;
+        List<Company> dgvElements;
 
         public CompanyPresenter(DataGridView dgv)
         {
-            dgvElements = new List<DBCompany>();
+            dgvElements = new List<Company>();
             this.dgv = dgv;
             companyRepository = RepositoryFactory.GetCompanyRepository()/*new CompanyRepository()*/;
         }
-        public Dictionary<int, DBCompany> ShowTable(bool sort = false)
+        public Dictionary<int, Company> ShowTable(bool sort = false)
         {
             try
             {
@@ -28,17 +28,17 @@ namespace Repositories
             }
             catch (Exception) { MessageBox.Show("Ошибка базы данных.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
             dgv.Rows.Clear();
-            foreach (DBCompany company in dgvElements)
+            foreach (Company company in dgvElements)
                 dgv.Rows.Add(company.id, company.title, company.telephone, company.address);
             if (sort)
                 dgv.Sort(dgv.Columns[0], ListSortDirection.Ascending);
 
-            Dictionary<int, DBCompany> dict = new Dictionary<int, DBCompany>();
+            Dictionary<int, Company> dict = new Dictionary<int, Company>();
             foreach (var el in dgvElements)
                 dict.Add(el.id, el);
             return dict;
         }
-        public bool AddToTable(DBCompany company)
+        public bool AddToTable(Company company)
         {
             List<string> errorList;
             bool checkFlag = CompanyValidator.checkAddition(company, out errorList);
@@ -53,7 +53,7 @@ namespace Repositories
 
             return checkFlag;
         }
-        public bool UpdateTable(DBCompany company)
+        public bool UpdateTable(Company company)
         {
             List<string> errorList;
             bool checkFlag = CompanyValidator.checkAddition(company, out errorList);

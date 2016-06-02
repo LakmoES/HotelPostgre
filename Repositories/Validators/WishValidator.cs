@@ -9,7 +9,7 @@ namespace Repositories
 {
     public class WishValidator
     {
-        public static bool checkAddition(DBWish wish, out List<string> errorList)
+        public static bool checkAddition(Wish wish, out List<string> errorList)
         {
             errorList = new List<string>();
             if (wish.client <= 0)

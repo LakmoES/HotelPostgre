@@ -8,10 +8,10 @@ namespace Repositories
 {
     public interface IStaffRepository
     {
-        List<DBStaff> GetTable(int companyID = -1);
-        DBStaff GetConcreteRecord(int id);
-        void AddToTable(DBStaff staff);
-        void UpdateTable(DBStaff staff);
+        List<Staff> GetTable(int companyID = -1);
+        Staff GetConcreteRecord(int id);
+        void AddToTable(Staff staff);
+        void UpdateTable(Staff staff);
         void DeleteFromTable(int id);
     }
 }

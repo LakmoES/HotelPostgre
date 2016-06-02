@@ -11,10 +11,10 @@ namespace Repositories
 {
     public class ObjectRepository : IObjectRepository
     {
-        public List<DBObject> GetTable()
+        public List<Entity> GetTable()
         {
-            List<DBObject> objectsTable = new List<DBObject>();
-            DBObject objectTbl;
+            List<Entity> objectsTable = new List<Entity>();
+            Entity objectTbl;
 
             //try
             //{
@@ -25,7 +25,7 @@ namespace Repositories
                     foreach (DbDataRecord dbDataRecord in ObjectTableReader)
                     {
                         Application.DoEvents();
-                        objectTbl = new DBObject(
+                        objectTbl = new Entity(
                             Convert.ToInt32(dbDataRecord["id"]),
                             dbDataRecord["Address"].ToString(),
                             Convert.ToDateTime(dbDataRecord["AddDate"])/*DateTime.Now*/,
@@ -46,9 +46,9 @@ namespace Repositories
             //}
             return objectsTable;
         }
-        public DBObject GetConcreteRecord(int id)
+        public Entity GetConcreteRecord(int id)
         {
-            DBObject objectTbl = null;
+            Entity objectTbl = null;
 
             //try
             //{
@@ -60,7 +60,7 @@ namespace Repositories
                     foreach (DbDataRecord dbDataRecord in ObjectTableReader)
                     {
                         Application.DoEvents();
-                        objectTbl = new DBObject(
+                        objectTbl = new Entity(
                             Convert.ToInt32(dbDataRecord["id"]),
                             dbDataRecord["Address"].ToString(),
                             Convert.ToDateTime(dbDataRecord["AddDate"]),
@@ -80,7 +80,7 @@ namespace Repositories
             //}
             return objectTbl;
         }
-        public void AddToTable(DBObject obj)
+        public void AddToTable(Entity obj)
         {
             NpgsqlCommand queryCommand;
             //try
@@ -99,7 +99,7 @@ namespace Repositories
             //catch(NpgsqlException)
             //{ }
         }
-        public void UpdateTable(DBObject objToUpdate)
+        public void UpdateTable(Entity objToUpdate)
         {
             //try
             //{

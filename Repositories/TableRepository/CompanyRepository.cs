@@ -11,10 +11,10 @@ namespace Repositories
 {
     public class CompanyRepository : ICompanyRepository
     {
-        public List<DBCompany> GetTable()
+        public List<Company> GetTable()
         {
-            List<DBCompany> companyTable = new List<DBCompany>();
-            DBCompany companyTbl;
+            List<Company> companyTable = new List<Company>();
+            Company companyTbl;
 
             //try
             //{
@@ -25,7 +25,7 @@ namespace Repositories
                     foreach (DbDataRecord dbDataRecord in companyTableReader)
                     {
                         Application.DoEvents();
-                        companyTbl = new DBCompany(
+                        companyTbl = new Company(
                             Convert.ToInt32(dbDataRecord["id"]),
                             dbDataRecord["Title"].ToString(),
                             dbDataRecord["Telephone"].ToString(),
@@ -41,9 +41,9 @@ namespace Repositories
             //}
             return companyTable;
         }
-        public DBCompany GetConcreteRecord(int id)
+        public Company GetConcreteRecord(int id)
         {
-            DBCompany companyTbl = null;
+            Company companyTbl = null;
 
             //try
             //{
@@ -55,7 +55,7 @@ namespace Repositories
                     foreach (DbDataRecord dbDataRecord in companyTableReader)
                     {
                         Application.DoEvents();
-                        companyTbl = new DBCompany(
+                        companyTbl = new Company(
                             Convert.ToInt32(dbDataRecord["id"]),
                             dbDataRecord["Title"].ToString(),
                             dbDataRecord["Telephone"].ToString(),
@@ -71,7 +71,7 @@ namespace Repositories
             //}
             return companyTbl;
         }
-        public void AddToTable(DBCompany company)
+        public void AddToTable(Company company)
         {
             NpgsqlCommand queryCommand;
             //try
@@ -87,7 +87,7 @@ namespace Repositories
             //catch (NpgsqlException)
             //{ }
         }
-        public void UpdateTable(DBCompany updatedCompany)
+        public void UpdateTable(Company updatedCompany)
         {
             //try
             //{

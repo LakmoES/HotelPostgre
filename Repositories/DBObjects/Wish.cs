@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Repositories
 {
-    public class DBWish
+    public class Wish
     {
         //id, Client, Township, ApartamentOrHouse, Area, NumberOfRooms, Cost
         public int id;
@@ -17,7 +17,7 @@ namespace Repositories
         public int? numberOfRooms;
         public float? cost;
 
-        public DBWish(int id, int client, string township, string apartamentOrHouse, float? area, int? numberOfRooms, float? cost)
+        public Wish(int id, int client, string township, string apartamentOrHouse, float? area, int? numberOfRooms, float? cost)
         {
             this.id = id;
             this.client = client;

@@ -17,11 +17,11 @@ namespace EditForms
     {
         private ObjectPresenter objectPresenter;
         private IPersonRepository ownerRepository;
-        private DBObject obj;
+        private Entity obj;
         //private Regex regex; // [id]
         private bool adding;
-        private List<DBPerson> ownersList;
-        public FormAddUpdateObjectTable(DataGridView dgv, DBObject obj) //редактирование
+        private List<Person> ownersList;
+        public FormAddUpdateObjectTable(DataGridView dgv, Entity obj) //редактирование
         {
             InitializeComponent();
             adding = false;
@@ -56,7 +56,7 @@ namespace EditForms
             this.dateTimePickerToday.Value = obj.addDate;
             this.numericUpDownCost.Value = Convert.ToDecimal(obj.cost);
 
-            DBPerson owner = ownerRepository.GetConcreteRecord(obj.owner);
+            Person owner = ownerRepository.GetConcreteRecord(obj.owner);
             this.comboBoxOwner.Text = String.Format("{0} {1}", owner.surname, owner.name);
 
             this.comboBoxType.Text = obj.appartamentOrHouse;
@@ -74,7 +74,7 @@ namespace EditForms
             ownerRepository = RepositoryFactory.GetOwnerRepository();//new PersonRepository("Owner");
 
             FillTheFields();
-            obj = new DBObject(-1, null, new DateTime(), -1, -1, null, -1, -1);
+            obj = new Entity(-1, null, new DateTime(), -1, -1, null, -1, -1);
         }
         private void FillTheFields()
         {

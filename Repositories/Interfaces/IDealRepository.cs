@@ -8,10 +8,10 @@ namespace Repositories
 {
     public interface IDealRepository
     {
-        List<DBDeal> GetTable();
-        DBDeal GetConcreteRecord(int id);
-        void AddToTable(DBDeal deal);
-        void UpdateTable(DBDeal updatedDeal);
+        List<Deal> GetTable();
+        Deal GetConcreteRecord(int id);
+        void AddToTable(Deal deal);
+        void UpdateTable(Deal updatedDeal);
         void DeleteFromTable(int id);
     }
 }

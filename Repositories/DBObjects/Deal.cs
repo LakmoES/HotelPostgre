@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Repositories
 {
-    public class DBDeal
+    public class Deal
     {
         //id, Dealer, Buyer, Object, Cost, Date
         public int id;
@@ -16,7 +16,7 @@ namespace Repositories
         public float cost;
         public DateTime date;
 
-        public DBDeal(int id, int dealer, int buyer, int obj, float cost, DateTime date)
+        public Deal(int id, int dealer, int buyer, int obj, float cost, DateTime date)
         {
             this.id = id;
             this.dealer = dealer;

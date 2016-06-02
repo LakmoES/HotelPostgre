@@ -8,10 +8,10 @@ namespace Repositories
 {
     public interface IWishRepository
     {
-        List<DBWish> GetTable();
-        DBWish GetConcreteRecord(int id);
-        void AddToTable(DBWish wish);
-        void UpdateTable(DBWish updatedWish);
+        List<Wish> GetTable();
+        Wish GetConcreteRecord(int id);
+        void AddToTable(Wish wish);
+        void UpdateTable(Wish updatedWish);
         void DeleteFromTable(int id);
     }
 }

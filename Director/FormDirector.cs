@@ -25,13 +25,13 @@ namespace Director
         ContextMenu contextMenu;
         DataGridView selectedDGV;
         
-        Dictionary<int, DBDeal> deals;
-        Dictionary<int, DBObject> objects;
-        Dictionary<int, DBPerson> clients;
-        Dictionary<int, DBPerson> owners;
-        Dictionary<int, DBShow> shows;
-        Dictionary<int, DBWish> wishes;
-        Dictionary<int, DBStaff> staffs;
+        Dictionary<int, Deal> deals;
+        Dictionary<int, Entity> objects;
+        Dictionary<int, Person> clients;
+        Dictionary<int, Person> owners;
+        Dictionary<int, Show> shows;
+        Dictionary<int, Wish> wishes;
+        Dictionary<int, Staff> staffs;
         public FormDirector()
         {
             InitializeComponent();
@@ -117,43 +117,43 @@ namespace Director
         {
             if (selectedDGV == dataGridViewObject)
             {
-                DBObject obj;
+                Entity obj;
                 objects.TryGetValue(Convert.ToInt32(selectedDGV.CurrentRow.Cells[0].Value), out obj);
                 new FormAddUpdateObjectTable(selectedDGV, obj/*selectedDGV.CurrentRow.Index*/).ShowDialog();
             }
             if (selectedDGV == dataGridViewOwner)
             {
-                DBPerson owner;
+                Person owner;
                 owners.TryGetValue(Convert.ToInt32(selectedDGV.CurrentRow.Cells[0].Value), out owner);
                 new FormAddUpdatePersonTable(selectedDGV, owner, "Owner").ShowDialog();
             }
             if (selectedDGV == dataGridViewStaff)
             {
-                DBStaff staff;
+                Staff staff;
                 staffs.TryGetValue(Convert.ToInt32(selectedDGV.CurrentRow.Cells[0].Value), out staff);
                 new FormAddUpdatePersonTable(selectedDGV, staff, "Staff").ShowDialog();
             }
             if (selectedDGV == dataGridViewClient)
             {
-                DBPerson client;
+                Person client;
                 clients.TryGetValue(Convert.ToInt32(selectedDGV.CurrentRow.Cells[0].Value), out client);
                 new FormAddUpdatePersonTable(selectedDGV, client, "Client").ShowDialog();
             }
             if (selectedDGV == dataGridViewDeal)
             {
-                DBDeal deal;
+                Deal deal;
                 deals.TryGetValue(Convert.ToInt32(selectedDGV.CurrentRow.Cells[0].Value), out deal);
                 new FormAddUpdateDealTable(selectedDGV, deal/*selectedDGV.CurrentRow.Index*/).ShowDialog();
             }
             if (selectedDGV == dataGridViewShow)
             {
-                DBShow show;
+                Show show;
                 shows.TryGetValue(Convert.ToInt32(selectedDGV.CurrentRow.Cells[0].Value), out show);
                 new FormAddUpdateShowTable(selectedDGV, show).ShowDialog();
             }
             if (selectedDGV == dataGridViewWish)
             {
-                DBWish wish;
+                Wish wish;
                 wishes.TryGetValue(Convert.ToInt32(selectedDGV.CurrentRow.Cells[0].Value), out wish);
                 new FormAddUpdateWishTable(selectedDGV, wish).ShowDialog();
             }

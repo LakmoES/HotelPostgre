@@ -9,7 +9,7 @@ namespace Repositories
 {
     public static class CompanyValidator
     {
-        public static bool checkAddition(DBCompany company, out List<string> errorList)
+        public static bool checkAddition(Company company, out List<string> errorList)
         {
             errorList = new List<string>();
             bool succeedFlag = true;

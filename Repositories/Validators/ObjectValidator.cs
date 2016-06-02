@@ -9,7 +9,7 @@ namespace Repositories
 {
     public static class ObjectValidator
     {
-        public static bool checkAddition(DBObject obj, out List<string> errorList)
+        public static bool checkAddition(Entity obj, out List<string> errorList)
         {
             errorList = new List<string>();
             bool succeedFlag = true;

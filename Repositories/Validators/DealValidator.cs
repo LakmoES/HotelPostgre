@@ -9,7 +9,7 @@ namespace Repositories
 {
     public static class DealValidator
     {
-        public static bool checkAddition(DBDeal deal, out List<string> errorList)
+        public static bool checkAddition(Deal deal, out List<string> errorList)
         {
             errorList = new List<string>();
             bool succeedFlag = true;

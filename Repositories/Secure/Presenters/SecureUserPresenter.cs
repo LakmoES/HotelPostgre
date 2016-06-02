@@ -25,23 +25,23 @@ namespace Repositories
             staffRepository = RepositoryFactory.GetStaffRepository();
             companyRepository = RepositoryFactory.GetCompanyRepository();
         }
-        private Dictionary<int, DBStaff> GetStaffs()
+        private Dictionary<int, Staff> GetStaffs()
         {
 
             var staffs = staffRepository.GetTable();
-            var assocArray = new Dictionary<int, DBStaff>();
+            var assocArray = new Dictionary<int, Staff>();
 
-            foreach (DBStaff staff in staffs)
+            foreach (Staff staff in staffs)
                 assocArray.Add(staff.id, staff);
 
             return assocArray;
         }
-        private Dictionary<int, DBCompany> GetCompanies()
+        private Dictionary<int, Company> GetCompanies()
         {
             var companies = companyRepository.GetTable();
-            var assocArray = new Dictionary<int, DBCompany>();
+            var assocArray = new Dictionary<int, Company>();
 
-            foreach (DBCompany company in companies)
+            foreach (Company company in companies)
                 assocArray.Add(company.id, company);
 
             return assocArray;

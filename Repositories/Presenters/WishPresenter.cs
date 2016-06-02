@@ -12,31 +12,31 @@ namespace Repositories
     {
         DataGridView dgv;
         IWishRepository wishRepository;
-        List<DBWish> dgvElements;
+        List<Wish> dgvElements;
 
         IPersonRepository clientRepository;
 
         public WishPresenter(DataGridView dgv)
         {
-            dgvElements = new List<DBWish>();
+            dgvElements = new List<Wish>();
             this.dgv = dgv;
             wishRepository = RepositoryFactory.GetWishRepository();//new WishRepository();
 
             clientRepository = RepositoryFactory.GetClientRepository();//new PersonRepository("Client");
 
         }
-        private Dictionary<int, DBPerson> GetClients()
+        private Dictionary<int, Person> GetClients()
         {
             var clients = clientRepository.GetTable();
-            var assocArray = new Dictionary<int, DBPerson>();
+            var assocArray = new Dictionary<int, Person>();
 
             //clients.Sort((x, y) => x.id.CompareTo(y.id));
-            foreach (DBPerson client in clients)
+            foreach (Person client in clients)
                 assocArray.Add(client.id, client);
 
             return assocArray;
         }
-        public Dictionary<int, DBWish> ShowTable(bool sort = false)
+        public Dictionary<int, Wish> ShowTable(bool sort = false)
         {
             try
             {
@@ -44,10 +44,10 @@ namespace Repositories
 
                 dgvElements = wishRepository.GetTable();
                 dgv.Rows.Clear();
-                foreach (DBWish wish in dgvElements)
+                foreach (Wish wish in dgvElements)
                 {
                     //int id, int client, string township, string apartamentOrHouse, int area, int numberOfRooms, int cost
-                    DBPerson client = null;
+                    Person client = null;
                     clients.TryGetValue(wish.client, out client);
 
                     dgv.Rows.Add(wish.id,
@@ -64,12 +64,12 @@ namespace Repositories
             if (sort)
                 dgv.Sort(dgv.Columns[0], ListSortDirection.Ascending);
 
-            Dictionary<int, DBWish> dict = new Dictionary<int, DBWish>();
+            Dictionary<int, Wish> dict = new Dictionary<int, Wish>();
             foreach (var el in dgvElements)
                 dict.Add(el.id, el);
             return dict;
         }
-        public bool AddToTable(DBWish wish)
+        public bool AddToTable(Wish wish)
         {
             List<string> errorList;
             bool checkFlag = WishValidator.checkAddition(wish, out errorList);
@@ -84,7 +84,7 @@ namespace Repositories
 
             return checkFlag;
         }
-        public bool UpdateTable(DBWish wish)
+        public bool UpdateTable(Wish wish)
         {
             List<string> errorList;
             bool checkFlag = WishValidator.checkAddition(wish, out errorList);

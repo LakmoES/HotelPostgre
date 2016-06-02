@@ -16,10 +16,10 @@ namespace Repositories
         {
             this.tableName = tableName;
         }
-        public List<DBPerson> GetTable()
+        public List<Person> GetTable()
         {
-            List<DBPerson> personsTable = new List<DBPerson>();
-            DBPerson personTbl;
+            List<Person> personsTable = new List<Person>();
+            Person personTbl;
 
             //try
             //{
@@ -30,7 +30,7 @@ namespace Repositories
                     foreach (DbDataRecord dbDataRecord in personTableReader)
                     {
                         Application.DoEvents();
-                        personTbl = new DBPerson(
+                        personTbl = new Person(
                             Convert.ToInt32(dbDataRecord["id"]),
                             dbDataRecord["Name"].ToString(),
                             dbDataRecord["Surname"].ToString(),
@@ -46,9 +46,9 @@ namespace Repositories
             //}
             return personsTable;
         }
-        public DBPerson GetConcreteRecord(int id)
+        public Person GetConcreteRecord(int id)
         {
-            DBPerson personTbl = null;
+            Person personTbl = null;
 
             //try
             //{
@@ -60,7 +60,7 @@ namespace Repositories
                     foreach (DbDataRecord dbDataRecord in personTableReader)
                     {
                         Application.DoEvents();
-                        personTbl = new DBPerson(
+                        personTbl = new Person(
                             Convert.ToInt32(dbDataRecord["id"]),
                             dbDataRecord["Name"].ToString(),
                             dbDataRecord["Surname"].ToString(),
@@ -76,7 +76,7 @@ namespace Repositories
             //}
             return personTbl;
         }
-        public void AddToTable(DBPerson person)
+        public void AddToTable(Person person)
         {
             NpgsqlCommand queryCommand;
             //try
@@ -91,7 +91,7 @@ namespace Repositories
             //catch (NpgsqlException)
             //{ }
         }
-        public void UpdateTable(DBPerson person)
+        public void UpdateTable(Person person)
         {
             //try
             //{

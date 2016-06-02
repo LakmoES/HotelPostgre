@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Repositories
 {
-    public class DBShow
+    public class Show
     {
         //id, Dealer, Client, Object, Date
         public int id;
@@ -15,7 +15,7 @@ namespace Repositories
         public int obj;
         public DateTime date;
 
-        public DBShow(int id, int dealer, int client, int obj, DateTime date)
+        public Show(int id, int dealer, int client, int obj, DateTime date)
         {
             this.id = id;
             this.dealer = dealer;

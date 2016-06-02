@@ -11,10 +11,10 @@ namespace Repositories
 {
     public class DealRepository : IDealRepository
     {
-        public List<DBDeal> GetTable()
+        public List<Deal> GetTable()
         {
-            List<DBDeal> dealTable = new List<DBDeal>();
-            DBDeal dealTbl;
+            List<Deal> dealTable = new List<Deal>();
+            Deal dealTbl;
             try
             {
                 NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"HomeBUY\".\"Deal\"", DBConnection.Instance.connection);
@@ -24,7 +24,7 @@ namespace Repositories
                     foreach (DbDataRecord dbDataRecord in dealTableReader)
                     {
                         Application.DoEvents();
-                        dealTbl = new DBDeal(
+                        dealTbl = new Deal(
                             Convert.ToInt32(dbDataRecord["id"]),
                             Convert.ToInt32(dbDataRecord["Dealer"]),
                             Convert.ToInt32(dbDataRecord["Buyer"]),
@@ -42,9 +42,9 @@ namespace Repositories
             }
             return dealTable;
         }
-        public DBDeal GetConcreteRecord(int id)
+        public Deal GetConcreteRecord(int id)
         {
-            DBDeal dealTbl = null;
+            Deal dealTbl = null;
 
             //try
             //{
@@ -56,7 +56,7 @@ namespace Repositories
                     foreach (DbDataRecord dbDataRecord in dealTableReader)
                     {
                         Application.DoEvents();
-                        dealTbl = new DBDeal(
+                        dealTbl = new Deal(
                             Convert.ToInt32(dbDataRecord["id"]),
                             Convert.ToInt32(dbDataRecord["Dealer"]),
                             Convert.ToInt32(dbDataRecord["Buyer"]),
@@ -74,7 +74,7 @@ namespace Repositories
             //}
             return dealTbl;
         }
-        public void AddToTable(DBDeal deal)
+        public void AddToTable(Deal deal)
         {
             NpgsqlCommand queryCommand;
             //try
@@ -91,7 +91,7 @@ namespace Repositories
             //catch (NpgsqlException)
             //{ }
         }
-        public void UpdateTable(DBDeal updatedDeal)
+        public void UpdateTable(Deal updatedDeal)
         {
             //try
             //{

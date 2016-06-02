@@ -8,10 +8,10 @@ namespace Repositories
 {
     public interface IShowRepository
     {
-        List<DBShow> GetTable();
-        DBShow GetConcreteRecord(int id);
-        void AddToTable(DBShow show);
-        void UpdateTable(DBShow updatedShow);
+        List<Show> GetTable();
+        Show GetConcreteRecord(int id);
+        void AddToTable(Show show);
+        void UpdateTable(Show updatedShow);
         void DeleteFromTable(int id);
     }
 }

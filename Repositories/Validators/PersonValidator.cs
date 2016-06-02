@@ -9,7 +9,7 @@ namespace Repositories
 {
     public static class PersonValidator
     {
-        public static bool checkAddition(DBPerson person, out List<string> errorList)
+        public static bool checkAddition(Person person, out List<string> errorList)
         {
             errorList = new List<string>();
             bool succeedFlag = true;

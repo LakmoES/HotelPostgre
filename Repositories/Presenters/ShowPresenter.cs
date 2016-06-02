@@ -12,7 +12,7 @@ namespace Repositories
     {
         DataGridView dgv;
         IShowRepository showRepository;
-        List<DBShow> dgvElements;
+        List<Show> dgvElements;
 
         IStaffRepository staffRepository;
         IPersonRepository clientRepository;
@@ -20,7 +20,7 @@ namespace Repositories
 
         public ShowPresenter(DataGridView dgv)
         {
-            dgvElements = new List<DBShow>();
+            dgvElements = new List<Show>();
             this.dgv = dgv;
             showRepository = RepositoryFactory.GetShowRepository();//new ShowRepository();
 
@@ -29,40 +29,40 @@ namespace Repositories
             objectRepository = RepositoryFactory.GetObjectRepository();//new ObjectRepository();
 
         }
-        private Dictionary<int, DBStaff> GetStaffs()
+        private Dictionary<int, Staff> GetStaffs()
         {
             var staffs = staffRepository.GetTable();
-            var assocArray = new Dictionary<int, DBStaff>();
+            var assocArray = new Dictionary<int, Staff>();
 
             //staffs.Sort((x, y) => x.id.CompareTo(y.id));
-            foreach (DBStaff staff in staffs)
+            foreach (Staff staff in staffs)
                 assocArray.Add(staff.id, staff);
 
             return assocArray;
         }
-        private Dictionary<int, DBPerson> GetClients()
+        private Dictionary<int, Person> GetClients()
         {
             var clients = clientRepository.GetTable();
-            var assocArray = new Dictionary<int, DBPerson>();
+            var assocArray = new Dictionary<int, Person>();
 
             //clients.Sort((x, y) => x.id.CompareTo(y.id));
-            foreach (DBPerson client in clients)
+            foreach (Person client in clients)
                 assocArray.Add(client.id, client);
 
             return assocArray;
         }
-        private Dictionary<int, DBObject> GetObjects()
+        private Dictionary<int, Entity> GetObjects()
         {
             var objects = objectRepository.GetTable();
-            var assocArray = new Dictionary<int, DBObject>();
+            var assocArray = new Dictionary<int, Entity>();
 
             //clients.Sort((x, y) => x.id.CompareTo(y.id));
-            foreach (DBObject obj in objects)
+            foreach (Entity obj in objects)
                 assocArray.Add(obj.id, obj);
 
             return assocArray;
         }
-        public Dictionary<int, DBShow> ShowTable(bool sort = false)
+        public Dictionary<int, Show> ShowTable(bool sort = false)
         {
             try
             {
@@ -72,11 +72,11 @@ namespace Repositories
 
                 dgvElements = showRepository.GetTable();
                 dgv.Rows.Clear();
-                foreach (DBShow show in dgvElements)
+                foreach (Show show in dgvElements)
                 {
-                    DBStaff dealer = null;
-                    DBPerson client = null;
-                    DBObject obj = null;
+                    Staff dealer = null;
+                    Person client = null;
+                    Entity obj = null;
                     staffs.TryGetValue(show.dealer, out dealer);
                     clients.TryGetValue(show.client, out client);
                     objects.TryGetValue(show.obj, out obj);
@@ -93,12 +93,12 @@ namespace Repositories
             if (sort)
                 dgv.Sort(dgv.Columns[0], ListSortDirection.Ascending);
 
-            Dictionary<int, DBShow> dict = new Dictionary<int, DBShow>();
+            Dictionary<int, Show> dict = new Dictionary<int, Show>();
             foreach (var el in dgvElements)
                 dict.Add(el.id, el);
             return dict;
         }
-        public bool AddToTable(DBShow show)
+        public bool AddToTable(Show show)
         {
             List<string> errorList;
             bool checkFlag = ShowValidator.checkAddition(show, out errorList);
@@ -113,7 +113,7 @@ namespace Repositories
 
             return checkFlag;
         }
-        public bool UpdateTable(DBShow show)
+        public bool UpdateTable(Show show)
         {
             List<string> errorList;
             bool checkFlag = ShowValidator.checkAddition(show, out errorList);

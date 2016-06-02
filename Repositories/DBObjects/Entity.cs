@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Repositories
 {
-    public class DBObject
+    public class Entity
     {
         //id, Address, AddDate, Cost, Owner, Area, AppartamentOrHouse, NumberOfRooms
         public int id;
@@ -17,7 +17,7 @@ namespace Repositories
         public float area;
         public string appartamentOrHouse;
         public int numberOfRooms;
-        public DBObject(int id, string address, DateTime addDate, float cost, int owner, string appartamentOrHouse, float area, int numberOfRooms)
+        public Entity(int id, string address, DateTime addDate, float cost, int owner, string appartamentOrHouse, float area, int numberOfRooms)
         {
             this.id = id;
             this.address = address;

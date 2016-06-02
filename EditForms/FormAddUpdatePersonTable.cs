@@ -19,12 +19,12 @@ namespace EditForms
         private PersonPresenter personPresenter;
         private StaffPresenter staffPresenter;
         private ICompanyRepository companyRepository;
-        private DBPerson person;
+        private Person person;
         private bool adding;
         private string tableName;
-        private List<DBCompany> companiesList;
+        private List<Company> companiesList;
         //private Regex regex; // [id]
-        public FormAddUpdatePersonTable(DataGridView dgv, DBPerson person/*int index*/, string tableName) //редактирование
+        public FormAddUpdatePersonTable(DataGridView dgv, Person person/*int index*/, string tableName) //редактирование
         {
             InitializeComponent();
             this.tableName = tableName;
@@ -45,7 +45,7 @@ namespace EditForms
                 //int pCompany = Convert.ToInt32(match.Value.Substring(1, match.Value.Length - 2));
                 //person = new DBStaff(pID, pName, pSurname, pTel, pCompany);
                 //this.comboBoxCompany.Text = dgv.Rows[index].Cells[4].Value.ToString();
-                this.comboBoxCompany.Text = companyRepository.GetConcreteRecord((person as DBStaff).company).title;                CheckPermissions();
+                this.comboBoxCompany.Text = companyRepository.GetConcreteRecord((person as Staff).company).title;                CheckPermissions();
             }
             else
             {
@@ -66,11 +66,11 @@ namespace EditForms
 
             if (tableName == "Staff")
             {
-                person = new DBStaff(-1, null, null, null, -1);
+                person = new Staff(-1, null, null, null, -1);
                 FillTheFieldsForStaff();
             }
             else
-                person = new DBPerson(-1, null, null, null);
+                person = new Person(-1, null, null, null);
         }
         private void Init(DataGridView dgv)
         {
@@ -115,7 +115,7 @@ namespace EditForms
             if (User.role == 1)
                 return;
 
-            if((person as DBStaff).company != User.subrole)
+            if((person as Staff).company != User.subrole)
             {
                 this.textBoxName.ReadOnly = true;
                 this.textBoxSurname.ReadOnly = true;
@@ -165,13 +165,13 @@ namespace EditForms
                 //if (match.Success)
                 //   companyID = Convert.ToInt32(match.Value.Substring(1, match.Value.Length - 2));
 
-                (person as DBStaff).company = -1;
+                (person as Staff).company = -1;
                 if (this.comboBoxCompany.SelectedIndex != -1)
-                    (person as DBStaff).company = companiesList[this.comboBoxCompany.SelectedIndex].id;
+                    (person as Staff).company = companiesList[this.comboBoxCompany.SelectedIndex].id;
                 if (!adding)
-                    return (staffPresenter.UpdateTable(person as DBStaff));
+                    return (staffPresenter.UpdateTable(person as Staff));
                 else
-                    return (staffPresenter.AddToTable(person as DBStaff));
+                    return (staffPresenter.AddToTable(person as Staff));
             }
             else
             {

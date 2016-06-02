@@ -12,15 +12,15 @@ namespace Repositories
     {
         DataGridView dgv;
         IPersonRepository personRepository;
-        List<DBPerson> dgvElements;
+        List<Person> dgvElements;
 
         public PersonPresenter(DataGridView dgv, string tableName)
         {
-            dgvElements = new List<DBPerson>();
+            dgvElements = new List<Person>();
             this.dgv = dgv;
             personRepository = new PersonRepository(tableName);
         }
-        public Dictionary<int, DBPerson> ShowTable(bool sort = false)
+        public Dictionary<int, Person> ShowTable(bool sort = false)
         {
             try
             {
@@ -29,17 +29,17 @@ namespace Repositories
             catch (Exception) { MessageBox.Show("Ошибка базы данных.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
 
             dgv.Rows.Clear();
-            foreach (DBPerson person in dgvElements)
+            foreach (Person person in dgvElements)
                 dgv.Rows.Add(person.id, person.name, person.surname, person.telephone);
             if (sort)
                 dgv.Sort(dgv.Columns[0], ListSortDirection.Ascending);
 
-            Dictionary<int, DBPerson> dict = new Dictionary<int, DBPerson>();
+            Dictionary<int, Person> dict = new Dictionary<int, Person>();
             foreach (var el in dgvElements)
                 dict.Add(el.id, el);
             return dict;
         }
-        public bool AddToTable(DBPerson person)
+        public bool AddToTable(Person person)
         {
             List<string> errorList;
             bool checkFlag = PersonValidator.checkAddition(person, out errorList);
@@ -54,7 +54,7 @@ namespace Repositories
 
             return checkFlag;
         }
-        public bool UpdateTable(DBPerson person)
+        public bool UpdateTable(Person person)
         {
             List<string> errorList;
             bool checkFlag = PersonValidator.checkAddition(person, out errorList);

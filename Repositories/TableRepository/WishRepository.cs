@@ -17,10 +17,10 @@ namespace Repositories
                 return null;
             return value;
         }
-        public List<DBWish> GetTable()
+        public List<Wish> GetTable()
         {
-            List<DBWish> wishTable = new List<DBWish>();
-            DBWish wishTbl;
+            List<Wish> wishTable = new List<Wish>();
+            Wish wishTbl;
             NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"HomeBUY\".\"Wish\"", DBConnection.Instance.connection);
             NpgsqlDataReader wishTableReader = queryCommand.ExecuteReader();
 
@@ -29,7 +29,7 @@ namespace Repositories
                 foreach (DbDataRecord dbDataRecord in wishTableReader)
                 {
                     Application.DoEvents();
-                    wishTbl = new DBWish(
+                    wishTbl = new Wish(
                         Convert.ToInt32(dbDataRecord["id"]),
                         Convert.ToInt32(dbDataRecord["Client"]),
                         (FixDBValue(dbDataRecord["Township"]) ?? "").ToString(), // is null ? => empty
@@ -44,9 +44,9 @@ namespace Repositories
 
             return wishTable;
         }
-        public DBWish GetConcreteRecord(int id)
+        public Wish GetConcreteRecord(int id)
         {
-            DBWish wishTbl = null;
+            Wish wishTbl = null;
 
             NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"HomeBUY\".\"Wish\" WHERE \"id\" = @id", DBConnection.Instance.connection);
             queryCommand.Parameters.AddWithValue("@id", id);
@@ -56,7 +56,7 @@ namespace Repositories
                 foreach (DbDataRecord dbDataRecord in wishTableReader)
                 {
                     Application.DoEvents();
-                    wishTbl = new DBWish(
+                    wishTbl = new Wish(
                         Convert.ToInt32(dbDataRecord["id"]),
                         Convert.ToInt32(dbDataRecord["Client"]),
                         (FixDBValue(dbDataRecord["Township"]) ?? "").ToString(),   // is null ? => empty
@@ -71,7 +71,7 @@ namespace Repositories
 
             return wishTbl;
         }
-        public void AddToTable(DBWish wish)
+        public void AddToTable(Wish wish)
         {
             //int id, int client, string township, string apartamentOrHouse, int area, int numberOfRooms, int cost
             NpgsqlCommand queryCommand;
@@ -86,7 +86,7 @@ namespace Repositories
             queryCommand.ExecuteNonQuery();
 
         }
-        public void UpdateTable(DBWish updatedWish)
+        public void UpdateTable(Wish updatedWish)
         {
             //int id, int client, string township, string apartamentOrHouse, int area, int numberOfRooms, int cost
             NpgsqlCommand queryCommand = new NpgsqlCommand("UPDATE \"HomeBUY\".\"Wish\" SET \"Client\" = @Client, \"Township\" = @Township, \"AppartamentOrHouse\" = @ApartamentOrHouse, \"Area\" = @Area, \"NumberOfRooms\" = @NumberOfRooms, \"Cost\" = @Cost" +

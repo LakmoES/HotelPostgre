@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Repositories
 {
-    public class DBStaff: DBPerson
+    public class Staff: Person
     {
         public int company;
-        public DBStaff(int id, string name, string surname, string telephone, int company):base(id, name, surname, telephone)
+        public Staff(int id, string name, string surname, string telephone, int company):base(id, name, surname, telephone)
         {
             this.company = company;
         }

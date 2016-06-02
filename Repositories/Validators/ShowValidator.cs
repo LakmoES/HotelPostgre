@@ -9,7 +9,7 @@ namespace Repositories
 {
     public class ShowValidator
     {
-        public static bool checkAddition(DBShow show, out List<string> errorList)
+        public static bool checkAddition(Show show, out List<string> errorList)
         {
             errorList = new List<string>();
             bool succeedFlag = true;

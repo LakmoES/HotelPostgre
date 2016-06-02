@@ -6,19 +6,19 @@ using System.Threading.Tasks;
 
 namespace Repositories
 {
-    public class DBPerson
+    public class Company
     {
-        //id, "Name", "Surname", "Telephone"
+        //id, title, telephone, address
         public int id;
-        public string name;
-        public string surname;
+        public string title;
         public string telephone;
-        public DBPerson(int id, string name, string surname, string telephone)
+        public string address;
+        public Company(int id, string title, string telephone, string address)
         {
             this.id = id;
-            this.name = name;
-            this.surname = surname;
+            this.title = title;
             this.telephone = telephone;
+            this.address = address;
         }
     }
 }

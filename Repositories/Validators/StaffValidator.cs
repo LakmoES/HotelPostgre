@@ -9,7 +9,7 @@ namespace Repositories
 {
     public class StaffValidator
     {
-        public static bool checkAddition(DBStaff staff, out List<string> errorList)
+        public static bool checkAddition(Staff staff, out List<string> errorList)
         {
             errorList = new List<string>();
             bool succeedFlag = true;

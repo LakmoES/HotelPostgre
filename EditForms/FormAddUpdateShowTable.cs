@@ -16,7 +16,7 @@ namespace EditForms
     public partial class FormAddUpdateShowTable : Form
     {
         //private Regex regex;
-        private DBShow show;
+        private Show show;
         private bool adding;
         private IStaffRepository staffRepository;
         private IPersonRepository clientRepository;
@@ -24,11 +24,11 @@ namespace EditForms
         private IShowRepository showRepository;
         private ShowPresenter showPresenter;
 
-        private List<DBPerson> clientList;
-        private List<DBObject> objectList;
-        private List<DBShow> showList;
-        private List<DBStaff> staffList;
-        public FormAddUpdateShowTable(DataGridView dgv, DBShow show) //редактирование
+        private List<Person> clientList;
+        private List<Entity> objectList;
+        private List<Show> showList;
+        private List<Staff> staffList;
+        public FormAddUpdateShowTable(DataGridView dgv, Show show) //редактирование
         {
             InitializeComponent();
             adding = false;
@@ -62,7 +62,7 @@ namespace EditForms
             Init(dgv);
             FillTheFields();
 
-            show = new DBShow(-1, -1, -1, -1, new DateTime());
+            show = new Show(-1, -1, -1, -1, new DateTime());
         }
         private void Init(DataGridView dgv)
         {
@@ -78,12 +78,12 @@ namespace EditForms
         private void FillTheFields(int objID = -1)
         {
             showList = showRepository.GetTable();
-            Dictionary<int, DBShow> shows = new Dictionary<int, DBShow>();
-            foreach (DBShow curShow in showList)
+            Dictionary<int, Show> shows = new Dictionary<int, Show>();
+            foreach (Show curShow in showList)
                 shows.Add(curShow.id, curShow);
 
             staffList = staffRepository.GetTable();
-            var staffListTemp = new List<DBStaff>();
+            var staffListTemp = new List<Staff>();
             foreach (var staff in staffList)
             {
                 if ((User.role == 1) || (User.role == 2 && User.subrole == staff.company)) //todo: исправить отсутствие продавца, если он из другого филиала
@@ -110,10 +110,10 @@ namespace EditForms
             }
 
             objectList = objectRepository.GetTable();
-            var objectListTemp = new List<DBObject>();
+            var objectListTemp = new List<Entity>();
             foreach (var obj in objectList)
             {
-                DBShow tempShow;
+                Show tempShow;
                 if (!shows.TryGetValue(obj.id, out tempShow)) //игнорируем уже проданные объекты
                 {
                     string objectText = String.Format("{1}", obj.id, obj.address);
@@ -124,21 +124,21 @@ namespace EditForms
             objectList = objectListTemp;
             if (objID != -1)
             {
-                DBObject obj = objectRepository.GetConcreteRecord(objID);
+                Entity obj = objectRepository.GetConcreteRecord(objID);
                 comboBoxObject.Items.Add(String.Format("{1}", obj.id, obj.address));
             }
         }
-        private void ExtractDataFromShow(DBShow show)
+        private void ExtractDataFromShow(Show show)
         {
             try
             {
-                DBStaff dealer = staffRepository.GetConcreteRecord(show.dealer);
+                Staff dealer = staffRepository.GetConcreteRecord(show.dealer);
                 this.comboBoxDealer.Text = String.Format("{1} {2}", dealer.id, dealer.surname, dealer.name);
 
-                DBPerson client = clientRepository.GetConcreteRecord(show.client);
+                Person client = clientRepository.GetConcreteRecord(show.client);
                 this.comboBoxClient.Text = String.Format("{1} {2}", client.id, client.surname, client.name);
 
-                DBObject obj = objectRepository.GetConcreteRecord(show.obj);
+                Entity obj = objectRepository.GetConcreteRecord(show.obj);
                 this.comboBoxObject.Text = String.Format("{1}", obj.id, obj.address);
 
                 this.textBoxID.Text = show.id.ToString();

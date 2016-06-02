@@ -16,14 +16,14 @@ namespace EditForms
     public partial class FormAddUpdateWishTable : Form
     {
         //private Regex regex;
-        private DBWish wish;
+        private Wish wish;
         private bool adding;
         private IPersonRepository clientRepository;
         private IWishRepository wishRepository;
         private WishPresenter wishPresenter;
-        private List<DBWish> wishList;
-        private List<DBPerson> clientList;
-        public FormAddUpdateWishTable(DataGridView dgv, DBWish wish) //редактирование
+        private List<Wish> wishList;
+        private List<Person> clientList;
+        public FormAddUpdateWishTable(DataGridView dgv, Wish wish) //редактирование
         {
             InitializeComponent();
             adding = false;
@@ -53,7 +53,7 @@ namespace EditForms
             Init(dgv);
             FillTheFields();
 
-            wish = new DBWish(-1, -1, null, null, null, null, null);
+            wish = new Wish(-1, -1, null, null, null, null, null);
         }
         private void Init(DataGridView dgv)
         {
@@ -74,8 +74,8 @@ namespace EditForms
         private void FillTheFields()
         {
             wishList = wishRepository.GetTable();
-            Dictionary<int, DBWish> wishs = new Dictionary<int, DBWish>();
-            foreach (DBWish curWish in wishList)
+            Dictionary<int, Wish> wishs = new Dictionary<int, Wish>();
+            foreach (Wish curWish in wishList)
                 wishs.Add(curWish.id, curWish);
 
             clientList = clientRepository.GetTable();
@@ -87,13 +87,13 @@ namespace EditForms
 
             comboBoxApartamentOrHouse.Items.AddRange(new string[] { "", "House", "Appartament" });
         }
-        private void ExtractDataFromWish(DBWish wish)
+        private void ExtractDataFromWish(Wish wish)
         {
             try
             {
                 this.textBoxID.Text = wish.id.ToString();
 
-                DBPerson client = clientRepository.GetConcreteRecord(wish.client);
+                Person client = clientRepository.GetConcreteRecord(wish.client);
                 this.comboBoxClient.Text = String.Format("{1} {2}", client.id, client.surname, client.name);
                 this.textBoxTownship.Text = wish.township;
                 this.comboBoxApartamentOrHouse.Text = wish.apartamentOrHouse;

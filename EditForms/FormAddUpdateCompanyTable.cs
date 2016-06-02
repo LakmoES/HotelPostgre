@@ -15,7 +15,7 @@ namespace EditForms
     public partial class FormAddUpdateCompanyTable : Form
     {
         private CompanyPresenter companyPresenter;
-        private DBCompany company;
+        private Company company;
         private bool adding;
         public FormAddUpdateCompanyTable(DataGridView dgv, int index) //редактирование
         {
@@ -23,7 +23,7 @@ namespace EditForms
             adding = false;
 
             companyPresenter = new CompanyPresenter(dgv);
-            company = new DBCompany(Convert.ToInt32(dgv.Rows[index].Cells[0].Value), dgv.Rows[index].Cells[1].Value.ToString(),
+            company = new Company(Convert.ToInt32(dgv.Rows[index].Cells[0].Value), dgv.Rows[index].Cells[1].Value.ToString(),
                 dgv.Rows[index].Cells[2].Value.ToString(), dgv.Rows[index].Cells[3].Value.ToString());
 
             this.textBoxID.Text = company.id.ToString();
@@ -37,7 +37,7 @@ namespace EditForms
             adding = true;
 
             companyPresenter = new CompanyPresenter(dgv);
-            company = new DBCompany(-1, null, null, null);
+            company = new Company(-1, null, null, null);
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)

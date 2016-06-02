@@ -11,10 +11,10 @@ namespace Repositories
 {
     public class StaffRepository : IStaffRepository
     {
-        public List<DBStaff> GetTable(int companyID = -1)
+        public List<Staff> GetTable(int companyID = -1)
         {
-            List<DBStaff> staffsTable = new List<DBStaff>();
-            DBStaff staffTbl;
+            List<Staff> staffsTable = new List<Staff>();
+            Staff staffTbl;
 
             //try
             //{
@@ -29,7 +29,7 @@ namespace Repositories
                 foreach (DbDataRecord dbDataRecord in staffTableReader)
                 {
                     Application.DoEvents();
-                    staffTbl = new DBStaff(
+                    staffTbl = new Staff(
                         Convert.ToInt32(dbDataRecord["id"]),
                         dbDataRecord["Name"].ToString(),
                         dbDataRecord["Surname"].ToString(),
@@ -46,9 +46,9 @@ namespace Repositories
             //}
             return staffsTable;
         }
-        public DBStaff GetConcreteRecord(int id)
+        public Staff GetConcreteRecord(int id)
         {
-            DBStaff staffTbl = null;
+            Staff staffTbl = null;
 
             //try
             //{
@@ -60,7 +60,7 @@ namespace Repositories
                     foreach (DbDataRecord dbDataRecord in staffTableReader)
                     {
                         Application.DoEvents();
-                        staffTbl = new DBStaff(
+                        staffTbl = new Staff(
                             Convert.ToInt32(dbDataRecord["id"]),
                             dbDataRecord["Name"].ToString(),
                             dbDataRecord["Surname"].ToString(),
@@ -77,7 +77,7 @@ namespace Repositories
             //}
             return staffTbl;
         }
-        public void AddToTable(DBStaff staff)
+        public void AddToTable(Staff staff)
         {
             NpgsqlCommand queryCommand;
             //try
@@ -93,7 +93,7 @@ namespace Repositories
             //catch (NpgsqlException)
             //{ }
         }
-        public void UpdateTable(DBStaff staff)
+        public void UpdateTable(Staff staff)
         {
             //try
             //{

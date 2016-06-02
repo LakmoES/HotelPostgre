@@ -8,10 +8,10 @@ namespace Repositories
 {
     public interface IPersonRepository
     {
-        List<DBPerson> GetTable();
-        DBPerson GetConcreteRecord(int id);
-        void AddToTable(DBPerson person);
-        void UpdateTable(DBPerson person);
+        List<Person> GetTable();
+        Person GetConcreteRecord(int id);
+        void AddToTable(Person person);
+        void UpdateTable(Person person);
         void DeleteFromTable(int id);
     }
 }

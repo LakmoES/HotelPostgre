@@ -8,10 +8,10 @@ namespace Repositories
 {
     public interface IObjectRepository
     {
-        List<DBObject> GetTable();
-        DBObject GetConcreteRecord(int id);
-        void AddToTable(DBObject obj);
-        void UpdateTable(DBObject objToUpdate);
+        List<Entity> GetTable();
+        Entity GetConcreteRecord(int id);
+        void AddToTable(Entity obj);
+        void UpdateTable(Entity objToUpdate);
         void DeleteFromTable(int id);
     }
 }

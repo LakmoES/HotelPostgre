@@ -16,7 +16,7 @@ namespace EditForms
     public partial class FormAddUpdateDealTable : Form
     {
         //private Regex regex;
-        private DBDeal deal;
+        private Deal deal;
         private bool adding;
         private IStaffRepository staffRepository;
         private IPersonRepository clientRepository;
@@ -25,11 +25,11 @@ namespace EditForms
         private DealPresenter dealPresenter;
 
         //deal,staff,client,object
-        private List<DBDeal> dealList;
-        private List<DBStaff> staffList;
-        private List<DBPerson> clientList;
-        private List<DBObject> objectList;
-        public FormAddUpdateDealTable(DataGridView dgv, DBDeal deal) //редактирование
+        private List<Deal> dealList;
+        private List<Staff> staffList;
+        private List<Person> clientList;
+        private List<Entity> objectList;
+        public FormAddUpdateDealTable(DataGridView dgv, Deal deal) //редактирование
         {
             InitializeComponent();
             adding = false;
@@ -67,7 +67,7 @@ namespace EditForms
             Init(dgv);
             FillTheFields();
 
-            deal = new DBDeal(-1, -1, -1, -1, -1, new DateTime());
+            deal = new Deal(-1, -1, -1, -1, -1, new DateTime());
         }
         private void Init(DataGridView dgv)
         {
@@ -88,8 +88,8 @@ namespace EditForms
             textBoxCurrency.Text = "у.е.";
 
             dealList = dealRepository.GetTable();
-            Dictionary<int, DBDeal> deals = new Dictionary<int, DBDeal>();
-            foreach (DBDeal curDeal in dealList)
+            Dictionary<int, Deal> deals = new Dictionary<int, Deal>();
+            foreach (Deal curDeal in dealList)
                 deals.Add(curDeal.id, curDeal);
 
             staffList = staffRepository.GetTable();
@@ -108,10 +108,10 @@ namespace EditForms
                 comboBoxBuyer.Items.Add(clientText);
             }
             objectList = objectRepository.GetTable();
-            List<DBObject> tempToSave = new List<DBObject>();
+            List<Entity> tempToSave = new List<Entity>();
             foreach (var obj in objectList)
             {
-                DBDeal tempDeal;
+                Deal tempDeal;
                 if (!deals.TryGetValue(obj.id, out tempDeal)) //игнорируем уже проданные объекты
                 {
                     comboBoxObject.Items.Add(obj.address);
@@ -122,22 +122,22 @@ namespace EditForms
 
             if (objID != -1)
             {
-                DBObject obj = objectRepository.GetConcreteRecord(objID);
+                Entity obj = objectRepository.GetConcreteRecord(objID);
                 objectList.Add(obj);
                 comboBoxObject.Items.Add(String.Format("{1}", obj.id, obj.address));
             }
         }
-        private void ExtractDataFromDeal(DBDeal deal)
+        private void ExtractDataFromDeal(Deal deal)
         {
             //try
             //{
-                DBStaff dealer = staffRepository.GetConcreteRecord(deal.dealer);
+                Staff dealer = staffRepository.GetConcreteRecord(deal.dealer);
                 this.comboBoxDealer.Text = String.Format("{1} {2}", dealer.id, dealer.surname, dealer.name);
 
-                DBPerson client = clientRepository.GetConcreteRecord(deal.buyer);
+                Person client = clientRepository.GetConcreteRecord(deal.buyer);
                 this.comboBoxBuyer.Text = String.Format("{1} {2}", client.id, client.surname, client.name);
 
-                DBObject obj = objectRepository.GetConcreteRecord(deal.obj);
+                Entity obj = objectRepository.GetConcreteRecord(deal.obj);
                 this.comboBoxObject.Text = String.Format("{1}", obj.id, obj.address);
 
                 this.textBoxID.Text = deal.id.ToString();

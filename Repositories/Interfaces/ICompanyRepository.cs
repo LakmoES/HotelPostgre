@@ -8,10 +8,10 @@ namespace Repositories
 {
     public interface ICompanyRepository
     {
-        List<DBCompany> GetTable();
-        DBCompany GetConcreteRecord(int id);
-        void AddToTable(DBCompany company);
-        void UpdateTable(DBCompany updatedCompany);
+        List<Company> GetTable();
+        Company GetConcreteRecord(int id);
+        void AddToTable(Company company);
+        void UpdateTable(Company updatedCompany);
         void DeleteFromTable(int id);
     }
 }

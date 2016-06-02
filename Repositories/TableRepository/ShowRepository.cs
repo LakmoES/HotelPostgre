@@ -11,10 +11,10 @@ namespace Repositories
 {
     public class ShowRepository : IShowRepository
     {
-        public List<DBShow> GetTable()
+        public List<Show> GetTable()
         {
-            List<DBShow> showTable = new List<DBShow>();
-            DBShow showTbl;
+            List<Show> showTable = new List<Show>();
+            Show showTbl;
                 NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"HomeBUY\".\"Show\"", DBConnection.Instance.connection);
                 NpgsqlDataReader showTableReader = queryCommand.ExecuteReader();
 
@@ -22,7 +22,7 @@ namespace Repositories
                     foreach (DbDataRecord dbDataRecord in showTableReader)
                     {
                         Application.DoEvents();
-                        showTbl = new DBShow(
+                        showTbl = new Show(
                             Convert.ToInt32(dbDataRecord["id"]),
                             Convert.ToInt32(dbDataRecord["Dealer"]),
                             Convert.ToInt32(dbDataRecord["Client"]),
@@ -35,9 +35,9 @@ namespace Repositories
 
             return showTable;
         }
-        public DBShow GetConcreteRecord(int id)
+        public Show GetConcreteRecord(int id)
         {
-            DBShow showTbl = null;
+            Show showTbl = null;
             
             NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"HomeBUY\".\"Show\" WHERE \"id\" = @id", DBConnection.Instance.connection);
             queryCommand.Parameters.AddWithValue("@id", id);
@@ -47,7 +47,7 @@ namespace Repositories
                 foreach (DbDataRecord dbDataRecord in showTableReader)
                 {
                     Application.DoEvents();
-                    showTbl = new DBShow(
+                    showTbl = new Show(
                         Convert.ToInt32(dbDataRecord["id"]),
                         Convert.ToInt32(dbDataRecord["Dealer"]),
                         Convert.ToInt32(dbDataRecord["Client"]),
@@ -60,7 +60,7 @@ namespace Repositories
            
             return showTbl;
         }
-        public void AddToTable(DBShow show)
+        public void AddToTable(Show show)
         {
             NpgsqlCommand queryCommand;
             queryCommand = new NpgsqlCommand("INSERT INTO \"HomeBUY\".\"Show\" (\"Dealer\", \"Client\", \"Object\", \"Date\")" +
@@ -72,7 +72,7 @@ namespace Repositories
             queryCommand.ExecuteNonQuery();
             
         }
-        public void UpdateTable(DBShow updatedShow)
+        public void UpdateTable(Show updatedShow)
         {
             NpgsqlCommand queryCommand = new NpgsqlCommand("UPDATE \"HomeBUY\".\"Show\" SET \"Dealer\" = @Dealer, \"Client\" = @Client, \"Object\" = @Object, \"Date\" = @Date" +
                 " WHERE \"id\" = @id", DBConnection.Instance.connection);
