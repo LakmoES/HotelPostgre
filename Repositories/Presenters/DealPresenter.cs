@@ -62,7 +62,7 @@ namespace Repositories
 
             return assocArray;
         }
-        public void ShowTable(bool sort = false)
+        public Dictionary<int, DBDeal> ShowTable(bool sort = false)
         {
             try
             {
@@ -82,17 +82,30 @@ namespace Repositories
                     clients.TryGetValue(deal.buyer, out buyer);
                     objects.TryGetValue(deal.obj, out obj);
 
-                    dgv.Rows.Add(deal.id, String.Format("[{0}] {1} {2}", dealer.id, dealer.surname, dealer.name),
-                        String.Format("[{0}] {1} {2}", buyer.id, buyer.surname, buyer.name),
-                        String.Format("[{0}] {1}", obj.id, obj.address),
-                        deal.cost.ToString(),
+                    dgv.Rows.Add(
+                        deal.id,
+                        String.Format("{0} {1}", dealer.surname, dealer.name),
+                        String.Format("{0} {1}", buyer.surname, buyer.name),
+                        obj.address,
+                        deal.cost.ToString("N2"),
                         deal.date.ToString("dd/MM/yyyy"));
+                    //dgv.Rows.Add(deal.id, String.Format("[{0}] {1} {2}", dealer.id, dealer.surname, dealer.name),
+                    //    String.Format("[{0}] {1} {2}", buyer.id, buyer.surname, buyer.name),
+                    //    String.Format("[{0}] {1}", obj.id, obj.address),
+                    //    deal.cost.ToString(),
+                    //    deal.date.ToString("dd/MM/yyyy"));
                 }
             }
-            catch (Exception) { MessageBox.Show("Ошибка базы данных.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            catch (Npgsql.PostgresException pEx) { MessageBox.Show("Ошибка базы данных.\r\n" + pEx.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            catch (Exception ex) { MessageBox.Show("Неизвестная ошибка.\r\n" + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
             
             if (sort)
                 dgv.Sort(dgv.Columns[0], ListSortDirection.Ascending);
+
+            Dictionary<int, DBDeal> dict = new Dictionary<int, DBDeal>();
+            foreach (var el in dgvElements)
+                dict.Add(el.id, el);
+            return dict;
         }
         public bool AddToTable(DBDeal deal)
         {
@@ -103,7 +116,8 @@ namespace Repositories
                 if (checkFlag)
                     dealRepository.AddToTable(deal);
             }
-            catch (Exception) { errorList.Add("Ошибка базы данных."); }
+            catch (Npgsql.PostgresException pEx) { errorList.Add("Ошибка базы данных." + pEx.Message); checkFlag = false; }
+            catch (Exception) { errorList.Add("Ошибка базы данных."); checkFlag = false; }
 
             ShowErrors(errorList);
 
@@ -118,7 +132,8 @@ namespace Repositories
                 if (checkFlag)
                     dealRepository.UpdateTable(deal);
             }
-            catch(Exception) { errorList.Add("Ошибка базы данных."); }
+            catch (Npgsql.PostgresException pEx) { errorList.Add("Ошибка базы данных." + pEx.Message); checkFlag = false; }
+            catch (Exception) { errorList.Add("Ошибка базы данных."); checkFlag = false; }
 
             ShowErrors(errorList);
 
@@ -133,7 +148,7 @@ namespace Repositories
             if (checkFlag)
                 dealRepository.DeleteFromTable(id);
             }
-            catch (Exception) { errorList.Add("Ошибка базы данных."); }
+            catch (Exception) { errorList.Add("Ошибка базы данных."); checkFlag = false; }
 
             ShowErrors(errorList);
 

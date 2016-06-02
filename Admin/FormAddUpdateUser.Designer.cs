@@ -36,8 +36,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.comboBoxRole = new System.Windows.Forms.ComboBox();
-            this.comboBoxSubrole = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.textBoxSubrole = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // buttonOK
@@ -48,7 +48,7 @@
             this.buttonOK.TabIndex = 0;
             this.buttonOK.Text = "Готово";
             this.buttonOK.UseVisualStyleBackColor = true;
-            this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
+            //this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
             // 
             // buttonCancel
             // 
@@ -58,7 +58,7 @@
             this.buttonCancel.TabIndex = 1;
             this.buttonCancel.Text = "Отмена";
             this.buttonCancel.UseVisualStyleBackColor = true;
-            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
+            //this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
             // label1
             // 
@@ -110,16 +110,6 @@
             this.comboBoxRole.Name = "comboBoxRole";
             this.comboBoxRole.Size = new System.Drawing.Size(100, 21);
             this.comboBoxRole.TabIndex = 7;
-            this.comboBoxRole.SelectedValueChanged += new System.EventHandler(this.comboBoxRole_SelectedValueChanged);
-            // 
-            // comboBoxSubrole
-            // 
-            this.comboBoxSubrole.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxSubrole.FormattingEnabled = true;
-            this.comboBoxSubrole.Location = new System.Drawing.Point(63, 119);
-            this.comboBoxSubrole.Name = "comboBoxSubrole";
-            this.comboBoxSubrole.Size = new System.Drawing.Size(100, 21);
-            this.comboBoxSubrole.TabIndex = 9;
             // 
             // label4
             // 
@@ -130,12 +120,20 @@
             this.label4.TabIndex = 8;
             this.label4.Text = "Подроль";
             // 
+            // textBoxSubrole
+            // 
+            this.textBoxSubrole.Location = new System.Drawing.Point(63, 119);
+            this.textBoxSubrole.Name = "textBoxSubrole";
+            this.textBoxSubrole.PasswordChar = '•';
+            this.textBoxSubrole.Size = new System.Drawing.Size(100, 20);
+            this.textBoxSubrole.TabIndex = 9;
+            // 
             // FormAddUpdateUser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(198, 240);
-            this.Controls.Add(this.comboBoxSubrole);
+            this.Controls.Add(this.textBoxSubrole);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.comboBoxRole);
             this.Controls.Add(this.label3);
@@ -163,7 +161,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox comboBoxRole;
-        private System.Windows.Forms.ComboBox comboBoxSubrole;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox textBoxSubrole;
     }
 }

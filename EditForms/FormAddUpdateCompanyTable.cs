@@ -14,9 +14,9 @@ namespace EditForms
 {
     public partial class FormAddUpdateCompanyTable : Form
     {
-        CompanyPresenter companyPresenter;
-        DBCompany company;
-        bool adding;
+        private CompanyPresenter companyPresenter;
+        private DBCompany company;
+        private bool adding;
         public FormAddUpdateCompanyTable(DataGridView dgv, int index) //редактирование
         {
             InitializeComponent();
@@ -54,8 +54,8 @@ namespace EditForms
                     companyPresenter.ShowTable(true);
                     this.Close();
                 }
-                else
-                    MessageBox.Show("Операция не удалась.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                //else
+                //    MessageBox.Show("Операция не удалась.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             catch (PostgresException pEx)
             {

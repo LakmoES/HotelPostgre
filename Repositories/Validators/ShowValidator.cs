@@ -34,7 +34,7 @@ namespace Repositories
         {
             errorList = new List<string>();
             bool succeedFlag = true;
-            if (id > 0)
+            if (id <= 0)
             {
                 succeedFlag = false;
                 errorList.Add("Неверная запись.");

@@ -34,9 +34,9 @@ namespace Repositories
                         Convert.ToInt32(dbDataRecord["Client"]),
                         (FixDBValue(dbDataRecord["Township"]) ?? "").ToString(), // is null ? => empty
                         (FixDBValue(dbDataRecord["AppartamentOrHouse"]) ?? "").ToString(),
-                        Convert.ToInt32(FixDBValue(dbDataRecord["Area"])),
+                        Convert.ToSingle(FixDBValue(dbDataRecord["Area"])),
                         Convert.ToInt32(FixDBValue(dbDataRecord["NumberOfRooms"])),
-                        Convert.ToInt32(FixDBValue(dbDataRecord["Cost"]))
+                        Convert.ToSingle(FixDBValue(dbDataRecord["Cost"]))
                         );
                     wishTable.Add(wishTbl);
                 }

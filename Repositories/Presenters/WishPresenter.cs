@@ -36,7 +36,7 @@ namespace Repositories
 
             return assocArray;
         }
-        public void ShowTable(bool sort = false)
+        public Dictionary<int, DBWish> ShowTable(bool sort = false)
         {
             try
             {
@@ -51,7 +51,7 @@ namespace Repositories
                     clients.TryGetValue(wish.client, out client);
 
                     dgv.Rows.Add(wish.id,
-                        String.Format("[{0}] {1} {2}", client.id, client.surname, client.name),
+                        String.Format("{1} {2}", client.id, client.surname, client.name),
                         wish.township,
                         wish.apartamentOrHouse,
                         wish.area.ToString(),
@@ -63,6 +63,11 @@ namespace Repositories
 
             if (sort)
                 dgv.Sort(dgv.Columns[0], ListSortDirection.Ascending);
+
+            Dictionary<int, DBWish> dict = new Dictionary<int, DBWish>();
+            foreach (var el in dgvElements)
+                dict.Add(el.id, el);
+            return dict;
         }
         public bool AddToTable(DBWish wish)
         {
@@ -73,7 +78,7 @@ namespace Repositories
                 if (checkFlag)
                     wishRepository.AddToTable(wish);
             }
-            catch (Exception) { errorList.Add("Ошибка базы данных."); }
+            catch (Exception) { errorList.Add("Ошибка базы данных."); checkFlag = false; }
 
             ShowErrors(errorList);
 
@@ -88,7 +93,7 @@ namespace Repositories
                 if (checkFlag)
                     wishRepository.UpdateTable(wish);
             }
-            catch (Exception) { errorList.Add("Ошибка базы данных."); }
+            catch (Exception) { errorList.Add("Ошибка базы данных."); checkFlag = false; }
 
             ShowErrors(errorList);
 
@@ -103,7 +108,7 @@ namespace Repositories
                 if (checkFlag)
                     wishRepository.DeleteFromTable(id);
             }
-            catch (Exception) { errorList.Add("Ошибка базы данных."); }
+            catch (Exception) { errorList.Add("Ошибка базы данных."); checkFlag = false; }
 
             ShowErrors(errorList);
 

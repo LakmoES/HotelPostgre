@@ -12,13 +12,12 @@ namespace Repositories
         public int id;
         public string address;
         public DateTime addDate;
-        //public Money cost;
-        public int cost;
+        public float cost;
         public int owner;
-        public int area;
+        public float area;
         public string appartamentOrHouse;
         public int numberOfRooms;
-        public DBObject(int id, string address, DateTime addDate, int cost, int owner, string appartamentOrHouse, int area, int numberOfRooms)
+        public DBObject(int id, string address, DateTime addDate, float cost, int owner, string appartamentOrHouse, float area, int numberOfRooms)
         {
             this.id = id;
             this.address = address;

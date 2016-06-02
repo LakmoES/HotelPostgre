@@ -189,18 +189,21 @@
             // 
             this.numericUpDownRooms.Location = new System.Drawing.Point(90, 209);
             this.numericUpDownRooms.Name = "numericUpDownRooms";
-            this.numericUpDownRooms.Size = new System.Drawing.Size(51, 20);
+            this.numericUpDownRooms.Size = new System.Drawing.Size(65, 20);
             this.numericUpDownRooms.TabIndex = 21;
+            this.numericUpDownRooms.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.numericUpDownRooms_KeyPress);
             // 
             // numericUpDownArea
             // 
+            this.numericUpDownArea.DecimalPlaces = 2;
             this.numericUpDownArea.Location = new System.Drawing.Point(90, 183);
             this.numericUpDownArea.Name = "numericUpDownArea";
-            this.numericUpDownArea.Size = new System.Drawing.Size(51, 20);
+            this.numericUpDownArea.Size = new System.Drawing.Size(65, 20);
             this.numericUpDownArea.TabIndex = 22;
             // 
             // numericUpDownCost
             // 
+            this.numericUpDownCost.DecimalPlaces = 2;
             this.numericUpDownCost.Location = new System.Drawing.Point(89, 105);
             this.numericUpDownCost.Name = "numericUpDownCost";
             this.numericUpDownCost.Size = new System.Drawing.Size(66, 20);

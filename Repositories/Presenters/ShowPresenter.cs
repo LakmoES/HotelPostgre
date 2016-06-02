@@ -62,7 +62,7 @@ namespace Repositories
 
             return assocArray;
         }
-        public void ShowTable(bool sort = false)
+        public Dictionary<int, DBShow> ShowTable(bool sort = false)
         {
             try
             {
@@ -82,9 +82,9 @@ namespace Repositories
                     objects.TryGetValue(show.obj, out obj);
 
                     dgv.Rows.Add(show.id,
-                        String.Format("[{0}] {1} {2}", dealer.id, dealer.surname, dealer.name),
-                        String.Format("[{0}] {1} {2}", client.id, client.surname, client.name),
-                        String.Format("[{0}] {1}", obj.id, obj.address),
+                        String.Format("{1} {2}", dealer.id, dealer.surname, dealer.name),
+                        String.Format("{1} {2}", client.id, client.surname, client.name),
+                        obj.address,
                         show.date.ToString("dd/MM/yyyy"));
                 }
             }
@@ -92,6 +92,11 @@ namespace Repositories
 
             if (sort)
                 dgv.Sort(dgv.Columns[0], ListSortDirection.Ascending);
+
+            Dictionary<int, DBShow> dict = new Dictionary<int, DBShow>();
+            foreach (var el in dgvElements)
+                dict.Add(el.id, el);
+            return dict;
         }
         public bool AddToTable(DBShow show)
         {
@@ -102,7 +107,7 @@ namespace Repositories
                 if (checkFlag)
                     showRepository.AddToTable(show);
             }
-            catch (Exception) { errorList.Add("Ошибка базы данных."); }
+            catch (Exception) { errorList.Add("Ошибка базы данных."); checkFlag = false; }
 
             ShowErrors(errorList);
 
@@ -117,7 +122,7 @@ namespace Repositories
                 if (checkFlag)
                     showRepository.UpdateTable(show);
             }
-            catch (Exception) { errorList.Add("Ошибка базы данных."); }
+            catch (Exception) { errorList.Add("Ошибка базы данных."); checkFlag = false; }
 
             ShowErrors(errorList);
 
@@ -132,7 +137,7 @@ namespace Repositories
                 if (checkFlag)
                     showRepository.DeleteFromTable(id);
             }
-            catch (Exception) { errorList.Add("Ошибка базы данных."); }
+            catch (Exception) { errorList.Add("Ошибка базы данных."); checkFlag = false; }
 
             ShowErrors(errorList);
 

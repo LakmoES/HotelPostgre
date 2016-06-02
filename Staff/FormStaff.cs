@@ -25,6 +25,14 @@ namespace Staff
         ContextMenu contextMenu;
         DataGridView selectedDGV;
 
+        private Dictionary<int, DBCompany> companies;
+        private Dictionary<int, DBDeal> deals;
+        private Dictionary<int, DBObject> objects;
+        private Dictionary<int, DBPerson> clients;
+        private Dictionary<int, DBPerson> owners;
+        private Dictionary<int, DBShow> shows;
+        private Dictionary<int, DBWish> wishes;
+        private Dictionary<int, DBStaff> staffs;
         public FormStaff()
         {
             InitializeComponent();
@@ -39,53 +47,53 @@ namespace Staff
         private void FormStaff_Load(object sender, EventArgs e)
         {
             objectPresenter = new ObjectPresenter(this.dataGridViewObject);
-            objectPresenter.ShowTable(true);
+            objects = objectPresenter.ShowTable(true);
 
             ownerPresenter = new PersonPresenter(this.dataGridViewOwner, "Owner");
-            ownerPresenter.ShowTable(true);
+            owners = ownerPresenter.ShowTable(true);
 
             staffPresenter = new StaffPresenter(this.dataGridViewStaff);
-            staffPresenter.ShowTable(true);
+            staffs = staffPresenter.ShowTable(true);
 
             clientPresenter = new PersonPresenter(this.dataGridViewClient, "Client");
-            clientPresenter.ShowTable(true);
+            clients = clientPresenter.ShowTable(true);
 
             dealPresenter = new DealPresenter(this.dataGridViewDeal);
-            dealPresenter.ShowTable(true);
+            deals = dealPresenter.ShowTable(true);
 
             showPresenter = new ShowPresenter(this.dataGridViewShow);
-            showPresenter.ShowTable(true);
+            shows = showPresenter.ShowTable(true);
 
             wishPresenter = new WishPresenter(this.dataGridViewWish);
-            wishPresenter.ShowTable(true);
+            wishes = wishPresenter.ShowTable(true);
         }
         private void buttonObjectRefresh_Click(object sender, EventArgs e)
         {
-            objectPresenter.ShowTable(true);
+            objects = objectPresenter.ShowTable(true);
         }
         private void buttonOwnerRefresh_Click(object sender, EventArgs e)
         {
-            ownerPresenter.ShowTable(true);
+            owners = ownerPresenter.ShowTable(true);
         }
         private void buttonStaffRefresh_Click(object sender, EventArgs e)
         {
-            staffPresenter.ShowTable(true);
+            staffs = staffPresenter.ShowTable(true);
         }
         private void buttonClientRefresh_Click(object sender, EventArgs e)
         {
-            clientPresenter.ShowTable(true);
+            clients = clientPresenter.ShowTable(true);
         }
         private void buttonDealRefresh_Click(object sender, EventArgs e)
         {
-            dealPresenter.ShowTable(true);
+            deals = dealPresenter.ShowTable(true);
         }
         private void buttonShowRefresh_Click(object sender, EventArgs e)
         {
-            showPresenter.ShowTable(true);
+            shows = showPresenter.ShowTable(true);
         }
         private void buttonWishRefresh_Click(object sender, EventArgs e)
         {
-            wishPresenter.ShowTable(true);
+            wishes = wishPresenter.ShowTable(true);
         }
         private void dataGridView_SelectAndShowMenu(object sender, MouseEventArgs e)
         {
@@ -110,19 +118,27 @@ namespace Staff
         {
             if (selectedDGV == dataGridViewObject)
             {
-                new FormAddUpdateObjectTable(selectedDGV, selectedDGV.CurrentRow.Index).ShowDialog();
+                DBObject obj;
+                objects.TryGetValue(Convert.ToInt32(selectedDGV.CurrentRow.Cells[0].Value), out obj);
+                new FormAddUpdateObjectTable(selectedDGV, obj/*selectedDGV.CurrentRow.Index*/).ShowDialog();
             }
             if (selectedDGV == dataGridViewOwner)
             {
-                new FormAddUpdatePersonTable(selectedDGV, selectedDGV.CurrentRow.Index, "Owner").ShowDialog();
+                DBPerson owner;
+                owners.TryGetValue(Convert.ToInt32(selectedDGV.CurrentRow.Cells[0].Value), out owner);
+                new FormAddUpdatePersonTable(selectedDGV, owner, "Owner").ShowDialog();
             }
             if (selectedDGV == dataGridViewClient)
             {
-                new FormAddUpdatePersonTable(selectedDGV, selectedDGV.CurrentRow.Index, "Client").ShowDialog();
+                DBPerson client;
+                clients.TryGetValue(Convert.ToInt32(selectedDGV.CurrentRow.Cells[0].Value), out client);
+                new FormAddUpdatePersonTable(selectedDGV, client, "Client").ShowDialog();
             }
             if (selectedDGV == dataGridViewWish)
             {
-                new FormAddUpdateWishTable(selectedDGV, selectedDGV.CurrentRow.Index).ShowDialog();
+                DBWish wish;
+                wishes.TryGetValue(Convert.ToInt32(selectedDGV.CurrentRow.Cells[0].Value), out wish);
+                new FormAddUpdateWishTable(selectedDGV, wish).ShowDialog();
             }
         }
         private void dataGridView_Remove_Click(object sender, EventArgs e)
@@ -155,7 +171,7 @@ namespace Staff
                 if (succeedFlag)
                     MessageBox.Show("Успешно удалено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 else
-                    MessageBox.Show("Удалить не удалось", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Удалить не удалось.", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
         private void buttonObjectAdd_Click(object sender, EventArgs e)

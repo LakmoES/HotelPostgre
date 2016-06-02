@@ -15,33 +15,39 @@ namespace EditForms
 {
     public partial class FormAddUpdateShowTable : Form
     {
-        Regex regex;
-        DBShow show;
-        bool adding;
-        IStaffRepository staffRepository;
-        IPersonRepository clientRepository;
-        IObjectRepository objectRepository;
-        IShowRepository showRepository;
-        ShowPresenter showPresenter;
-        public FormAddUpdateShowTable(DataGridView dgv, int index) //редактирование
+        //private Regex regex;
+        private DBShow show;
+        private bool adding;
+        private IStaffRepository staffRepository;
+        private IPersonRepository clientRepository;
+        private IObjectRepository objectRepository;
+        private IShowRepository showRepository;
+        private ShowPresenter showPresenter;
+
+        private List<DBPerson> clientList;
+        private List<DBObject> objectList;
+        private List<DBShow> showList;
+        private List<DBStaff> staffList;
+        public FormAddUpdateShowTable(DataGridView dgv, DBShow show) //редактирование
         {
             InitializeComponent();
             adding = false;
+            this.show = show;
             Init(dgv);
+            FillTheFields(show.obj);
+            //Match matchObject = regex.Match(dgv.Rows[index].Cells[3].Value.ToString());
+            //int objID = Convert.ToInt32(matchObject.Value.Substring(1, matchObject.Value.Length - 2));
+            //FillTheFields(objID);
 
-            Match matchObject = regex.Match(dgv.Rows[index].Cells[3].Value.ToString());
-            int objID = Convert.ToInt32(matchObject.Value.Substring(1, matchObject.Value.Length - 2));
-            FillTheFields(objID);
+            //Match matchShower = regex.Match(dgv.Rows[index].Cells[1].Value.ToString());
+            //Match matchClient = regex.Match(dgv.Rows[index].Cells[2].Value.ToString());
 
-            Match matchShower = regex.Match(dgv.Rows[index].Cells[1].Value.ToString());
-            Match matchClient = regex.Match(dgv.Rows[index].Cells[2].Value.ToString());
-
-            show = new DBShow(Convert.ToInt32(dgv.Rows[index].Cells[0].Value.ToString()),
-                Convert.ToInt32(matchShower.Value.Substring(1, matchShower.Value.Length - 2)),
-                Convert.ToInt32(matchClient.Value.Substring(1, matchClient.Value.Length - 2)),
-                objID,
-                Convert.ToDateTime(dgv.Rows[index].Cells[4].Value.ToString())
-                );
+            //show = new DBShow(Convert.ToInt32(dgv.Rows[index].Cells[0].Value.ToString()),
+            //    Convert.ToInt32(matchShower.Value.Substring(1, matchShower.Value.Length - 2)),
+            //    Convert.ToInt32(matchClient.Value.Substring(1, matchClient.Value.Length - 2)),
+            //    objID,
+            //    Convert.ToDateTime(dgv.Rows[index].Cells[4].Value.ToString())
+            //    );
             ExtractDataFromShow(show);
 
             this.comboBoxObject.Enabled = false;
@@ -67,50 +73,59 @@ namespace EditForms
 
             showPresenter = new ShowPresenter(dgv);
 
-            regex = new Regex("\\[[0-9]+\\]");
+            //regex = new Regex("\\[[0-9]+\\]");
         }
         private void FillTheFields(int objID = -1)
         {
-            var showList = showRepository.GetTable();
+            showList = showRepository.GetTable();
             Dictionary<int, DBShow> shows = new Dictionary<int, DBShow>();
             foreach (DBShow curShow in showList)
                 shows.Add(curShow.id, curShow);
 
-            var staffList = staffRepository.GetTable();
+            staffList = staffRepository.GetTable();
+            var staffListTemp = new List<DBStaff>();
             foreach (var staff in staffList)
             {
                 if ((User.role == 1) || (User.role == 2 && User.subrole == staff.company)) //todo: исправить отсутствие продавца, если он из другого филиала
                 {
-                    string staffText = String.Format("[{0}] {1} {2}", staff.id, staff.surname, staff.name);
+                    string staffText = String.Format("{1} {2}", staff.id, staff.surname, staff.name);
                     comboBoxDealer.Items.Add(staffText);
+                    staffListTemp.Add(staff);
                 }
                 else
-                    if (User.role == 3 && User.subrole == staff.id) 
+                    if (User.role == 3 && User.subrole == staff.id)
                     {
-                        string staffText = String.Format("[{0}] {1} {2}", staff.id, staff.surname, staff.name);
+                        string staffText = String.Format("{1} {2}", staff.id, staff.surname, staff.name);
                         comboBoxDealer.Items.Add(staffText);
+                        staffListTemp.Add(staff);
                     }
             }
-            var clientList = clientRepository.GetTable();
+            staffList = staffListTemp;
+
+            clientList = clientRepository.GetTable();
             foreach (var client in clientList)
             {
-                string clientText = String.Format("[{0}] {1} {2}", client.id, client.surname, client.name);
+                string clientText = String.Format("{1} {2}", client.id, client.surname, client.name);
                 comboBoxClient.Items.Add(clientText);
             }
-            var objectList = objectRepository.GetTable();
+
+            objectList = objectRepository.GetTable();
+            var objectListTemp = new List<DBObject>();
             foreach (var obj in objectList)
             {
                 DBShow tempShow;
                 if (!shows.TryGetValue(obj.id, out tempShow)) //игнорируем уже проданные объекты
                 {
-                    string objectText = String.Format("[{0}] {1}", obj.id, obj.address);
+                    string objectText = String.Format("{1}", obj.id, obj.address);
                     comboBoxObject.Items.Add(objectText);
+                    objectListTemp.Add(obj);
                 }
             }
+            objectList = objectListTemp;
             if (objID != -1)
             {
                 DBObject obj = objectRepository.GetConcreteRecord(objID);
-                comboBoxObject.Items.Add(String.Format("[{0}] {1}", obj.id, obj.address));
+                comboBoxObject.Items.Add(String.Format("{1}", obj.id, obj.address));
             }
         }
         private void ExtractDataFromShow(DBShow show)
@@ -118,13 +133,13 @@ namespace EditForms
             try
             {
                 DBStaff dealer = staffRepository.GetConcreteRecord(show.dealer);
-                this.comboBoxDealer.Text = String.Format("[{0}] {1} {2}", dealer.id, dealer.surname, dealer.name);
+                this.comboBoxDealer.Text = String.Format("{1} {2}", dealer.id, dealer.surname, dealer.name);
 
                 DBPerson client = clientRepository.GetConcreteRecord(show.client);
-                this.comboBoxClient.Text = String.Format("[{0}] {1} {2}", client.id, client.surname, client.name);
+                this.comboBoxClient.Text = String.Format("{1} {2}", client.id, client.surname, client.name);
 
                 DBObject obj = objectRepository.GetConcreteRecord(show.obj);
-                this.comboBoxObject.Text = String.Format("[{0}] {1}", obj.id, obj.address);
+                this.comboBoxObject.Text = String.Format("{1}", obj.id, obj.address);
 
                 this.textBoxID.Text = show.id.ToString();
                 this.dateTimePickerDate.Value = show.date;
@@ -152,8 +167,8 @@ namespace EditForms
                     showPresenter.ShowTable(true);
                     this.Close();
                 }
-                else
-                    MessageBox.Show("Проверьте правильность заполнения полей", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                //else
+                //    MessageBox.Show("Проверьте правильность заполнения полей", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             catch (PostgresException pEx)
             {
@@ -161,20 +176,33 @@ namespace EditForms
             }
             catch (Exception)
             {
-                MessageBox.Show("Произошла ошибка. Проверьте поля.\r\n", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Произошла неизвестная ошибка. Проверьте поля.\r\n", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
         private bool AddUpdateShow()
         {
             //id, Shower, Buyer, Object, Cost, Date
-            Match matchDealer = regex.Match(this.comboBoxDealer.Text);
-            Match matchClient = regex.Match(this.comboBoxClient.Text);
-            Match matchObject = regex.Match(this.comboBoxObject.Text);
 
-            show.dealer = matchDealer.Success ? Convert.ToInt32(matchDealer.Value.Substring(1, matchDealer.Value.Length - 2)) : -1;
-            show.client = matchClient.Success ? Convert.ToInt32(matchClient.Value.Substring(1, matchClient.Value.Length - 2)) : -1;
-            show.obj = matchObject.Success ? Convert.ToInt32(matchObject.Value.Substring(1, matchObject.Value.Length - 2)) : -1;
-            
+            //Match matchDealer = regex.Match(this.comboBoxDealer.Text);
+            //Match matchClient = regex.Match(this.comboBoxClient.Text);
+            //Match matchObject = regex.Match(this.comboBoxObject.Text);
+
+            //show.dealer = matchDealer.Success ? Convert.ToInt32(matchDealer.Value.Substring(1, matchDealer.Value.Length - 2)) : -1;
+            //show.client = matchClient.Success ? Convert.ToInt32(matchClient.Value.Substring(1, matchClient.Value.Length - 2)) : -1;
+            //show.obj = matchObject.Success ? Convert.ToInt32(matchObject.Value.Substring(1, matchObject.Value.Length - 2)) : -1;
+
+            show.dealer = -1;
+            if (this.comboBoxDealer.SelectedIndex != -1)
+                show.dealer = clientList[this.comboBoxDealer.SelectedIndex].id;
+
+            show.client = -1;
+            if (this.comboBoxClient.SelectedIndex != -1)
+                show.client = clientList[this.comboBoxClient.SelectedIndex].id;
+
+            show.obj = -1;
+            if (this.comboBoxObject.SelectedIndex != -1)
+                show.obj = clientList[this.comboBoxObject.SelectedIndex].id;
+
             show.date = this.dateTimePickerDate.Value;
 
             if (!adding)

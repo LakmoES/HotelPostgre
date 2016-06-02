@@ -150,10 +150,12 @@
             // 
             // numericUpDownCost
             // 
+            this.numericUpDownCost.DecimalPlaces = 2;
             this.numericUpDownCost.Location = new System.Drawing.Point(70, 120);
             this.numericUpDownCost.Name = "numericUpDownCost";
             this.numericUpDownCost.Size = new System.Drawing.Size(64, 20);
             this.numericUpDownCost.TabIndex = 38;
+            this.numericUpDownCost.ValueChanged += new System.EventHandler(this.numericUpDownCost_ValueChanged);
             // 
             // dateTimePickerDate
             // 

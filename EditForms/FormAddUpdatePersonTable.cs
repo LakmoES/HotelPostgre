@@ -15,39 +15,42 @@ namespace EditForms
 {
     public partial class FormAddUpdatePersonTable : Form
     {
-        Dictionary<string, string> role;
-        PersonPresenter personPresenter;
-        StaffPresenter staffPresenter;
-        ICompanyRepository companyRepository;
-        DBPerson person;
-        bool adding;
-        string tableName;
-        Regex regex; // [id]
-        public FormAddUpdatePersonTable(DataGridView dgv, int index, string tableName) //редактирование
+        private Dictionary<string, string> role;
+        private PersonPresenter personPresenter;
+        private StaffPresenter staffPresenter;
+        private ICompanyRepository companyRepository;
+        private DBPerson person;
+        private bool adding;
+        private string tableName;
+        private List<DBCompany> companiesList;
+        //private Regex regex; // [id]
+        public FormAddUpdatePersonTable(DataGridView dgv, DBPerson person/*int index*/, string tableName) //редактирование
         {
             InitializeComponent();
             this.tableName = tableName;
+            this.person = person;
             Init(dgv);
 
             adding = false;
 
-            int pID = Convert.ToInt32(dgv.Rows[index].Cells[0].Value);
-            string pName = dgv.Rows[index].Cells[1].Value.ToString();
-            string pSurname = dgv.Rows[index].Cells[2].Value.ToString();
-            string pTel = dgv.Rows[index].Cells[3].Value.ToString();
+            //int pID = Convert.ToInt32(dgv.Rows[index].Cells[0].Value);
+            //string pName = dgv.Rows[index].Cells[1].Value.ToString();
+            //string pSurname = dgv.Rows[index].Cells[2].Value.ToString();
+            //string pTel = dgv.Rows[index].Cells[3].Value.ToString();
 
             if (tableName == "Staff")
             {
                 FillTheFieldsForStaff();
-                Match match = regex.Match(dgv.Rows[index].Cells[4].Value.ToString());
-                int pCompany = Convert.ToInt32(match.Value.Substring(1, match.Value.Length - 2));
-                person = new DBStaff(pID, pName, pSurname, pTel, pCompany);
-                this.comboBoxCompany.Text = dgv.Rows[index].Cells[4].Value.ToString();
-
-                CheckPermissions();
+                //Match match = regex.Match(dgv.Rows[index].Cells[4].Value.ToString());
+                //int pCompany = Convert.ToInt32(match.Value.Substring(1, match.Value.Length - 2));
+                //person = new DBStaff(pID, pName, pSurname, pTel, pCompany);
+                //this.comboBoxCompany.Text = dgv.Rows[index].Cells[4].Value.ToString();
+                this.comboBoxCompany.Text = companyRepository.GetConcreteRecord((person as DBStaff).company).title;                CheckPermissions();
             }
             else
-                person = new DBPerson(pID, pName, pSurname, pTel);
+            {
+                //person = new DBPerson(pID, pName, pSurname, pTel);
+            }
 
             this.textBoxID.Text = person.id.ToString();
             this.textBoxName.Text = person.name;
@@ -71,7 +74,7 @@ namespace EditForms
         }
         private void Init(DataGridView dgv)
         {
-            regex = new Regex("\\[[0-9]+\\]");
+            //regex = new Regex("\\[[0-9]+\\]");
             personPresenter = new PersonPresenter(dgv, tableName);
             staffPresenter = new StaffPresenter(dgv);
             companyRepository = RepositoryFactory.GetCompanyRepository();//new CompanyRepository();
@@ -90,10 +93,10 @@ namespace EditForms
             this.comboBoxCompany.Visible = true;
             this.labelCompany.Visible = true;
 
-            var companiesList = companyRepository.GetTable();
+            companiesList = companyRepository.GetTable();
             foreach (var company in companiesList)
             {
-                string companyText = String.Format("[{0}] {1}", company.id, company.title);
+                string companyText = String.Format("{1}", company.id, company.title);
                 comboBoxCompany.Items.Add(companyText);
 
                 if (adding && company.id == User.subrole)
@@ -138,8 +141,8 @@ namespace EditForms
                         personPresenter.ShowTable(true);
                     this.Close();
                 }
-                else
-                    MessageBox.Show("Проверьте правильность заполнения полей", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                //else
+                //    MessageBox.Show("Проверьте правильность заполнения полей", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             catch (PostgresException pEx)
             {
@@ -157,12 +160,14 @@ namespace EditForms
             person.telephone = this.textBoxTelephone.Text.Trim(' ');
             if (tableName == "Staff")
             {
-                Match match = regex.Match(this.comboBoxCompany.Text);
-                int companyID = -1;
-                if (match.Success)
-                    companyID = Convert.ToInt32(match.Value.Substring(1, match.Value.Length - 2));
+                //Match match = regex.Match(this.comboBoxCompany.Text);
+                //int companyID = -1;
+                //if (match.Success)
+                //   companyID = Convert.ToInt32(match.Value.Substring(1, match.Value.Length - 2));
 
-                (person as DBStaff).company = companyID;
+                (person as DBStaff).company = -1;
+                if (this.comboBoxCompany.SelectedIndex != -1)
+                    (person as DBStaff).company = companiesList[this.comboBoxCompany.SelectedIndex].id;
                 if (!adding)
                     return (staffPresenter.UpdateTable(person as DBStaff));
                 else

@@ -29,7 +29,7 @@ namespace Repositories
                             Convert.ToInt32(dbDataRecord["Dealer"]),
                             Convert.ToInt32(dbDataRecord["Buyer"]),
                             Convert.ToInt32(dbDataRecord["Object"]),
-                            Convert.ToInt32(dbDataRecord["Cost"]),
+                            Convert.ToSingle(dbDataRecord["Cost"]),
                             Convert.ToDateTime(dbDataRecord["Date"])
                             );
                         dealTable.Add(dealTbl);

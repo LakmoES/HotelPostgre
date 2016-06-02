@@ -20,7 +20,7 @@ namespace Repositories
             this.dgv = dgv;
             personRepository = new PersonRepository(tableName);
         }
-        public void ShowTable(bool sort = false)
+        public Dictionary<int, DBPerson> ShowTable(bool sort = false)
         {
             try
             {
@@ -33,6 +33,11 @@ namespace Repositories
                 dgv.Rows.Add(person.id, person.name, person.surname, person.telephone);
             if (sort)
                 dgv.Sort(dgv.Columns[0], ListSortDirection.Ascending);
+
+            Dictionary<int, DBPerson> dict = new Dictionary<int, DBPerson>();
+            foreach (var el in dgvElements)
+                dict.Add(el.id, el);
+            return dict;
         }
         public bool AddToTable(DBPerson person)
         {
@@ -43,7 +48,7 @@ namespace Repositories
                 if (checkFlag)
                     personRepository.AddToTable(person);
             }
-            catch (Exception) { errorList.Add("Ошибка базы данных."); }
+            catch (Exception) { errorList.Add("Ошибка базы данных."); checkFlag = false; }
 
             ShowErrors(errorList);
 
@@ -58,7 +63,7 @@ namespace Repositories
                 if (checkFlag)
                     personRepository.UpdateTable(person);
             }
-            catch (Exception) { errorList.Add("Ошибка базы данных."); }
+            catch (Exception) { errorList.Add("Ошибка базы данных."); checkFlag = false; }
 
             ShowErrors(errorList);
 
@@ -73,7 +78,7 @@ namespace Repositories
                 if (checkFlag)
                     personRepository.DeleteFromTable(id);
             }
-            catch (Exception) { errorList.Add("Ошибка базы данных."); }
+            catch (Exception) { errorList.Add("Ошибка базы данных."); checkFlag = false; }
 
             ShowErrors(errorList);
 

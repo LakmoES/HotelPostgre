@@ -15,15 +15,17 @@ namespace EditForms
 {
     public partial class FormAddUpdateObjectTable : Form
     {
-        ObjectPresenter objectPresenter;
-        IPersonRepository ownerRepository;
-        DBObject obj;
-        Regex regex; // [id]
-        bool adding;
-        public FormAddUpdateObjectTable(DataGridView dgv, int index) //редактирование
+        private ObjectPresenter objectPresenter;
+        private IPersonRepository ownerRepository;
+        private DBObject obj;
+        //private Regex regex; // [id]
+        private bool adding;
+        private List<DBPerson> ownersList;
+        public FormAddUpdateObjectTable(DataGridView dgv, DBObject obj) //редактирование
         {
             InitializeComponent();
             adding = false;
+            this.obj = obj;
             numericUpDownCost.Minimum = -1;
             numericUpDownCost.Maximum = Int32.MaxValue;
             numericUpDownArea.Minimum = -1;
@@ -36,29 +38,29 @@ namespace EditForms
             this.textBoxAddress.ReadOnly = true;
             this.comboBoxType.Enabled = false;
 
-            Match match = regex.Match(dgv.Rows[index].Cells[4].Value.ToString());
+            //Match match = regex.Match(dgv.Rows[index].Cells[4].Value.ToString());
 
-            obj = new DBObject(Convert.ToInt32(dgv.Rows[index].Cells[0].Value.ToString()),
-                dgv.Rows[index].Cells[1].Value.ToString(),
-                Convert.ToDateTime(dgv.Rows[index].Cells[2].Value.ToString()),
-                Convert.ToInt32(dgv.Rows[index].Cells[3].Value.ToString()),
-                Convert.ToInt32(match.Value.Substring(1, match.Value.Length - 2)), //owner id
-                dgv.Rows[index].Cells[5].Value.ToString(),
-                Convert.ToInt32(dgv.Rows[index].Cells[6].Value.ToString()),
-                Convert.ToInt32(dgv.Rows[index].Cells[7].Value.ToString()));
+            //obj = new DBObject(Convert.ToInt32(dgv.Rows[index].Cells[0].Value.ToString()),
+            //    dgv.Rows[index].Cells[1].Value.ToString(),
+            //    Convert.ToDateTime(dgv.Rows[index].Cells[2].Value.ToString()),
+            //    Convert.ToInt32(dgv.Rows[index].Cells[3].Value.ToString()),
+            //    Convert.ToInt32(match.Value.Substring(1, match.Value.Length - 2)), //owner id
+            //    dgv.Rows[index].Cells[5].Value.ToString(),
+            //    Convert.ToInt32(dgv.Rows[index].Cells[6].Value.ToString()),
+            //    Convert.ToInt32(dgv.Rows[index].Cells[7].Value.ToString()));
 
 
 
             this.textBoxID.Text = obj.id.ToString();
             this.textBoxAddress.Text = obj.address;
             this.dateTimePickerToday.Value = obj.addDate;
-            this.numericUpDownCost.Value = obj.cost;
+            this.numericUpDownCost.Value = Convert.ToDecimal(obj.cost);
 
             DBPerson owner = ownerRepository.GetConcreteRecord(obj.owner);
-            this.comboBoxOwner.Text = String.Format("[{0}] {1} {2}", owner.id, owner.surname, owner.name);
+            this.comboBoxOwner.Text = String.Format("{0} {1}", owner.surname, owner.name);
 
             this.comboBoxType.Text = obj.appartamentOrHouse;
-            this.numericUpDownArea.Value = obj.area;
+            this.numericUpDownArea.Value = Convert.ToDecimal(obj.area);
             this.numericUpDownRooms.Value = obj.numberOfRooms;
         }
         public FormAddUpdateObjectTable(DataGridView dgv) //добавление
@@ -76,12 +78,12 @@ namespace EditForms
         }
         private void FillTheFields()
         {
-            regex = new Regex("\\[[0-9]+\\]");
+            //regex = new Regex("\\[[0-9]+\\]");
             textBoxCurrency.Text = "у.е.";
-            var ownersList = ownerRepository.GetTable();
+            ownersList = ownerRepository.GetTable();
             foreach (var owner in ownersList)
             {
-                string ownerText = String.Format("[{0}] {1} {2}", owner.id, owner.surname, owner.name);
+                string ownerText = String.Format("{0} {1}", owner.surname, owner.name);
                 comboBoxOwner.Items.Add(ownerText);
             }
             comboBoxType.Items.AddRange(new string[] { "Apartament", "House" });
@@ -100,8 +102,8 @@ namespace EditForms
                     objectPresenter.ShowTable(true);
                     this.Close();
                 }
-                else
-                    MessageBox.Show("Проверьте правильность заполнения полей", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                //else
+                //    MessageBox.Show("Проверьте правильность заполнения полей", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             catch(PostgresException pEx)
             {
@@ -109,7 +111,7 @@ namespace EditForms
             }
             catch(Exception ex)
             {
-                MessageBox.Show("Произошла ошибка.\r\n" + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Произошла неизвестная ошибка.\r\n" + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
         private bool AddUpdateObject()
@@ -117,24 +119,35 @@ namespace EditForms
             //address,adddate,cost,owner,apartamentorHouse,area,numberOfRooms
             obj.address = this.textBoxAddress.Text;
             obj.addDate = dateTimePickerToday.Value;
-            obj.cost = Convert.ToInt32(this.numericUpDownCost.Value);
+            obj.cost = Convert.ToSingle(this.numericUpDownCost.Value);
 
-            
-            Match match = regex.Match(this.comboBoxOwner.Text);
-            int ownerID = 0;
 
-            if(match.Success)
-                ownerID = Convert.ToInt32(match.Value.Substring(1, match.Value.Length - 2));
-            obj.owner = ownerID;
+            //Match match = regex.Match(this.comboBoxOwner.Text);
+            //int ownerID = 0;
+
+            //if(match.Success)
+            //    ownerID = Convert.ToInt32(match.Value.Substring(1, match.Value.Length - 2));
+            //obj.owner = ownerID;
+            obj.owner = -1;
+            if (this.comboBoxOwner.SelectedIndex != -1)
+                obj.owner = ownersList.ElementAt(this.comboBoxOwner.SelectedIndex).id;
 
             obj.appartamentOrHouse = this.comboBoxType.Text;
-            obj.area = Convert.ToInt32(this.numericUpDownArea.Value);
+            obj.area = Convert.ToSingle(this.numericUpDownArea.Value);
             obj.numberOfRooms = Convert.ToInt32(this.numericUpDownRooms.Value);
 
             if (!adding)
                 return (objectPresenter.UpdateTable(obj));
             else
                 return (objectPresenter.AddToTable(obj));
+        }
+
+        private void numericUpDownRooms_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!Char.IsDigit(e.KeyChar) && !Char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
+            }
         }
     }
 }

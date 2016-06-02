@@ -13,10 +13,10 @@ namespace Repositories
         public int dealer;
         public int buyer;
         public int obj;
-        public int cost;
+        public float cost;
         public DateTime date;
 
-        public DBDeal(int id, int dealer, int buyer, int obj, int cost, DateTime date)
+        public DBDeal(int id, int dealer, int buyer, int obj, float cost, DateTime date)
         {
             this.id = id;
             this.dealer = dealer;

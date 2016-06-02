@@ -23,11 +23,58 @@ namespace Repositories
                 succeedFlag = false;
                 errorList.Add("Адрес филиала не может быть пустым.");
             }
-            if(company.telephone.Trim(' ').Length <= 0)
+            if (company.telephone.Trim(' ').Length <= 0)
             {
                 succeedFlag = false;
                 errorList.Add("Должен быть указан номер телефона.");
             }
+            else
+            {
+                string tempTel = company.telephone;
+                int k = tempTel.IndexOf('+');
+                while (k != -1)
+                {
+                    tempTel = tempTel.Remove(k, 1);
+                    k = tempTel.IndexOf('+');
+                }
+
+                k = tempTel.IndexOf('-');
+                while (k != -1)
+                {
+                    tempTel = tempTel.Remove(k, 1);
+                    k = tempTel.IndexOf('-');
+                }
+
+                k = tempTel.IndexOf('(');
+                while (k != -1)
+                {
+                    tempTel = tempTel.Remove(k, 1);
+                    k = tempTel.IndexOf('(');
+                }
+
+                k = tempTel.IndexOf(')');
+                while (k != -1)
+                {
+                    tempTel = tempTel.Remove(k, 1);
+                    k = tempTel.IndexOf(')');
+                }
+
+                k = tempTel.IndexOf(' ');
+                while (k != -1)
+                {
+                    tempTel = tempTel.Remove(k, 1);
+                    k = tempTel.IndexOf(' ');
+                }
+
+                UInt64 telephone;
+                bool checkTelephone = UInt64.TryParse(tempTel, out telephone);
+                if(!checkTelephone)
+                {
+                    succeedFlag = false;
+                    errorList.Add("Неверный формат номера телефона.");
+                }
+            }
+
             return succeedFlag;
         }
         public static bool checkDelete(int id, out List<string> errorList)

@@ -20,11 +20,11 @@ namespace Repositories
             this.dgv = dgv;
             companyRepository = RepositoryFactory.GetCompanyRepository()/*new CompanyRepository()*/;
         }
-        public void ShowTable(bool sort = false)
+        public Dictionary<int, DBCompany> ShowTable(bool sort = false)
         {
             try
-            { 
-            dgvElements = companyRepository.GetTable();
+            {
+                dgvElements = companyRepository.GetTable();
             }
             catch (Exception) { MessageBox.Show("Ошибка базы данных.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
             dgv.Rows.Clear();
@@ -32,6 +32,11 @@ namespace Repositories
                 dgv.Rows.Add(company.id, company.title, company.telephone, company.address);
             if (sort)
                 dgv.Sort(dgv.Columns[0], ListSortDirection.Ascending);
+
+            Dictionary<int, DBCompany> dict = new Dictionary<int, DBCompany>();
+            foreach (var el in dgvElements)
+                dict.Add(el.id, el);
+            return dict;
         }
         public bool AddToTable(DBCompany company)
         {
@@ -42,7 +47,7 @@ namespace Repositories
                 if (checkFlag)
                     companyRepository.AddToTable(company);
             }
-            catch (Exception) { errorList.Add("Ошибка базы данных."); }
+            catch (Exception) { errorList.Add("Ошибка базы данных."); checkFlag = false; }
 
             ShowErrors(errorList);
 
@@ -57,7 +62,7 @@ namespace Repositories
                 if (checkFlag)
                     companyRepository.UpdateTable(company);
             }
-            catch (Exception) { errorList.Add("Ошибка базы данных."); }
+            catch (Exception) { errorList.Add("Ошибка базы данных."); checkFlag = false; }
 
             ShowErrors(errorList);
 
@@ -72,7 +77,7 @@ namespace Repositories
                 if (checkFlag)
                     companyRepository.DeleteFromTable(id);
             }
-            catch(Exception) { errorList.Add("Ошибка базы данных."); }
+            catch(Exception) { errorList.Add("Ошибка базы данных."); checkFlag = false; }
 
             ShowErrors(errorList);
 

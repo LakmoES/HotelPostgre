@@ -15,34 +15,44 @@ namespace EditForms
 {
     public partial class FormAddUpdateDealTable : Form
     {
-        Regex regex;
-        DBDeal deal;
-        bool adding;
-        IStaffRepository staffRepository;
-        IPersonRepository clientRepository;
-        IObjectRepository objectRepository;
-        IDealRepository dealRepository;
-        DealPresenter dealPresenter;
-        public FormAddUpdateDealTable(DataGridView dgv, int index) //редактирование
+        //private Regex regex;
+        private DBDeal deal;
+        private bool adding;
+        private IStaffRepository staffRepository;
+        private IPersonRepository clientRepository;
+        private IObjectRepository objectRepository;
+        private IDealRepository dealRepository;
+        private DealPresenter dealPresenter;
+
+        //deal,staff,client,object
+        private List<DBDeal> dealList;
+        private List<DBStaff> staffList;
+        private List<DBPerson> clientList;
+        private List<DBObject> objectList;
+        public FormAddUpdateDealTable(DataGridView dgv, DBDeal deal) //редактирование
         {
             InitializeComponent();
             adding = false;
+            this.deal = deal;
             Init(dgv);
 
-            Match matchObject = regex.Match(dgv.Rows[index].Cells[3].Value.ToString());
-            int objID = Convert.ToInt32(matchObject.Value.Substring(1, matchObject.Value.Length - 2));
+
+            int objID = deal.obj;
             FillTheFields(objID);
+            //Match matchObject = regex.Match(dgv.Rows[index].Cells[3].Value.ToString());
+            //int objID = Convert.ToInt32(matchObject.Value.Substring(1, matchObject.Value.Length - 2));
+            //FillTheFields(objID);
 
-            Match matchDealer = regex.Match(dgv.Rows[index].Cells[1].Value.ToString());
-            Match matchClient = regex.Match(dgv.Rows[index].Cells[2].Value.ToString());
+            //Match matchDealer = regex.Match(dgv.Rows[index].Cells[1].Value.ToString());
+            //Match matchClient = regex.Match(dgv.Rows[index].Cells[2].Value.ToString());
 
-            deal = new DBDeal(Convert.ToInt32(dgv.Rows[index].Cells[0].Value.ToString()),
-                Convert.ToInt32(matchDealer.Value.Substring(1, matchDealer.Value.Length - 2)),
-                Convert.ToInt32(matchClient.Value.Substring(1, matchClient.Value.Length - 2)),
-                objID,
-                Convert.ToInt32(dgv.Rows[index].Cells[4].Value.ToString()),
-                Convert.ToDateTime(dgv.Rows[index].Cells[5].Value.ToString())
-                );
+            //deal = new DBDeal(Convert.ToInt32(dgv.Rows[index].Cells[0].Value.ToString()),
+            //    Convert.ToInt32(matchDealer.Value.Substring(1, matchDealer.Value.Length - 2)),
+            //    Convert.ToInt32(matchClient.Value.Substring(1, matchClient.Value.Length - 2)),
+            //    objID,
+            //    Convert.ToInt32(dgv.Rows[index].Cells[4].Value.ToString()),
+            //    Convert.ToDateTime(dgv.Rows[index].Cells[5].Value.ToString())
+            //    );
             ExtractDataFromDeal(deal);
 
             this.comboBoxObject.Enabled = false;
@@ -68,7 +78,7 @@ namespace EditForms
 
             dealPresenter = new DealPresenter(dgv);
 
-            regex = new Regex("\\[[0-9]+\\]");
+            //regex = new Regex("\\[[0-9]+\\]");
 
             numericUpDownCost.Minimum = -1;
             numericUpDownCost.Maximum = Int32.MaxValue;
@@ -77,60 +87,64 @@ namespace EditForms
         {
             textBoxCurrency.Text = "у.е.";
 
-            var dealList = dealRepository.GetTable();
+            dealList = dealRepository.GetTable();
             Dictionary<int, DBDeal> deals = new Dictionary<int, DBDeal>();
             foreach (DBDeal curDeal in dealList)
                 deals.Add(curDeal.id, curDeal);
 
-            var staffList = staffRepository.GetTable();
+            staffList = staffRepository.GetTable();
             foreach (var staff in staffList)
             {
                 if ((User.role == 1) || (User.role == 2 && User.subrole == staff.company)) //todo: исправить отсутствие продавца, если он из другого филиала
                 {
-                    string staffText = String.Format("[{0}] {1} {2}", staff.id, staff.surname, staff.name);
+                    string staffText = String.Format("{1} {2}", staff.id, staff.surname, staff.name);
                     comboBoxDealer.Items.Add(staffText);
                 }
             }
-            var clientList = clientRepository.GetTable();
+            clientList = clientRepository.GetTable();
             foreach (var client in clientList)
             {
-                string clientText = String.Format("[{0}] {1} {2}", client.id, client.surname, client.name);
+                string clientText = String.Format("{1} {2}", client.id, client.surname, client.name);
                 comboBoxBuyer.Items.Add(clientText);
             }
-            var objectList = objectRepository.GetTable();
+            objectList = objectRepository.GetTable();
+            List<DBObject> tempToSave = new List<DBObject>();
             foreach (var obj in objectList)
             {
                 DBDeal tempDeal;
                 if (!deals.TryGetValue(obj.id, out tempDeal)) //игнорируем уже проданные объекты
                 {
-                    string objectText = String.Format("[{0}] {1}", obj.id, obj.address);
-                    comboBoxObject.Items.Add(objectText);
+                    comboBoxObject.Items.Add(obj.address);
+                    tempToSave.Add(obj);
                 }
             }
+            objectList = tempToSave;
+
             if (objID != -1)
             {
                 DBObject obj = objectRepository.GetConcreteRecord(objID);
-                comboBoxObject.Items.Add(String.Format("[{0}] {1}", obj.id, obj.address));
+                objectList.Add(obj);
+                comboBoxObject.Items.Add(String.Format("{1}", obj.id, obj.address));
             }
         }
         private void ExtractDataFromDeal(DBDeal deal)
         {
-            try
-            {
+            //try
+            //{
                 DBStaff dealer = staffRepository.GetConcreteRecord(deal.dealer);
-                this.comboBoxDealer.Text = String.Format("[{0}] {1} {2}", dealer.id, dealer.surname, dealer.name);
+                this.comboBoxDealer.Text = String.Format("{1} {2}", dealer.id, dealer.surname, dealer.name);
 
                 DBPerson client = clientRepository.GetConcreteRecord(deal.buyer);
-                this.comboBoxBuyer.Text = String.Format("[{0}] {1} {2}", client.id, client.surname, client.name);
+                this.comboBoxBuyer.Text = String.Format("{1} {2}", client.id, client.surname, client.name);
 
                 DBObject obj = objectRepository.GetConcreteRecord(deal.obj);
-                this.comboBoxObject.Text = String.Format("[{0}] {1}", obj.id, obj.address);
+                this.comboBoxObject.Text = String.Format("{1}", obj.id, obj.address);
 
                 this.textBoxID.Text = deal.id.ToString();
-                this.numericUpDownCost.Value = deal.cost;
+                this.numericUpDownCost.Value = Convert.ToDecimal(deal.cost);
                 this.dateTimePickerDate.Value = deal.date;
-            }
-            catch(Exception ex) { MessageBox.Show(ex.Message, "Ошибка"); }
+            //}
+            //catch(Exception ex) { MessageBox.Show(ex.Message, "Ошибка"); }
         }
         void CheckPermissions()
         {
@@ -154,8 +168,8 @@ namespace EditForms
                     dealPresenter.ShowTable(true);
                     this.Close();
                 }
-                else
-                    MessageBox.Show("Проверьте правильность заполнения полей", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                //else
+                //    MessageBox.Show("Проверьте правильность заполнения полей", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             catch (PostgresException pEx)
             {
@@ -169,21 +183,26 @@ namespace EditForms
         private bool AddUpdateDeal()
         {
             //id, Dealer, Buyer, Object, Cost, Date
-            Match matchDealer = regex.Match(this.comboBoxDealer.Text);
-            Match matchClient = regex.Match(this.comboBoxBuyer.Text);
-            Match matchObject = regex.Match(this.comboBoxObject.Text);
+
+            //Match matchDealer = regex.Match(this.comboBoxDealer.Text);
+            //Match matchClient = regex.Match(this.comboBoxBuyer.Text);
+            //Match matchObject = regex.Match(this.comboBoxObject.Text);
+
+            //deal.dealer = Convert.ToInt32(matchDealer.Value.Substring(1, matchDealer.Value.Length - 2));
+            //deal.buyer = Convert.ToInt32(matchClient.Value.Substring(1, matchClient.Value.Length - 2));
+            //deal.obj = Convert.ToInt32(matchObject.Value.Substring(1, matchObject.Value.Length - 2));
 
             deal.dealer = -1;
-            if (matchDealer.Success)
-                deal.dealer = Convert.ToInt32(matchDealer.Value.Substring(1, matchDealer.Value.Length - 2));
+            if (this.comboBoxDealer.SelectedIndex != -1)
+                deal.dealer = staffList.ElementAt(this.comboBoxDealer.SelectedIndex).id;
             deal.buyer = -1;
-            if (matchClient.Success)
-                deal.buyer = Convert.ToInt32(matchClient.Value.Substring(1, matchClient.Value.Length - 2));
+            if (this.comboBoxBuyer.SelectedIndex != -1)
+                deal.buyer = clientList.ElementAt(this.comboBoxBuyer.SelectedIndex).id;
             deal.obj = -1;
-            if (matchObject.Success)
-                deal.obj = Convert.ToInt32(matchObject.Value.Substring(1, matchObject.Value.Length - 2));
+            if (this.comboBoxObject.SelectedIndex != -1)
+                deal.obj = objectList.ElementAt(this.comboBoxObject.SelectedIndex).id;
 
-            deal.cost = Convert.ToInt32(this.numericUpDownCost.Value);
+            deal.cost = Convert.ToSingle(this.numericUpDownCost.Value);
             deal.date = this.dateTimePickerDate.Value;
 
             if (!adding)
@@ -194,10 +213,22 @@ namespace EditForms
 
         private void comboBoxObject_TextChanged(object sender, EventArgs e)
         {
-            Match matchObjectID = regex.Match(this.comboBoxObject.Text);
-            int objectID = Convert.ToInt32(matchObjectID.Value.Substring(1, matchObjectID.Value.Length - 2));
-            var obj = objectRepository.GetConcreteRecord(objectID);
-            this.numericUpDownCost.Minimum = obj.cost;
+            //Match matchObjectID = regex.Match(this.comboBoxObject.Text);
+            //int objectID = Convert.ToInt32(matchObjectID.Value.Substring(1, matchObjectID.Value.Length - 2));
+            //var obj = objectRepository.GetConcreteRecord(objectID);
+            //this.numericUpDownCost.Minimum = Convert.ToDecimal(obj.cost);
+            if (comboBoxObject.SelectedIndex == -1)
+                return;
+            var obj = objectList[this.comboBoxObject.SelectedIndex];
+            //MessageBox.Show(String.Format("[{0}] {1} {2}", obj.id, obj.address, obj.cost.ToString("N2")));
+            this.numericUpDownCost.Minimum = Convert.ToDecimal(obj.cost);
+        }
+
+        private void numericUpDownCost_ValueChanged(object sender, EventArgs e)
+        {
+            if (this.comboBoxObject.SelectedIndex != -1)
+                if (numericUpDownCost.Value < Convert.ToDecimal(objectList[this.comboBoxObject.SelectedIndex].cost))
+                    numericUpDownCost.Value = Convert.ToDecimal(objectList[this.comboBoxObject.SelectedIndex].cost);
         }
     }
 }

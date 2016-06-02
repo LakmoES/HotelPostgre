@@ -13,11 +13,11 @@ namespace Repositories
         public int client;
         public string township;
         public string apartamentOrHouse;
-        public int? area;
+        public float? area;
         public int? numberOfRooms;
-        public int? cost;
+        public float? cost;
 
-        public DBWish(int id, int client, string township, string apartamentOrHouse, int? area, int? numberOfRooms, int? cost)
+        public DBWish(int id, int client, string township, string apartamentOrHouse, float? area, int? numberOfRooms, float? cost)
         {
             this.id = id;
             this.client = client;

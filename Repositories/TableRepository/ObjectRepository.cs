@@ -30,10 +30,10 @@ namespace Repositories
                             dbDataRecord["Address"].ToString(),
                             Convert.ToDateTime(dbDataRecord["AddDate"])/*DateTime.Now*/,
                             //parseCost(dbDataRecord["Cost"].ToString()),
-                            Convert.ToInt32(dbDataRecord["Cost"].ToString()),
+                            Convert.ToSingle(dbDataRecord["Cost"]),
                             Convert.ToInt32(dbDataRecord["Owner"]),
                             dbDataRecord["AppartamentOrHouse"].ToString(),
-                            Convert.ToInt32(dbDataRecord["Area"]),
+                            Convert.ToSingle(dbDataRecord["Area"]),
                             Convert.ToInt32(dbDataRecord["NumberOfRooms"])
                             );
                         objectsTable.Add(objectTbl);
@@ -64,10 +64,10 @@ namespace Repositories
                             Convert.ToInt32(dbDataRecord["id"]),
                             dbDataRecord["Address"].ToString(),
                             Convert.ToDateTime(dbDataRecord["AddDate"]),
-                            Convert.ToInt32(dbDataRecord["Cost"].ToString()),
+                            Convert.ToSingle(dbDataRecord["Cost"]),
                             Convert.ToInt32(dbDataRecord["Owner"]),
                             dbDataRecord["AppartamentOrHouse"].ToString(),
-                            Convert.ToInt32(dbDataRecord["Area"]),
+                            Convert.ToSingle(dbDataRecord["Area"]),
                             Convert.ToInt32(dbDataRecord["NumberOfRooms"])
                             );
                         break;

@@ -28,7 +28,53 @@ namespace Repositories
                 succeedFlag = false;
                 errorList.Add("Укажите номер телефона.");
             }
-            if(staff.company <= 0)
+            else
+            {
+                string tempTel = staff.telephone;
+                int k = tempTel.IndexOf('+');
+                while (k != -1)
+                {
+                    tempTel = tempTel.Remove(k, 1);
+                    k = tempTel.IndexOf('+');
+                }
+
+                k = tempTel.IndexOf('-');
+                while (k != -1)
+                {
+                    tempTel = tempTel.Remove(k, 1);
+                    k = tempTel.IndexOf('-');
+                }
+
+                k = tempTel.IndexOf('(');
+                while (k != -1)
+                {
+                    tempTel = tempTel.Remove(k, 1);
+                    k = tempTel.IndexOf('(');
+                }
+
+                k = tempTel.IndexOf(')');
+                while (k != -1)
+                {
+                    tempTel = tempTel.Remove(k, 1);
+                    k = tempTel.IndexOf(')');
+                }
+
+                k = tempTel.IndexOf(' ');
+                while (k != -1)
+                {
+                    tempTel = tempTel.Remove(k, 1);
+                    k = tempTel.IndexOf(' ');
+                }
+
+                UInt64 telephone;
+                bool checkTelephone = UInt64.TryParse(tempTel, out telephone);
+                if (!checkTelephone)
+                {
+                    succeedFlag = false;
+                    errorList.Add("Неверный формат номера телефона.");
+                }
+            }
+            if (staff.company <= 0)
             {
                 succeedFlag = false;
                 errorList.Add("Укажите компанию.");

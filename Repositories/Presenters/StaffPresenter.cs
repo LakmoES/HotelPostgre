@@ -22,7 +22,7 @@ namespace Repositories
             staffRepository = new StaffRepository();
             companyRepository = RepositoryFactory.GetCompanyRepository();//new CompanyRepository();
         }
-        public void ShowTable(bool sort = false)
+        public Dictionary<int, DBStaff> ShowTable(bool sort = false)
         {
             try
             {
@@ -35,7 +35,7 @@ namespace Repositories
                     foreach (DBCompany company in companies)
                         if (staff.company == company.id)
                         {
-                            companyText = String.Format("[{0}] {1}", company.id, company.title);
+                            companyText = String.Format("{1}", company.id, company.title);
                             break;
                         }
                     dgv.Rows.Add(staff.id, staff.name, staff.surname, staff.telephone, companyText);
@@ -45,6 +45,11 @@ namespace Repositories
 
             if (sort)
                 dgv.Sort(dgv.Columns[0], ListSortDirection.Ascending);
+
+            Dictionary<int, DBStaff> dict = new Dictionary<int, DBStaff>();
+            foreach (var el in dgvElements)
+                dict.Add(el.id, el);
+            return dict;
         }
         public bool AddToTable(DBStaff staff)
         {
@@ -55,7 +60,7 @@ namespace Repositories
                 if (checkFlag)
                     staffRepository.AddToTable(staff);
             }
-            catch (Exception) { errorList.Add("Ошибка базы данных."); }
+            catch (Exception) { errorList.Add("Ошибка базы данных."); checkFlag = false; }
 
             ShowErrors(errorList);
 
@@ -70,7 +75,7 @@ namespace Repositories
                 if (checkFlag)
                     staffRepository.UpdateTable(staff);
             }
-            catch (Exception) { errorList.Add("Ошибка базы данных."); }
+            catch (Exception) { errorList.Add("Ошибка базы данных."); checkFlag = false; }
 
             ShowErrors(errorList);
 
@@ -85,7 +90,7 @@ namespace Repositories
                 if (checkFlag)
                     staffRepository.DeleteFromTable(id);
             }
-            catch (Exception) { errorList.Add("Ошибка базы данных."); }
+            catch (Exception) { errorList.Add("Ошибка базы данных."); checkFlag = false; }
 
             ShowErrors(errorList);
 
