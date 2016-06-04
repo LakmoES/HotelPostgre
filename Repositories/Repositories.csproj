@@ -55,12 +55,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Connection\DBConnection.cs" />
+    <Compile Include="Interfaces\ISpecialRepository.cs" />
     <Compile Include="Secure\Factories\SecureRepositoryFactory.cs" />
     <Compile Include="Secure\Interfaces\ISecureRepositoryFactory.cs" />
     <Compile Include="Secure\Interfaces\ISecureRoleRepository.cs" />
     <Compile Include="Secure\Interfaces\ISecureUserRepository.cs" />
     <Compile Include="Secure\Presenters\SecureUserPresenter.cs" />
     <Compile Include="Secure\Validators\SecureUserValidator.cs" />
+    <Compile Include="TableRepository\SpecialRepository.cs" />
     <Compile Include="Validators\CompanyValidator.cs" />
     <Compile Include="Validators\DealValidator.cs" />
     <Compile Include="Validators\ObjectValidator.cs" />

@@ -29,7 +29,7 @@ namespace Enter
                 DBConnection dbc = new DBConnection(null);
                 ISecureRepositoryFactory secureRepositoryFactory = new SecureRepositoryFactory(dbc);
                 IRepositoryFactory repositoryFactory = new RepositoryFactory(dbc);
-                SecureProcessor secureProcessor = new SecureProcessor(dbc, 
+                SecureProcessor secureProcessor = new SecureProcessor(dbc,
                     secureRepositoryFactory,
                     ConfigurationManager.AppSettings.Get("user"),
                     ConfigurationManager.AppSettings.Get("password"));
@@ -42,7 +42,7 @@ namespace Enter
                     dbc.CloseConnection();
             }
             catch (PostgresException pEx) { MessageBox.Show("Произошла критическая ошибка базы данных.\r\nПриложение завершит свою работу.\r\n" + pEx.ToString(), "Критическая ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
-            //catch (Exception ex) { MessageBox.Show("Произошла критическая ошибка.\r\nПриложение завершит свою работу.\r\n\r\n" + ex.ToString(), "Критическая ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
-        }
+    //catch (Exception ex) { MessageBox.Show("Произошла критическая ошибка.\r\nПриложение завершит свою работу.\r\n\r\n" + ex.ToString(), "Критическая ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+}
     }
 }

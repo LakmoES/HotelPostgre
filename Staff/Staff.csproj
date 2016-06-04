@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormDemandObject.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormDemandObject.Designer.cs">
+      <DependentUpon>FormDemandObject.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormStaff.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -58,6 +64,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="FormDemandObject.resx">
+      <DependentUpon>FormDemandObject.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormStaff.resx">
       <DependentUpon>FormStaff.cs</DependentUpon>
     </EmbeddedResource>

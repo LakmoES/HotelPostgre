@@ -34,11 +34,18 @@ namespace Staff
         private Dictionary<int, Show> shows;
         private Dictionary<int, Wish> wishes;
         private Dictionary<int, Repositories.Staff> staffs;
+
+        bool satisfShow;
         public FormStaff(IRepositoryFactory repositoryFactory)
         {
             InitializeComponent();
             this.repositoryFactory = repositoryFactory;
-            this.textBoxYou.Text = String.Format("{0} ({1})", SecureConst.GetRoleName(User.role), User.name);
+            satisfShow = false;
+            Repositories.Staff staff = repositoryFactory.GetStaffRepository().GetConcreteRecord(User.subgroup);
+
+            this.textBoxYou.Text = String.Format("{0} ({1})",
+                SecureConst.GetRoleName(User.role),
+                String.Format("{0} {1}", staff.surname, staff.name));
 
             MenuItem editItem = new MenuItem("Правка", dataGridView_Edit_Click);
             MenuItem removeItem = new MenuItem("Удалить", dataGridView_Remove_Click);
@@ -152,18 +159,6 @@ namespace Staff
             {
                 bool succeedFlag = false;
 
-                //if (selectedDGV == dataGridViewObject)
-                //{
-                //    MessageBox.Show("У вас нет прав на удаление в этой таблице", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                //}
-                //if (selectedDGV == dataGridViewOwner)
-                //{
-                //    MessageBox.Show("У вас нет прав на удаление в этой таблице", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                //}
-                //if (selectedDGV == dataGridViewClient)
-                //{
-                //    MessageBox.Show("У вас нет прав на удаление в этой таблице", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                //}
                 if (selectedDGV == dataGridViewWish)
                 {
                     succeedFlag = wishPresenter.DeleteFromTable(id);
@@ -203,6 +198,69 @@ namespace Staff
         private void buttonWishAdd_Click(object sender, EventArgs e)
         {
             new FormAddUpdateWishTable(dataGridViewWish, repositoryFactory).ShowDialog();
+        }
+
+        private void dataGridViewObject_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            Entity obj;
+            objects.TryGetValue(Convert.ToInt32(dataGridViewObject.CurrentRow.Cells[0].Value), out obj);
+
+            new FormDemandObject(obj, repositoryFactory).ShowDialog();
+        }
+
+        private void buttonClientSatisfShowHide_Click(object sender, EventArgs e)
+        {
+            this.groupBoxSatisf.Visible = !this.groupBoxSatisf.Visible;
+            if(this.groupBoxSatisf.Visible == false && satisfShow)
+            {
+                DeleteSatis();
+            }
+        }
+
+        private void buttonFindSatisf_Click(object sender, EventArgs e)
+        {
+            if (!satisfShow)
+            {
+                this.dataGridViewClient.ColumnCount = this.dataGridViewClient.ColumnCount + 1;
+                this.dataGridViewClient.Columns[dataGridViewClient.ColumnCount - 1].HeaderText = "Satisf";
+                satisfShow = true;
+
+                
+            }
+            AddSatis();
+        }
+        private void AddSatis()
+        {
+            float lowerArea = Convert.ToSingle(this.numericUpDownAreaFrom.Value);
+            float higherArea = Convert.ToSingle(this.numericUpDownAreaTo.Value);
+            float deltaArea = Convert.ToSingle(this.numericUpDownAreaDelta.Value);
+            DateTime from = this.dateTimePickerFrom.Value;
+            DateTime to = this.dateTimePickerTo.Value;
+            var satisfList = repositoryFactory.GetSpecialRepository().GetSatisfiedClients(lowerArea, higherArea, deltaArea, from, to);
+
+            dataGridViewClient.Rows.Clear();
+
+            foreach (Tuple<Person,int> tup in satisfList)
+                dataGridViewClient.Rows.Add(tup.Item1.id, tup.Item1.name, tup.Item1.surname, tup.Item1.telephone, tup.Item2);
+        }
+        private void buttonClearSatisf_Click(object sender, EventArgs e)
+        {
+            DeleteSatis();
+        }
+
+        private void DeleteSatis()
+        {
+            if (satisfShow)
+            {
+                dataGridViewClient.Rows.Clear();
+
+                clients = clientPresenter.ShowTable(true);
+
+                this.dataGridViewClient.ColumnCount = this.dataGridViewClient.ColumnCount - 1;
+                satisfShow = false;
+
+                DeleteSatis();
+            }
         }
     }
 }

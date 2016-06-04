@@ -17,5 +17,6 @@ namespace Repositories
         IShowRepository GetShowRepository();
         IStaffRepository GetStaffRepository();
         IWishRepository GetWishRepository();
+        ISpecialRepository GetSpecialRepository();
     }
 }

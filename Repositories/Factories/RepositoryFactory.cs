@@ -49,5 +49,9 @@ namespace Repositories
         {
             return new WishRepository(dbc);
         }
+        public ISpecialRepository GetSpecialRepository()
+        {
+            return new SpecialRepository(dbc);
+        }
     }
 }

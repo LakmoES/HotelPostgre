@@ -38,7 +38,10 @@ namespace Director
         {
             InitializeComponent();
             this.repositoryFactory = repositoryFactory;
-            this.textBoxYou.Text = String.Format("{0} ({1})", SecureConst.GetRoleName(User.role), User.name);
+            Company company = repositoryFactory.GetCompanyRepository().GetConcreteRecord(User.subgroup);
+            this.textBoxYou.Text = String.Format("{0} ({1})",
+                SecureConst.GetRoleName(User.role),
+                String.Format("{0}", company.title));
 
             MenuItem editItem = new MenuItem("Правка", dataGridView_Edit_Click);
             MenuItem removeItem = new MenuItem("Удалить", dataGridView_Remove_Click);
