@@ -14,7 +14,7 @@ namespace Repositories
         {
             SecureDBRole roleTbl = null;
 
-            NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"public\".\"Role\" WHERE \"role\" = @role", DBConnection.Instance.connection);
+            NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"login\".\"Role\" WHERE \"role\" = @role", DBConnection.Instance.connection);
             queryCommand.Parameters.AddWithValue("@role", role);
             NpgsqlDataReader roleTableReader = queryCommand.ExecuteReader();
 

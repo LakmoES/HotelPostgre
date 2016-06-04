@@ -10,9 +10,10 @@ namespace Repositories
 {
     public static class SecureProcessor
     {
-        public static bool Login(string name, string password, string database = "postgres")
+        public static bool Login(string name, string password)
         {
-            Connect();
+            if (!Connect())
+                return false;
 
             var user = SecureUserRepository.GetConcreteRecord(name, SecureCrypt.MD5(password).ToLower());
             if (user == null)
@@ -21,20 +22,20 @@ namespace Repositories
             var role = SecureRoleRepository.GetConcreteRecord(user.db_role);
 
             string db_name = role.name;
-            string db_password = SecureCrypt.Decrypt(role.password, SecureConst.sha1Key);
+            string db_password = SecureCrypt.Decrypt(role.password, SecureConst.cryptKey);
 
-            User.Set(user.name, password, user.db_role, user.subrole);
+            User.Set(user.name, password, user.db_role, user.subgroup);
 
-            return Reconnect(db_name, db_password, database);
+            return Reconnect(db_name, db_password);
         }
-        private static bool Reconnect(string db_name, string db_password, string database)
+        private static bool Reconnect(string db_name, string db_password)
         {
             if (DBConnection.Instance.connection != null)
                 DBConnection.Instance.closeConnection();
 
             try
             {
-                NpgsqlConnection conn = new NpgsqlConnection("Server=127.0.0.1;User Id=" + db_name + ";Password=" + db_password + ";Database="+database+";");
+                NpgsqlConnection conn = new NpgsqlConnection("Server=127.0.0.1;User Id=" + db_name + ";Password=" + db_password + ";Database=postgres;");
                 DBConnection.Instance.setConnection(conn);
                 DBConnection.Instance.openConnection();
                 return true;
@@ -51,7 +52,7 @@ namespace Repositories
                 DBConnection.Instance.closeConnection();
             try
             {
-                NpgsqlConnection conn = new NpgsqlConnection("Server=127.0.0.1;User Id=role_checker;Password=role_checker;Database=roles;");
+                NpgsqlConnection conn = new NpgsqlConnection("Server=127.0.0.1;User Id=role_checker;Password=role_checker;Database=postgres;");
                 DBConnection.Instance.setConnection(conn);
                 DBConnection.Instance.openConnection();
                 return true;

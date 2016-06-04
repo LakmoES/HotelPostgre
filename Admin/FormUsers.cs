@@ -14,11 +14,9 @@ namespace Admin
     public partial class FormUsers : Form
     {
         SecureUserPresenter userPresenter;
-        Npgsql.NpgsqlConnection oldConn;
         public FormUsers()
         {
             InitializeComponent();
-            oldConn = DBConnection.Instance.connection;
         }
 
         private void buttonUserAdd_Click(object sender, EventArgs e)

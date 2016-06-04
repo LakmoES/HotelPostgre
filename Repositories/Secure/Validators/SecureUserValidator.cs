@@ -27,7 +27,7 @@ namespace Repositories
                 succeedFlag = false;
                 errorList.Add("Роль должна принадлежать промежутку [1,3]");
             }
-            if (user.subrole <= 0)
+            if (user.subgroup <= 0)
             {
                 succeedFlag = false;
                 errorList.Add("Подроль должна быть больше нуля");

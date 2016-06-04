@@ -11,13 +11,13 @@ namespace Repositories
         public string name;
         public string password;
         public int db_role;
-        public int subrole;
-        public SecureDBUser(string name, string password, int db_role, int subrole)
+        public int subgroup;
+        public SecureDBUser(string name, string password, int db_role, int subgroup)
         {
             this.name = name;
             this.password = password;
             this.db_role = db_role;
-            this.subrole = subrole;
+            this.subgroup = subgroup;
         }
     }
 }

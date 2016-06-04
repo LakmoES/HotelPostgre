@@ -8,7 +8,7 @@ namespace Repositories
 {
     public static class SecureConst
     {
-        public const string sha1Key = "DefaultK";
+        public const string cryptKey = "DefaultK";
         private static readonly string[] roleList = { "Unknown", "Administrator", "Director", "Staff" };
         public static string GetRoleName(int roleID)
         {

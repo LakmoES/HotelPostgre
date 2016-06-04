@@ -259,7 +259,7 @@ namespace Admin
 
         private void buttonUserMenu_Click(object sender, EventArgs e)
         {
-            new FormAdminLogin().ShowDialog();
+            new FormUsers().ShowDialog();
         }
     }
 }

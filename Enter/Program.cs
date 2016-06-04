@@ -20,16 +20,15 @@ namespace Enter
             //string dec = SecureCrypt.Decrypt(enc, SecureConst.sha1Key);
             //Clipboard.SetText(enc);
             //MessageBox.Show(enc + "\r\n" + dec);
-
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormLogin());
-
             try
             {
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                Application.Run(new FormLogin());
                 DBConnection.Instance.closeConnection();
             }
-            catch (Exception) { }
+            catch (PostgresException pEx) { MessageBox.Show("Произошла критическая ошибка базы данных.\r\nПриложение завершит свою работу.\r\n" + pEx.ToString(), "Критическая ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            catch (Exception) { MessageBox.Show("Произошла критическая ошибка.\r\nПриложение завершит свою работу.", "Критическая ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
     }
 }

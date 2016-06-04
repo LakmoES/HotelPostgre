@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.dataGridViewUser = new System.Windows.Forms.DataGridView();
+            this.buttonUserRefresh = new System.Windows.Forms.Button();
+            this.buttonUserAdd = new System.Windows.Forms.Button();
             this.title = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.telephone = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.address = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.buttonUserRefresh = new System.Windows.Forms.Button();
-            this.buttonUserAdd = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewUser)).BeginInit();
             this.SuspendLayout();
             // 
@@ -48,8 +48,27 @@
             this.dataGridViewUser.MultiSelect = false;
             this.dataGridViewUser.Name = "dataGridViewUser";
             this.dataGridViewUser.ReadOnly = true;
-            this.dataGridViewUser.Size = new System.Drawing.Size(257, 247);
+            this.dataGridViewUser.Size = new System.Drawing.Size(324, 247);
             this.dataGridViewUser.TabIndex = 1;
+            // 
+            // buttonUserRefresh
+            // 
+            this.buttonUserRefresh.Location = new System.Drawing.Point(361, 82);
+            this.buttonUserRefresh.Name = "buttonUserRefresh";
+            this.buttonUserRefresh.Size = new System.Drawing.Size(75, 23);
+            this.buttonUserRefresh.TabIndex = 2;
+            this.buttonUserRefresh.Text = "Обновить";
+            this.buttonUserRefresh.UseVisualStyleBackColor = true;
+            // 
+            // buttonUserAdd
+            // 
+            this.buttonUserAdd.Location = new System.Drawing.Point(361, 204);
+            this.buttonUserAdd.Name = "buttonUserAdd";
+            this.buttonUserAdd.Size = new System.Drawing.Size(75, 23);
+            this.buttonUserAdd.TabIndex = 3;
+            this.buttonUserAdd.Text = "Добавить";
+            this.buttonUserAdd.UseVisualStyleBackColor = true;
+            this.buttonUserAdd.Click += new System.EventHandler(this.buttonUserAdd_Click);
             // 
             // title
             // 
@@ -59,42 +78,22 @@
             // 
             // telephone
             // 
-            this.telephone.HeaderText = "Роль";
+            this.telephone.HeaderText = "Группа";
             this.telephone.Name = "telephone";
             this.telephone.ReadOnly = true;
-            this.telephone.Width = 50;
             // 
             // address
             // 
-            this.address.HeaderText = "Подроль";
+            this.address.HeaderText = "Подгруппа";
             this.address.Name = "address";
             this.address.ReadOnly = true;
-            this.address.Width = 60;
-            // 
-            // buttonUserRefresh
-            // 
-            this.buttonUserRefresh.Location = new System.Drawing.Point(275, 81);
-            this.buttonUserRefresh.Name = "buttonUserRefresh";
-            this.buttonUserRefresh.Size = new System.Drawing.Size(75, 23);
-            this.buttonUserRefresh.TabIndex = 2;
-            this.buttonUserRefresh.Text = "Обновить";
-            this.buttonUserRefresh.UseVisualStyleBackColor = true;
-            // 
-            // buttonUserAdd
-            // 
-            this.buttonUserAdd.Location = new System.Drawing.Point(275, 203);
-            this.buttonUserAdd.Name = "buttonUserAdd";
-            this.buttonUserAdd.Size = new System.Drawing.Size(75, 23);
-            this.buttonUserAdd.TabIndex = 3;
-            this.buttonUserAdd.Text = "Добавить";
-            this.buttonUserAdd.UseVisualStyleBackColor = true;
-            this.buttonUserAdd.Click += new System.EventHandler(this.buttonUserAdd_Click);
+            this.address.Width = 80;
             // 
             // FormUsers
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(354, 272);
+            this.ClientSize = new System.Drawing.Size(464, 272);
             this.Controls.Add(this.buttonUserAdd);
             this.Controls.Add(this.buttonUserRefresh);
             this.Controls.Add(this.dataGridViewUser);
@@ -111,10 +110,10 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dataGridViewUser;
+        private System.Windows.Forms.Button buttonUserRefresh;
+        private System.Windows.Forms.Button buttonUserAdd;
         private System.Windows.Forms.DataGridViewTextBoxColumn title;
         private System.Windows.Forms.DataGridViewTextBoxColumn telephone;
         private System.Windows.Forms.DataGridViewTextBoxColumn address;
-        private System.Windows.Forms.Button buttonUserRefresh;
-        private System.Windows.Forms.Button buttonUserAdd;
     }
 }

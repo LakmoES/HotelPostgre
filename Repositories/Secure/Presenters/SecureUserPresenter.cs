@@ -55,7 +55,7 @@ namespace Repositories
                 foreach (SecureDBUser user in dgvElements)
                 {
                     string thirdField = "";
-                    thirdField = user.subrole.ToString();
+                    thirdField = user.subgroup.ToString();
                     //if (SecureConst.GetRoleName(user.db_role) == "Director")
                     //{
                     //    //var companies = GetCompanies();
