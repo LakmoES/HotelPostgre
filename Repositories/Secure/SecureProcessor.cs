@@ -22,7 +22,7 @@ namespace Repositories
             var role = SecureRoleRepository.GetConcreteRecord(user.db_role);
 
             string db_name = role.name;
-            string db_password = SecureCrypt.Decrypt(role.password, SecureConst.cryptKey);
+            string db_password = SecureCrypt.DESDecrypt(role.password, SecureConst.cryptKey);
 
             User.Set(user.name, password, user.db_role, user.subgroup);
 
