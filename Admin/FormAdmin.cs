@@ -115,6 +115,9 @@ namespace Admin
             selectedDGV = sender as DataGridView;
             if (e.Button == MouseButtons.Right)
             {
+                if (e.RowIndex < 0 || e.ColumnIndex < 0)
+                    return;
+
                 selectedDGV.CurrentCell = selectedDGV.Rows[e.RowIndex].Cells[e.ColumnIndex];
 
                 if (selectedDGV.CurrentRow.Index == selectedDGV.Rows.Count - 1) //избавляемся от клика по последней пустой строке
@@ -263,7 +266,7 @@ namespace Admin
             new FormAddUpdateWishTable(dataGridViewWish, repositoryFactory).ShowDialog();
         }
 
-        private void buttonUserMenu_Click(object sender, EventArgs e)
+        private void menuButtonUsers_Click(object sender, EventArgs e)
         {
             new FormUsers(repositoryFactory, secureRepositoryFactory).ShowDialog();
         }

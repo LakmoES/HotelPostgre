@@ -68,6 +68,10 @@ namespace Repositories
 
                 UInt64 telephone;
                 bool checkTelephone = UInt64.TryParse(tempTel, out telephone);
+
+                if (tempTel.Length < 6)
+                    checkTelephone = false;
+
                 if(!checkTelephone)
                 {
                     succeedFlag = false;

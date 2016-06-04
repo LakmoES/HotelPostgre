@@ -30,7 +30,29 @@ namespace Repositories
             if (user.subgroup <= 0)
             {
                 succeedFlag = false;
-                errorList.Add("Подроль должна быть больше нуля");
+                errorList.Add("Подгруппа должна быть больше нуля");
+            }
+
+            return succeedFlag;
+        }
+        public static bool checkEdition(SecureDBUser user, out List<string> errorList)
+        {
+            errorList = new List<string>();
+            bool succeedFlag = true;
+            if (user.name.Trim(' ').Length <= 0)
+            {
+                succeedFlag = false;
+                errorList.Add("Имя не может быть пустым.");
+            }
+            if (user.db_role <= 0 || user.db_role > 3)
+            {
+                succeedFlag = false;
+                errorList.Add("Роль должна принадлежать промежутку [1,3]");
+            }
+            if (user.subgroup <= 0)
+            {
+                succeedFlag = false;
+                errorList.Add("Подгруппа должна быть больше нуля");
             }
 
             return succeedFlag;

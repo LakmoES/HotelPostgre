@@ -48,21 +48,23 @@
             this.dataGridViewUser.MultiSelect = false;
             this.dataGridViewUser.Name = "dataGridViewUser";
             this.dataGridViewUser.ReadOnly = true;
-            this.dataGridViewUser.Size = new System.Drawing.Size(324, 247);
+            this.dataGridViewUser.Size = new System.Drawing.Size(431, 247);
             this.dataGridViewUser.TabIndex = 1;
+            this.dataGridViewUser.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewUser_CellMouseDown);
             // 
             // buttonUserRefresh
             // 
-            this.buttonUserRefresh.Location = new System.Drawing.Point(361, 82);
+            this.buttonUserRefresh.Location = new System.Drawing.Point(459, 66);
             this.buttonUserRefresh.Name = "buttonUserRefresh";
             this.buttonUserRefresh.Size = new System.Drawing.Size(75, 23);
             this.buttonUserRefresh.TabIndex = 2;
             this.buttonUserRefresh.Text = "Обновить";
             this.buttonUserRefresh.UseVisualStyleBackColor = true;
+            this.buttonUserRefresh.Click += new System.EventHandler(this.buttonUserRefresh_Click);
             // 
             // buttonUserAdd
             // 
-            this.buttonUserAdd.Location = new System.Drawing.Point(361, 204);
+            this.buttonUserAdd.Location = new System.Drawing.Point(459, 188);
             this.buttonUserAdd.Name = "buttonUserAdd";
             this.buttonUserAdd.Size = new System.Drawing.Size(75, 23);
             this.buttonUserAdd.TabIndex = 3;
@@ -81,19 +83,20 @@
             this.telephone.HeaderText = "Группа";
             this.telephone.Name = "telephone";
             this.telephone.ReadOnly = true;
+            this.telephone.Width = 110;
             // 
             // address
             // 
             this.address.HeaderText = "Подгруппа";
             this.address.Name = "address";
             this.address.ReadOnly = true;
-            this.address.Width = 80;
+            this.address.Width = 170;
             // 
             // FormUsers
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(464, 272);
+            this.ClientSize = new System.Drawing.Size(547, 272);
             this.Controls.Add(this.buttonUserAdd);
             this.Controls.Add(this.buttonUserRefresh);
             this.Controls.Add(this.dataGridViewUser);

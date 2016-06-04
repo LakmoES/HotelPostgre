@@ -48,7 +48,7 @@ namespace Repositories
 
             return assocArray;
         }
-        public void ShowTable(bool sort = false)
+        public Dictionary<string, SecureDBUser> ShowTable(bool sort = false)
         {
             try
             {
@@ -58,20 +58,20 @@ namespace Repositories
                 {
                     string thirdField = "";
                     thirdField = user.subgroup.ToString();
-                    //if (SecureConst.GetRoleName(user.db_role) == "Director")
-                    //{
-                    //    //var companies = GetCompanies();
-                    //    DBCompany company = companyRepository.GetConcreteRecord(user.subrole);
-                    //    //companies.TryGetValue(user.subrole, out company);
-                    //    thirdField = String.Format("[{0}] {1}", company.id, company.title);
-                    //}
-                    //if (SecureConst.GetRoleName(user.db_role) == "Staff")
-                    //{
-                    //    //var staffs = GetStaffs();
-                    //    DBStaff staff = staffRepository.GetConcreteRecord(user.subrole);
-                    //    //staffs.TryGetValue(user.subrole, out staff);
-                    //    thirdField = String.Format("[{0}] {1} {2}", staff.id, staff.surname, staff.name);
-                    //}
+                    if (SecureConst.GetRoleName(user.db_role) == "Director")
+                    {
+                        //var companies = GetCompanies();
+                        Company company = companyRepository.GetConcreteRecord(user.subgroup);
+                        //companies.TryGetValue(user.subrole, out company);
+                        thirdField = String.Format("[{0}] {1}", company.id, company.title);
+                    }
+                    if (SecureConst.GetRoleName(user.db_role) == "Staff")
+                    {
+                        //var staffs = GetStaffs();
+                        Staff staff = staffRepository.GetConcreteRecord(user.subgroup);
+                        //staffs.TryGetValue(user.subrole, out staff);
+                        thirdField = String.Format("[{0}] {1} {2}", staff.id, staff.surname, staff.name);
+                    }
 
                     dgv.Rows.Add(user.name,
                         String.Format("[{0}] {1}", user.db_role, SecureConst.GetRoleName(user.db_role)),
@@ -84,6 +84,11 @@ namespace Repositories
 
             if (sort)
                 dgv.Sort(dgv.Columns[0], ListSortDirection.Ascending);
+
+            Dictionary<string, SecureDBUser> dict = new Dictionary<string, SecureDBUser>();
+            foreach (var el in dgvElements)
+                dict.Add(el.name, el);
+            return dict;
         }
         public bool AddToTable(SecureDBUser user)
         {
@@ -103,7 +108,7 @@ namespace Repositories
         public bool UpdateTable(SecureDBUser user)
         {
             List<string> errorList;
-            bool checkFlag = SecureUserValidator.checkAddition(user, out errorList);
+            bool checkFlag = SecureUserValidator.checkEdition(user, out errorList);
             try
             {
                 if (checkFlag)

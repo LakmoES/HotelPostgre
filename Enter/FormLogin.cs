@@ -23,7 +23,6 @@ namespace Enter
         public FormLogin(SecureProcessor secureProcessor, IRepositoryFactory repositoryFactory, ISecureRepositoryFactory secureRepositoryFactory/*, IRepositoryFactory repositoryFactory*/)
         {
             InitializeComponent();
-            //this.repositoryFactory = repositoryFactory;
             this.secureProcessor = secureProcessor;
             this.repositoryFactory = repositoryFactory;
             this.secureRepositoryFactory = secureRepositoryFactory;

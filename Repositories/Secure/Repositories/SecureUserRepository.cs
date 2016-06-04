@@ -75,9 +75,16 @@ namespace Repositories
         public void UpdateTable(SecureDBUser user)
         {
             //int id, int client, string township, string apartamentOrHouse, int area, int numberOfRooms, int cost
-            NpgsqlCommand queryCommand = new NpgsqlCommand("UPDATE \"login\".\"User\" SET \"password\" = @password, \"db_role\" = @db_role, \"subgroup\" = @subgroup" +
-                " WHERE \"name\" = @name", dbc.Connection);
-            queryCommand.Parameters.AddWithValue("@password", user.password);
+            string queryText = "UPDATE \"login\".\"User\" SET \"password\" = @password, \"db_role\" = @db_role, \"subgroup\" = @subgroup" +
+                " WHERE \"name\" = @name";
+            if (user.password.Length == 0)
+                queryText = "UPDATE \"login\".\"User\" SET \"db_role\" = @db_role, \"subgroup\" = @subgroup" +
+                " WHERE \"name\" = @name";
+            NpgsqlCommand queryCommand = new NpgsqlCommand(queryText, dbc.Connection);
+
+            if (user.password.Length != 0)
+                queryCommand.Parameters.AddWithValue("@password", user.password);
+
             queryCommand.Parameters.AddWithValue("@db_role", user.db_role);
             queryCommand.Parameters.AddWithValue("@subgroup", user.subgroup);
 

@@ -103,6 +103,9 @@ namespace Staff
             selectedDGV = sender as DataGridView;
             if (e.Button == MouseButtons.Right)
             {
+                if (e.RowIndex < 0 || e.ColumnIndex < 0)
+                    return;
+
                 selectedDGV.CurrentCell = selectedDGV.Rows[e.RowIndex].Cells[e.ColumnIndex];
 
                 if (selectedDGV.CurrentRow.Index == selectedDGV.Rows.Count - 1) //избавляемся от клика по последней пустой строке

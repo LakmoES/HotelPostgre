@@ -33,14 +33,6 @@
             this.buttonObjectAdd = new System.Windows.Forms.Button();
             this.buttonObjectRefresh = new System.Windows.Forms.Button();
             this.dataGridViewObject = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ObjectOwner = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AppartamentOrHouse = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Area = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Rooms = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.buttonOwnerAdd = new System.Windows.Forms.Button();
             this.buttonOwnerRefresh = new System.Windows.Forms.Button();
@@ -89,6 +81,16 @@
             this.buttonWishAdd = new System.Windows.Forms.Button();
             this.buttonWishRefresh = new System.Windows.Forms.Button();
             this.dataGridViewWish = new System.Windows.Forms.DataGridView();
+            this.label1 = new System.Windows.Forms.Label();
+            this.textBoxYou = new System.Windows.Forms.TextBox();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ObjectOwner = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AppartamentOrHouse = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Area = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Rooms = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn27 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn30 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -96,8 +98,6 @@
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBoxYou = new System.Windows.Forms.TextBox();
             this.tabControlMain.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewObject)).BeginInit();
@@ -179,65 +179,9 @@
             this.dataGridViewObject.MultiSelect = false;
             this.dataGridViewObject.Name = "dataGridViewObject";
             this.dataGridViewObject.ReadOnly = true;
-            this.dataGridViewObject.Size = new System.Drawing.Size(646, 247);
+            this.dataGridViewObject.Size = new System.Drawing.Size(666, 247);
             this.dataGridViewObject.TabIndex = 1;
             this.dataGridViewObject.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView_CellMouseDown);
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "id";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            this.dataGridViewTextBoxColumn1.Width = 30;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.HeaderText = "Адрес";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            this.dataGridViewTextBoxColumn2.Width = 145;
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.HeaderText = "Дата";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.ReadOnly = true;
-            this.dataGridViewTextBoxColumn3.Width = 70;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.HeaderText = "Стоимость";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.ReadOnly = true;
-            this.dataGridViewTextBoxColumn4.Width = 65;
-            // 
-            // ObjectOwner
-            // 
-            this.ObjectOwner.HeaderText = "Владелец";
-            this.ObjectOwner.Name = "ObjectOwner";
-            this.ObjectOwner.ReadOnly = true;
-            this.ObjectOwner.Width = 140;
-            // 
-            // AppartamentOrHouse
-            // 
-            this.AppartamentOrHouse.HeaderText = "Тип";
-            this.AppartamentOrHouse.Name = "AppartamentOrHouse";
-            this.AppartamentOrHouse.ReadOnly = true;
-            this.AppartamentOrHouse.Width = 40;
-            // 
-            // Area
-            // 
-            this.Area.HeaderText = "Площадь";
-            this.Area.Name = "Area";
-            this.Area.ReadOnly = true;
-            this.Area.Width = 50;
-            // 
-            // Rooms
-            // 
-            this.Rooms.HeaderText = "Комнат";
-            this.Rooms.Name = "Rooms";
-            this.Rooms.ReadOnly = true;
-            this.Rooms.Width = 55;
             // 
             // tabPage3
             // 
@@ -284,7 +228,7 @@
             this.dataGridViewOwner.MultiSelect = false;
             this.dataGridViewOwner.Name = "dataGridViewOwner";
             this.dataGridViewOwner.ReadOnly = true;
-            this.dataGridViewOwner.Size = new System.Drawing.Size(436, 247);
+            this.dataGridViewOwner.Size = new System.Drawing.Size(459, 247);
             this.dataGridViewOwner.TabIndex = 2;
             this.dataGridViewOwner.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView_CellMouseDown);
             // 
@@ -362,7 +306,7 @@
             this.dataGridViewStaff.MultiSelect = false;
             this.dataGridViewStaff.Name = "dataGridViewStaff";
             this.dataGridViewStaff.ReadOnly = true;
-            this.dataGridViewStaff.Size = new System.Drawing.Size(535, 247);
+            this.dataGridViewStaff.Size = new System.Drawing.Size(555, 247);
             this.dataGridViewStaff.TabIndex = 3;
             this.dataGridViewStaff.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView_CellMouseDown);
             // 
@@ -445,7 +389,7 @@
             this.dataGridViewClient.MultiSelect = false;
             this.dataGridViewClient.Name = "dataGridViewClient";
             this.dataGridViewClient.ReadOnly = true;
-            this.dataGridViewClient.Size = new System.Drawing.Size(436, 247);
+            this.dataGridViewClient.Size = new System.Drawing.Size(458, 247);
             this.dataGridViewClient.TabIndex = 3;
             this.dataGridViewClient.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView_CellMouseDown);
             // 
@@ -700,9 +644,82 @@
             this.dataGridViewWish.MultiSelect = false;
             this.dataGridViewWish.Name = "dataGridViewWish";
             this.dataGridViewWish.ReadOnly = true;
-            this.dataGridViewWish.Size = new System.Drawing.Size(575, 247);
+            this.dataGridViewWish.Size = new System.Drawing.Size(596, 247);
             this.dataGridViewWish.TabIndex = 13;
             this.dataGridViewWish.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView_CellMouseDown);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(557, 8);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(81, 13);
+            this.label1.TabIndex = 18;
+            this.label1.Text = "Вы зашли как:";
+            // 
+            // textBoxYou
+            // 
+            this.textBoxYou.Location = new System.Drawing.Point(644, 8);
+            this.textBoxYou.Name = "textBoxYou";
+            this.textBoxYou.ReadOnly = true;
+            this.textBoxYou.Size = new System.Drawing.Size(150, 20);
+            this.textBoxYou.TabIndex = 17;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.HeaderText = "id";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.dataGridViewTextBoxColumn1.Width = 30;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.HeaderText = "Адрес";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.Width = 145;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.HeaderText = "Дата";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            this.dataGridViewTextBoxColumn3.Width = 70;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.HeaderText = "Стоимость";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            this.dataGridViewTextBoxColumn4.Width = 65;
+            // 
+            // ObjectOwner
+            // 
+            this.ObjectOwner.HeaderText = "Владелец";
+            this.ObjectOwner.Name = "ObjectOwner";
+            this.ObjectOwner.ReadOnly = true;
+            this.ObjectOwner.Width = 140;
+            // 
+            // AppartamentOrHouse
+            // 
+            this.AppartamentOrHouse.HeaderText = "Тип";
+            this.AppartamentOrHouse.Name = "AppartamentOrHouse";
+            this.AppartamentOrHouse.ReadOnly = true;
+            this.AppartamentOrHouse.Width = 40;
+            // 
+            // Area
+            // 
+            this.Area.HeaderText = "Площадь";
+            this.Area.Name = "Area";
+            this.Area.ReadOnly = true;
+            this.Area.Width = 55;
+            // 
+            // Rooms
+            // 
+            this.Rooms.HeaderText = "Комнат";
+            this.Rooms.Name = "Rooms";
+            this.Rooms.ReadOnly = true;
+            this.Rooms.Width = 55;
             // 
             // dataGridViewTextBoxColumn27
             // 
@@ -749,24 +766,7 @@
             this.Column6.HeaderText = "Стоимость";
             this.Column6.Name = "Column6";
             this.Column6.ReadOnly = true;
-            this.Column6.Width = 60;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(557, 8);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(81, 13);
-            this.label1.TabIndex = 18;
-            this.label1.Text = "Вы зашли как:";
-            // 
-            // textBoxYou
-            // 
-            this.textBoxYou.Location = new System.Drawing.Point(644, 8);
-            this.textBoxYou.Name = "textBoxYou";
-            this.textBoxYou.ReadOnly = true;
-            this.textBoxYou.Size = new System.Drawing.Size(150, 20);
-            this.textBoxYou.TabIndex = 17;
+            this.Column6.Width = 65;
             // 
             // FormDirector
             // 
@@ -825,14 +825,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn12;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ObjectOwner;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AppartamentOrHouse;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Area;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Rooms;
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.Button buttonClientAdd;
         private System.Windows.Forms.Button buttonClientRefresh;
@@ -864,6 +856,16 @@
         private System.Windows.Forms.Button buttonWishAdd;
         private System.Windows.Forms.Button buttonWishRefresh;
         private System.Windows.Forms.DataGridView dataGridViewWish;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox textBoxYou;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ObjectOwner;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AppartamentOrHouse;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Area;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Rooms;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn27;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn30;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
@@ -871,7 +873,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBoxYou;
     }
 }
