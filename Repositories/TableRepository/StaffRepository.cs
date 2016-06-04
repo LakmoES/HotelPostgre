@@ -11,6 +11,11 @@ namespace Repositories
 {
     public class StaffRepository : IStaffRepository
     {
+        private DBConnection dbc;
+        public StaffRepository(DBConnection dbc)
+        {
+            this.dbc = dbc;
+        }
         public List<Staff> GetTable(int companyID = -1)
         {
             List<Staff> staffsTable = new List<Staff>();
@@ -22,7 +27,7 @@ namespace Repositories
             if (companyID != -1)
                 queryText += " WHERE \"id\" = " + companyID.ToString();
 
-            NpgsqlCommand queryCommand = new NpgsqlCommand(queryText, DBConnection.Instance.connection);
+            NpgsqlCommand queryCommand = new NpgsqlCommand(queryText, dbc.Connection);
             NpgsqlDataReader staffTableReader = queryCommand.ExecuteReader();
 
             if (staffTableReader.HasRows)
@@ -52,7 +57,7 @@ namespace Repositories
 
             //try
             //{
-                NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"HomeBUY\".\"Staff\" WHERE \"id\" = @id", DBConnection.Instance.connection);
+                NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"HomeBUY\".\"Staff\" WHERE \"id\" = @id", dbc.Connection);
                 queryCommand.Parameters.AddWithValue("@id", id);
                 NpgsqlDataReader staffTableReader = queryCommand.ExecuteReader();
 
@@ -83,7 +88,7 @@ namespace Repositories
             //try
             //{
                 queryCommand = new NpgsqlCommand("INSERT INTO \"HomeBUY\".\"Staff\" (\"Name\", \"Surname\", \"Telephone\", \"Company\")" +
-                    "VALUES(@Name, @Surname, @Telephone, @Company)", DBConnection.Instance.connection);
+                    "VALUES(@Name, @Surname, @Telephone, @Company)", dbc.Connection);
                 queryCommand.Parameters.AddWithValue("@Name", staff.name);
                 queryCommand.Parameters.AddWithValue("@Surname", staff.surname);
                 queryCommand.Parameters.AddWithValue("@Telephone", staff.telephone);
@@ -98,7 +103,7 @@ namespace Repositories
             //try
             //{
                 NpgsqlCommand queryCommand = new NpgsqlCommand("UPDATE \"HomeBUY\".\"Staff\" SET \"Name\" = @Name, \"Surname\" = @Surname, \"Telephone\" = @Telephone, \"Company\" = @Company" +
-                    " WHERE \"id\" = @id", DBConnection.Instance.connection);
+                    " WHERE \"id\" = @id", dbc.Connection);
                 queryCommand.Parameters.AddWithValue("@Name", staff.name);
                 queryCommand.Parameters.AddWithValue("@Surname", staff.surname);
                 queryCommand.Parameters.AddWithValue("@Telephone", staff.telephone);
@@ -112,7 +117,7 @@ namespace Repositories
         {
             //try
             //{
-                NpgsqlCommand queryCommand = new NpgsqlCommand("DELETE FROM \"HomeBUY\".\"Staff\" WHERE \"id\" = @id", DBConnection.Instance.connection);
+                NpgsqlCommand queryCommand = new NpgsqlCommand("DELETE FROM \"HomeBUY\".\"Staff\" WHERE \"id\" = @id", dbc.Connection);
                 queryCommand.Parameters.AddWithValue("@id", id);
                 queryCommand.ExecuteNonQuery();
             //}

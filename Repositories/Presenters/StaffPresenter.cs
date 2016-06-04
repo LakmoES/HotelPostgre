@@ -11,7 +11,7 @@ namespace Repositories
     public class StaffPresenter
     {
         DataGridView dgv;
-        StaffRepository staffRepository;
+        IStaffRepository staffRepository;
         List<Staff> dgvElements;
         ICompanyRepository companyRepository;
 
@@ -19,7 +19,7 @@ namespace Repositories
         {
             dgvElements = new List<Staff>();
             this.dgv = dgv;
-            staffRepository = new StaffRepository();
+            staffRepository = repositoryFactory.GetStaffRepository();
             companyRepository = repositoryFactory.GetCompanyRepository();//new CompanyRepository();
         }
         public Dictionary<int, Staff> ShowTable(bool sort = false)

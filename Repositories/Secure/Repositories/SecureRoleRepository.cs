@@ -8,13 +8,18 @@ using Npgsql;
 
 namespace Repositories
 {
-    public class SecureRoleRepository
+    public class SecureRoleRepository : ISecureRoleRepository
     {
-        public static SecureDBRole GetConcreteRecord(int role)
+        private DBConnection dbc;
+        public SecureRoleRepository(DBConnection dbc)
+        {
+            this.dbc = dbc;
+        }
+        public SecureDBRole GetConcreteRecord(int role)
         {
             SecureDBRole roleTbl = null;
 
-            NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"login\".\"Role\" WHERE \"role\" = @role", DBConnection.Instance.connection);
+            NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"login\".\"Role\" WHERE \"role\" = @role", dbc.Connection);
             queryCommand.Parameters.AddWithValue("@role", role);
             NpgsqlDataReader roleTableReader = queryCommand.ExecuteReader();
 

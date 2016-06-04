@@ -11,6 +11,11 @@ namespace Repositories
 {
     public class WishRepository : IWishRepository
     {
+        private DBConnection dbc;
+        public WishRepository(DBConnection dbc)
+        {
+            this.dbc = dbc;
+        }
         private object FixDBValue(object value)
         {
             if (value is DBNull)
@@ -21,7 +26,7 @@ namespace Repositories
         {
             List<Wish> wishTable = new List<Wish>();
             Wish wishTbl;
-            NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"HomeBUY\".\"Wish\"", DBConnection.Instance.connection);
+            NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"HomeBUY\".\"Wish\"", dbc.Connection);
             NpgsqlDataReader wishTableReader = queryCommand.ExecuteReader();
 
             //int id, int client, string township, string apartamentOrHouse, int area, int numberOfRooms, int cost
@@ -48,7 +53,7 @@ namespace Repositories
         {
             Wish wishTbl = null;
 
-            NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"HomeBUY\".\"Wish\" WHERE \"id\" = @id", DBConnection.Instance.connection);
+            NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"HomeBUY\".\"Wish\" WHERE \"id\" = @id", dbc.Connection);
             queryCommand.Parameters.AddWithValue("@id", id);
             NpgsqlDataReader wishTableReader = queryCommand.ExecuteReader();
 
@@ -76,7 +81,7 @@ namespace Repositories
             //int id, int client, string township, string apartamentOrHouse, int area, int numberOfRooms, int cost
             NpgsqlCommand queryCommand;
             queryCommand = new NpgsqlCommand("INSERT INTO \"HomeBUY\".\"Wish\" (\"Client\", \"Township\", \"AppartamentOrHouse\", \"Area\", \"NumberOfRooms\", \"Cost\")" +
-                " VALUES(@Client, @Township, @ApartamentOrHouse, @Area, @NumberOfRooms, @Cost)", DBConnection.Instance.connection);
+                " VALUES(@Client, @Township, @ApartamentOrHouse, @Area, @NumberOfRooms, @Cost)", dbc.Connection);
             queryCommand.Parameters.AddWithValue("@Client", wish.client );
             queryCommand.Parameters.AddWithValue("@Township", (wish.township ?? (object)DBNull.Value));
             queryCommand.Parameters.AddWithValue("@ApartamentOrHouse", (wish.apartamentOrHouse ?? (object)DBNull.Value));
@@ -90,7 +95,7 @@ namespace Repositories
         {
             //int id, int client, string township, string apartamentOrHouse, int area, int numberOfRooms, int cost
             NpgsqlCommand queryCommand = new NpgsqlCommand("UPDATE \"HomeBUY\".\"Wish\" SET \"Client\" = @Client, \"Township\" = @Township, \"AppartamentOrHouse\" = @ApartamentOrHouse, \"Area\" = @Area, \"NumberOfRooms\" = @NumberOfRooms, \"Cost\" = @Cost" +
-                " WHERE \"id\" = @id", DBConnection.Instance.connection);
+                " WHERE \"id\" = @id", dbc.Connection);
             queryCommand.Parameters.AddWithValue("@Client", updatedWish.client);
             queryCommand.Parameters.AddWithValue("@Township", (updatedWish.township ?? (object)DBNull.Value));
             queryCommand.Parameters.AddWithValue("@ApartamentOrHouse", (updatedWish.apartamentOrHouse ?? (object)DBNull.Value));
@@ -104,7 +109,7 @@ namespace Repositories
         }
         public void DeleteFromTable(int id)
         {
-            NpgsqlCommand queryCommand = new NpgsqlCommand("DELETE FROM \"HomeBUY\".\"Wish\" WHERE \"id\" = @id", DBConnection.Instance.connection);
+            NpgsqlCommand queryCommand = new NpgsqlCommand("DELETE FROM \"HomeBUY\".\"Wish\" WHERE \"id\" = @id", dbc.Connection);
             queryCommand.Parameters.AddWithValue("@id", id);
             queryCommand.ExecuteNonQuery();
         }

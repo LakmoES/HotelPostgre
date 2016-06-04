@@ -16,6 +16,7 @@ namespace Admin
     public partial class FormAdmin : Form
     {
         private IRepositoryFactory repositoryFactory;
+        private ISecureRepositoryFactory secureRepositoryFactory;
 
         private ObjectPresenter objectPresenter;
         private CompanyPresenter companyPresenter;
@@ -37,10 +38,11 @@ namespace Admin
 
         private ContextMenu contextMenu;
         private DataGridView selectedDGV;
-        public FormAdmin(IRepositoryFactory repositoryFactory)
+        public FormAdmin(IRepositoryFactory repositoryFactory, ISecureRepositoryFactory secureRepositoryFactory)
         {
             InitializeComponent();
             this.repositoryFactory = repositoryFactory;
+            this.secureRepositoryFactory = secureRepositoryFactory;
 
             MenuItem editItem = new MenuItem("Правка", dataGridView_Edit_Click);
             MenuItem removeItem = new MenuItem("Удалить", dataGridView_Remove_Click);
@@ -262,7 +264,7 @@ namespace Admin
 
         private void buttonUserMenu_Click(object sender, EventArgs e)
         {
-            new FormUsers(repositoryFactory).ShowDialog();
+            new FormUsers(repositoryFactory, secureRepositoryFactory).ShowDialog();
         }
     }
 }

@@ -11,13 +11,18 @@ namespace Repositories
 {
     public class DealRepository : IDealRepository
     {
+        private DBConnection dbc;
+        public DealRepository(DBConnection dbc)
+        {
+            this.dbc = dbc;
+        }
         public List<Deal> GetTable()
         {
             List<Deal> dealTable = new List<Deal>();
             Deal dealTbl;
             try
             {
-                NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"HomeBUY\".\"Deal\"", DBConnection.Instance.connection);
+                NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"HomeBUY\".\"Deal\"", dbc.Connection);
                 NpgsqlDataReader dealTableReader = queryCommand.ExecuteReader();
 
                 if (dealTableReader.HasRows)
@@ -48,7 +53,7 @@ namespace Repositories
 
             //try
             //{
-                NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"HomeBUY\".\"Deal\" WHERE \"id\" = @id", DBConnection.Instance.connection);
+                NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"HomeBUY\".\"Deal\" WHERE \"id\" = @id", dbc.Connection);
                 queryCommand.Parameters.AddWithValue("@id", id);
                 NpgsqlDataReader dealTableReader = queryCommand.ExecuteReader();
 
@@ -80,7 +85,7 @@ namespace Repositories
             //try
             //{
                 queryCommand = new NpgsqlCommand("INSERT INTO \"HomeBUY\".\"Deal\" (\"Dealer\", \"Buyer\", \"Object\", \"Cost\", \"Date\")" +
-                    " VALUES(@Dealer, @Buyer, @Object, @Cost, @Date)", DBConnection.Instance.connection);
+                    " VALUES(@Dealer, @Buyer, @Object, @Cost, @Date)", dbc.Connection);
                 queryCommand.Parameters.AddWithValue("@Dealer", deal.dealer);
                 queryCommand.Parameters.AddWithValue("@Buyer", deal.buyer);
                 queryCommand.Parameters.AddWithValue("@Object", deal.obj);
@@ -96,7 +101,7 @@ namespace Repositories
             //try
             //{
                 NpgsqlCommand queryCommand = new NpgsqlCommand("UPDATE \"HomeBUY\".\"Deal\" SET \"Dealer\" = @Dealer, \"Buyer\" = @Buyer, \"Object\" = @Object, \"Cost\" = @Cost, \"Date\" = @Date" +
-                    " WHERE \"id\" = @id", DBConnection.Instance.connection);
+                    " WHERE \"id\" = @id", dbc.Connection);
                 queryCommand.Parameters.AddWithValue("@Dealer", updatedDeal.dealer);
                 queryCommand.Parameters.AddWithValue("@Buyer", updatedDeal.buyer);
                 queryCommand.Parameters.AddWithValue("@Object", updatedDeal.obj);
@@ -111,7 +116,7 @@ namespace Repositories
         {
             //try
             //{
-            NpgsqlCommand queryCommand = new NpgsqlCommand("DELETE FROM \"HomeBUY\".\"Deal\" WHERE \"id\" = @id", DBConnection.Instance.connection);
+            NpgsqlCommand queryCommand = new NpgsqlCommand("DELETE FROM \"HomeBUY\".\"Deal\" WHERE \"id\" = @id", dbc.Connection);
             queryCommand.Parameters.AddWithValue("@id", id);
             queryCommand.ExecuteNonQuery();
             //}

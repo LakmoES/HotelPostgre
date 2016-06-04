@@ -8,53 +8,46 @@ namespace Repositories
 {
     public class RepositoryFactory : IRepositoryFactory
     {
-        //private NpgsqlConnection conn = null;
-        //private static RepositoryFactory instance;
-        //private RepositoryFactory() { }
-        //public static RepositoryFactory Instance
-        //{
-        //    get
-        //    {
-        //        if (instance == null)
-        //            instance = new RepositoryFactory();
-        //        return instance;
-        //    }
-        //}
+        DBConnection dbc;
+        public RepositoryFactory(DBConnection dbc)
+        {
+            this.dbc = dbc;
+        }
         public ICompanyRepository GetCompanyRepository()
         {
-            return new CompanyRepository();
+            return new CompanyRepository(dbc);
         }
         public  IDealRepository GetDealRepository()
         {
-            return new DealRepository();
+            return new DealRepository(dbc);
         }
         public  IObjectRepository GetObjectRepository()
         {
-            return new ObjectRepository();
+            return new ObjectRepository(dbc);
         }
         public IPersonRepository GetClientRepository()
         {
-            return new PersonRepository("Client");
+            return new PersonRepository(dbc, "Client");
         }
         public IPersonRepository GetOwnerRepository()
         {
-            return new PersonRepository("Owner");
+            return new PersonRepository(dbc, "Owner");
         }
         public  IPersonRepository GetPersonRepository(string tableName)
         {
-            return new PersonRepository(tableName);
+            return new PersonRepository(dbc, tableName);
         }
         public  IShowRepository GetShowRepository()
         {
-            return new ShowRepository();
+            return new ShowRepository(dbc);
         }
         public  IStaffRepository GetStaffRepository()
         {
-            return new StaffRepository();
+            return new StaffRepository(dbc);
         }
         public  IWishRepository GetWishRepository()
         {
-            return new WishRepository();
+            return new WishRepository(dbc);
         }
     }
 }

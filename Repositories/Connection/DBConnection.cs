@@ -12,41 +12,28 @@ namespace Repositories
     public class DBConnection
     {
         private NpgsqlConnection conn = null;
-
-        private static DBConnection instance;
-        private DBConnection() { }
-        public static DBConnection Instance
+        public DBConnection(NpgsqlConnection conn) { this.conn = conn; }
+        public NpgsqlConnection Connection
         {
-            get
-            {
-                if (instance == null)
-                    instance = new DBConnection();
-                return instance;
-            }
+            get {return conn;}
         }
-        public void setConnection(NpgsqlConnection conn)
-        {
-            this.conn = conn;
-        }
-        public void openConnection()
+        public void OpenConnection()
         {
             if (conn == null)
                 throw new NullReferenceException("connection is null");
             conn.Open();
         }
-
-        public NpgsqlConnection connection
-        {
-            get
-            {
-                return conn;
-            }
-        }
-        public void closeConnection()
+        public void CloseConnection()
         {
             if (conn == null)
                 throw new NullReferenceException("connection is null");
             conn.Close();
+        }
+        public void ChangeConnection(NpgsqlConnection newConnection)
+        {
+            if (conn != null)
+                this.CloseConnection();
+            conn = newConnection;
         }
     }
 }

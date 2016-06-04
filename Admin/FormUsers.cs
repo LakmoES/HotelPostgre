@@ -13,11 +13,13 @@ namespace Admin
 {
     public partial class FormUsers : Form
     {
+        private ISecureRepositoryFactory secureRepositoryFactory;
         private IRepositoryFactory repositoryFactory;
         private SecureUserPresenter userPresenter;
-        public FormUsers(IRepositoryFactory repositoryFactory)
+        public FormUsers(IRepositoryFactory repositoryFactory, ISecureRepositoryFactory secureRepositoryFactory)
         {
             InitializeComponent();
+            this.secureRepositoryFactory = secureRepositoryFactory;
             this.repositoryFactory = repositoryFactory;
         }
 
@@ -28,7 +30,7 @@ namespace Admin
 
         private void FormUsers_Load(object sender, EventArgs e)
         {
-            userPresenter = new SecureUserPresenter(this.dataGridViewUser, repositoryFactory);
+            userPresenter = new SecureUserPresenter(this.dataGridViewUser, repositoryFactory, secureRepositoryFactory);
             userPresenter.ShowTable(true);
         }
     }

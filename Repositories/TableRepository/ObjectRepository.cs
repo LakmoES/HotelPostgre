@@ -11,6 +11,11 @@ namespace Repositories
 {
     public class ObjectRepository : IObjectRepository
     {
+        private DBConnection dbc;
+        public ObjectRepository(DBConnection dbc)
+        {
+            this.dbc = dbc;
+        }
         public List<Entity> GetTable()
         {
             List<Entity> objectsTable = new List<Entity>();
@@ -18,7 +23,7 @@ namespace Repositories
 
             //try
             //{
-                NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"HomeBUY\".\"Object\"", DBConnection.Instance.connection);
+                NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"HomeBUY\".\"Object\"", dbc.Connection);
                 NpgsqlDataReader ObjectTableReader = queryCommand.ExecuteReader();
 
                 if (ObjectTableReader.HasRows)
@@ -52,7 +57,7 @@ namespace Repositories
 
             //try
             //{
-                NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"HomeBUY\".\"Object\" WHERE \"id\" = @id", DBConnection.Instance.connection);
+                NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"HomeBUY\".\"Object\" WHERE \"id\" = @id", dbc.Connection);
                 queryCommand.Parameters.AddWithValue("@id", id);
                 NpgsqlDataReader ObjectTableReader = queryCommand.ExecuteReader();
 
@@ -86,7 +91,7 @@ namespace Repositories
             //try
             //{
                 queryCommand = new NpgsqlCommand("INSERT INTO \"HomeBUY\".\"Object\" (\"Address\", \"AddDate\", \"Cost\", \"Owner\", \"AppartamentOrHouse\", \"Area\", \"NumberOfRooms\")"+
-                    "VALUES(@Address, @AddDate, @Cost, @Owner, @AppartamentOrHouse, @Area, @NumberOfRooms)", DBConnection.Instance.connection);
+                    "VALUES(@Address, @AddDate, @Cost, @Owner, @AppartamentOrHouse, @Area, @NumberOfRooms)", dbc.Connection);
                 queryCommand.Parameters.AddWithValue("@Address", obj.address);
                 queryCommand.Parameters.AddWithValue("@AddDate", obj.addDate);
                 queryCommand.Parameters.AddWithValue("@Cost", obj.cost);
@@ -104,7 +109,7 @@ namespace Repositories
             //try
             //{
                 NpgsqlCommand queryCommand = new NpgsqlCommand("UPDATE \"HomeBUY\".\"Object\" SET \"Address\" = @Address, \"AddDate\" = @AddDate, \"Cost\" = @Cost, \"Owner\" = @Owner, \"AppartamentOrHouse\" = @AppartamentOrHouse, \"Area\" = @Area, \"NumberOfRooms\" = @NumberOfRooms" +
-                    " WHERE \"id\" = @id", DBConnection.Instance.connection);
+                    " WHERE \"id\" = @id", dbc.Connection);
                 queryCommand.Parameters.AddWithValue("@Address", objToUpdate.address);
                 queryCommand.Parameters.AddWithValue("@AddDate", objToUpdate.addDate);
                 queryCommand.Parameters.AddWithValue("@Cost", objToUpdate.cost);
@@ -121,7 +126,7 @@ namespace Repositories
         {
             //try
             //{
-                NpgsqlCommand queryCommand = new NpgsqlCommand("DELETE FROM \"HomeBUY\".\"Object\" WHERE \"id\" = @id", DBConnection.Instance.connection);
+                NpgsqlCommand queryCommand = new NpgsqlCommand("DELETE FROM \"HomeBUY\".\"Object\" WHERE \"id\" = @id", dbc.Connection);
                 queryCommand.Parameters.AddWithValue("@id", id);
                 queryCommand.ExecuteNonQuery();
             //}

@@ -17,11 +17,16 @@ namespace Enter
 {
     public partial class FormLogin : Form
     {
-        IRepositoryFactory repositoryFactory;
-        public FormLogin(IRepositoryFactory repositoryFactory)
+        private IRepositoryFactory repositoryFactory;
+        private ISecureRepositoryFactory secureRepositoryFactory;
+        private SecureProcessor secureProcessor;
+        public FormLogin(SecureProcessor secureProcessor, IRepositoryFactory repositoryFactory, ISecureRepositoryFactory secureRepositoryFactory/*, IRepositoryFactory repositoryFactory*/)
         {
             InitializeComponent();
+            //this.repositoryFactory = repositoryFactory;
+            this.secureProcessor = secureProcessor;
             this.repositoryFactory = repositoryFactory;
+            this.secureRepositoryFactory = secureRepositoryFactory;
         }
 
         private void buttonEnter_Click(object sender, EventArgs e)
@@ -29,13 +34,13 @@ namespace Enter
             string username = textBoxUsername.Text;
             string password = textBoxPassword.Text;
 
-            if (SecureProcessor.Login(username, password))
+            if (secureProcessor.Login(username, password))
             {
                 //MessageBox.Show(String.Format("{0} {1} {2}", User.name, User.role.ToString(), User.subrole.ToString()));
                 this.Hide();
                 switch (User.role)
                 {
-                    case 1: new FormAdmin(repositoryFactory).ShowDialog(); break;
+                    case 1: new FormAdmin(repositoryFactory, secureRepositoryFactory).ShowDialog(); break;
                     case 2: new FormDirector(repositoryFactory).ShowDialog(); break;
                     case 3: new FormStaff(repositoryFactory).ShowDialog(); break;
                 }

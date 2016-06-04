@@ -16,19 +16,24 @@ namespace Enter
         [STAThread]
         static void Main()
         {
-            //string enc = SecureCrypt.DESEncrypt("admin", SecureConst.cryptKey);
-            //string dec = SecureCrypt.DESDecrypt(enc, SecureConst.cryptKey);
+            //string key = "8fLZh0Ku";
+            //string iv = "UQNtDuJH";
+            //string enc = SecureCrypt.DESEncrypt("1111", key, iv);
+            //string dec = SecureCrypt.DESDecrypt(enc, key, iv);
             //Clipboard.SetText(enc);
             //MessageBox.Show(enc + "\r\n" + dec);
 
             try
             {
-                IRepositoryFactory repositoryFactory = new RepositoryFactory();
-
+                DBConnection dbc = new DBConnection(null);
+                ISecureRepositoryFactory secureRepositoryFactory = new SecureRepositoryFactory(dbc);
+                IRepositoryFactory repositoryFactory = new RepositoryFactory(dbc);
+                SecureProcessor secureProcessor = new SecureProcessor(dbc, secureRepositoryFactory);
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
-                Application.Run(new FormLogin(repositoryFactory));
-                DBConnection.Instance.closeConnection();
+                Application.Run(new FormLogin(secureProcessor, repositoryFactory, secureRepositoryFactory));
+                if (dbc.Connection != null)
+                    dbc.CloseConnection();
             }
             catch (PostgresException pEx) { MessageBox.Show("Произошла критическая ошибка базы данных.\r\nПриложение завершит свою работу.\r\n" + pEx.ToString(), "Критическая ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
             catch (Exception ex) { MessageBox.Show("Произошла критическая ошибка.\r\nПриложение завершит свою работу." + ex.ToString(), "Критическая ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }

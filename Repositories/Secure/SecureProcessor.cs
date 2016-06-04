@@ -8,18 +8,27 @@ using Npgsql;
 
 namespace Repositories
 {
-    public static class SecureProcessor
+    public class SecureProcessor
     {
-        public static bool Login(string name, string password)
+        private DBConnection dbc;
+        private ISecureUserRepository secureUserRepository;
+        private ISecureRoleRepository secureRoleRepository;
+        public SecureProcessor(DBConnection dbc, ISecureRepositoryFactory secureRepositoryFactory)
+        {
+            this.dbc = dbc;
+            this.secureUserRepository = secureRepositoryFactory.GetSecureUserRepository();
+            this.secureRoleRepository = secureRepositoryFactory.GetSecureRoleRepository();
+        }
+        public bool Login(string name, string password)
         {
             if (!Connect())
                 return false;
 
-            var user = SecureUserRepository.GetConcreteRecord(name, SecureCrypt.MD5(password).ToLower());
+            var user = secureUserRepository.GetConcreteRecord(name, SecureCrypt.MD5(password).ToLower());
             if (user == null)
                 return false;
 
-            var role = SecureRoleRepository.GetConcreteRecord(user.db_role);
+            var role = secureRoleRepository.GetConcreteRecord(user.db_role);
 
             string db_name = role.name;
             string db_password = SecureCrypt.DESDecrypt(role.password, SecureConst.cryptKey);
@@ -28,16 +37,16 @@ namespace Repositories
 
             return Reconnect(db_name, db_password);
         }
-        private static bool Reconnect(string db_name, string db_password)
+        private bool Reconnect(string db_name, string db_password)
         {
-            if (DBConnection.Instance.connection != null)
-                DBConnection.Instance.closeConnection();
+            if (dbc.Connection != null)
+                dbc.CloseConnection();
 
             try
             {
                 NpgsqlConnection conn = new NpgsqlConnection("Server=127.0.0.1;User Id=" + db_name + ";Password=" + db_password + ";Database=postgres;");
-                DBConnection.Instance.setConnection(conn);
-                DBConnection.Instance.openConnection();
+                dbc.ChangeConnection(conn);
+                dbc.OpenConnection();
                 return true;
             }
             catch(PostgresException nEx)
@@ -46,15 +55,15 @@ namespace Repositories
                 return false;
             }
         }
-        private static bool Connect()
+        private bool Connect()
         {
-            if (DBConnection.Instance.connection != null)
-                DBConnection.Instance.closeConnection();
+            if (dbc.Connection != null)
+                dbc.CloseConnection();
             try
             {
                 NpgsqlConnection conn = new NpgsqlConnection("Server=127.0.0.1;User Id=role_checker;Password=role_checker;Database=postgres;");
-                DBConnection.Instance.setConnection(conn);
-                DBConnection.Instance.openConnection();
+                dbc.ChangeConnection(conn);
+                dbc.OpenConnection();
                 return true;
             }
             catch (Exception)

@@ -11,19 +11,21 @@ namespace Repositories
 {
     public class SecureUserPresenter
     {
-        DataGridView dgv;
-        List<SecureDBUser> dgvElements;
+        private DataGridView dgv;
+        private List<SecureDBUser> dgvElements;
 
-        IStaffRepository staffRepository;
-        ICompanyRepository companyRepository;
+        private IStaffRepository staffRepository;
+        private ICompanyRepository companyRepository;
+        private ISecureUserRepository secureUserRepository;
 
-        public SecureUserPresenter(DataGridView dgv, IRepositoryFactory repositoryFactory)
+        public SecureUserPresenter(DataGridView dgv, IRepositoryFactory repositoryFactory, ISecureRepositoryFactory secureRepositoryFactory)
         {
             dgvElements = new List<SecureDBUser>();
             this.dgv = dgv;
 
             staffRepository = repositoryFactory.GetStaffRepository();
             companyRepository = repositoryFactory.GetCompanyRepository();
+            secureUserRepository = secureRepositoryFactory.GetSecureUserRepository();
         }
         private Dictionary<int, Staff> GetStaffs()
         {
@@ -50,7 +52,7 @@ namespace Repositories
         {
             try
             {
-                dgvElements = SecureUserRepository.GetTable();
+                dgvElements = secureUserRepository.GetTable();
                 dgv.Rows.Clear();
                 foreach (SecureDBUser user in dgvElements)
                 {
@@ -90,7 +92,7 @@ namespace Repositories
             try
             {
                 if (checkFlag)
-                    SecureUserRepository.AddToTable(user);
+                    secureUserRepository.AddToTable(user);
             }
             catch (Exception) { errorList.Add("Ошибка базы данных."); }
 
@@ -105,7 +107,7 @@ namespace Repositories
             try
             {
                 if (checkFlag)
-                    SecureUserRepository.UpdateTable(user);
+                    secureUserRepository.UpdateTable(user);
             }
             catch (Exception) { errorList.Add("Ошибка базы данных."); }
 
@@ -120,7 +122,7 @@ namespace Repositories
             try
             {
                 if (checkFlag)
-                    SecureUserRepository.DeleteFromTable(name);
+                    secureUserRepository.DeleteFromTable(name);
             }
             catch (Exception) { errorList.Add("Ошибка базы данных."); }
 
