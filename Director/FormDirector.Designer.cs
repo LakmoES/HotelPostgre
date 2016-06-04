@@ -96,6 +96,8 @@
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label1 = new System.Windows.Forms.Label();
+            this.textBoxYou = new System.Windows.Forms.TextBox();
             this.tabControlMain.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewObject)).BeginInit();
@@ -749,11 +751,30 @@
             this.Column6.ReadOnly = true;
             this.Column6.Width = 60;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(557, 8);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(81, 13);
+            this.label1.TabIndex = 18;
+            this.label1.Text = "Вы зашли как:";
+            // 
+            // textBoxYou
+            // 
+            this.textBoxYou.Location = new System.Drawing.Point(644, 8);
+            this.textBoxYou.Name = "textBoxYou";
+            this.textBoxYou.ReadOnly = true;
+            this.textBoxYou.Size = new System.Drawing.Size(150, 20);
+            this.textBoxYou.TabIndex = 17;
+            // 
             // FormDirector
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(806, 330);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.textBoxYou);
             this.Controls.Add(this.tabControlMain);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -776,6 +797,7 @@
             this.tabPage8.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewWish)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -849,5 +871,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox textBoxYou;
     }
 }

@@ -43,6 +43,7 @@ namespace Admin
             InitializeComponent();
             this.repositoryFactory = repositoryFactory;
             this.secureRepositoryFactory = secureRepositoryFactory;
+            this.textBoxYou.Text = String.Format("{0} ({1})", SecureConst.GetRoleName(User.role), User.name);
 
             MenuItem editItem = new MenuItem("Правка", dataGridView_Edit_Click);
             MenuItem removeItem = new MenuItem("Удалить", dataGridView_Remove_Click);

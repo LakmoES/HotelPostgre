@@ -105,7 +105,7 @@
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.buttonUserMenu = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBoxYou = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabControlMain.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -848,21 +848,22 @@
             this.buttonUserMenu.UseVisualStyleBackColor = true;
             this.buttonUserMenu.Click += new System.EventHandler(this.buttonUserMenu_Click);
             // 
-            // textBox1
+            // textBoxYou
             // 
-            this.textBox1.Location = new System.Drawing.Point(694, 8);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 2;
+            this.textBoxYou.Location = new System.Drawing.Point(640, 5);
+            this.textBoxYou.Name = "textBoxYou";
+            this.textBoxYou.ReadOnly = true;
+            this.textBoxYou.Size = new System.Drawing.Size(150, 20);
+            this.textBoxYou.TabIndex = 2;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(653, 8);
+            this.label1.Location = new System.Drawing.Point(553, 5);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.Size = new System.Drawing.Size(81, 13);
             this.label1.TabIndex = 16;
-            this.label1.Text = "label1";
+            this.label1.Text = "Вы зашли как:";
             // 
             // FormAdmin
             // 
@@ -870,7 +871,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(806, 330);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.textBoxYou);
             this.Controls.Add(this.buttonUserMenu);
             this.Controls.Add(this.tabControlMain);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -979,7 +980,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
         private System.Windows.Forms.Button buttonUserMenu;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBoxYou;
         private System.Windows.Forms.Label label1;
     }
 }
