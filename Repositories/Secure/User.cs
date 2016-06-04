@@ -9,15 +9,15 @@ namespace Repositories
     public static class User
     {
         public static string name { private set; get; }
-        public static string password { private set; get; }
+        //public static string password { private set; get; }
         public static int role { private set; get; }
-        public static int subrole { private set; get; }
-        public static void Set(string name_, string password_, int role_, int subrole_)
+        public static int subgroup { private set; get; }
+        public static void Set(string name/*, string password*/, int role, int subgroup)
         {
-            name = name_;
-            password = password_;
-            role = role_;
-            subrole = subrole_;
+            User.name = name;
+            //User.password = password;
+            User.role = role;
+            User.subgroup = subgroup;
         }
     }
 }

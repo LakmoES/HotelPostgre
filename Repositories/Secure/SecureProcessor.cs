@@ -13,11 +13,14 @@ namespace Repositories
         private DBConnection dbc;
         private ISecureUserRepository secureUserRepository;
         private ISecureRoleRepository secureRoleRepository;
-        public SecureProcessor(DBConnection dbc, ISecureRepositoryFactory secureRepositoryFactory)
+        private string loginUser, loginPassword;
+        public SecureProcessor(DBConnection dbc, ISecureRepositoryFactory secureRepositoryFactory, string loginUser, string loginPassword)
         {
             this.dbc = dbc;
             this.secureUserRepository = secureRepositoryFactory.GetSecureUserRepository();
             this.secureRoleRepository = secureRepositoryFactory.GetSecureRoleRepository();
+            this.loginUser = loginUser;
+            this.loginPassword = loginPassword;
         }
         public bool Login(string name, string password)
         {
@@ -33,7 +36,7 @@ namespace Repositories
             string db_name = role.name;
             string db_password = SecureCrypt.DESDecrypt(role.password, SecureConst.cryptKey);
 
-            User.Set(user.name, password, user.db_role, user.subgroup);
+            User.Set(user.name/*, password*/, user.db_role, user.subgroup);
 
             return Reconnect(db_name, db_password);
         }
@@ -61,7 +64,7 @@ namespace Repositories
                 dbc.CloseConnection();
             try
             {
-                NpgsqlConnection conn = new NpgsqlConnection("Server=127.0.0.1;User Id=role_checker;Password=role_checker;Database=postgres;");
+                NpgsqlConnection conn = new NpgsqlConnection("Server=127.0.0.1;User Id="+loginUser+";Password="+loginPassword+";Database=postgres;");
                 dbc.ChangeConnection(conn);
                 dbc.OpenConnection();
                 return true;

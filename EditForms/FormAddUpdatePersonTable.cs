@@ -103,7 +103,7 @@ namespace EditForms
                 string companyText = String.Format("{1}", company.id, company.title);
                 comboBoxCompany.Items.Add(companyText);
 
-                if (adding && company.id == User.subrole)
+                if (adding && company.id == User.subgroup)
                     comboBoxCompany.Text = companyText;
             }
 
@@ -119,7 +119,7 @@ namespace EditForms
             if (User.role == 1)
                 return;
 
-            if((person as Staff).company != User.subrole)
+            if((person as Staff).company != User.subgroup)
             {
                 this.textBoxName.ReadOnly = true;
                 this.textBoxSurname.ReadOnly = true;

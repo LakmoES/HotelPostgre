@@ -89,14 +89,14 @@ namespace EditForms
             var staffListTemp = new List<Staff>();
             foreach (var staff in staffList)
             {
-                if ((User.role == 1) || (User.role == 2 && User.subrole == staff.company)) //todo: исправить отсутствие продавца, если он из другого филиала
+                if ((User.role == 1) || (User.role == 2 && User.subgroup == staff.company)) //todo: исправить отсутствие продавца, если он из другого филиала
                 {
                     string staffText = String.Format("{1} {2}", staff.id, staff.surname, staff.name);
                     comboBoxDealer.Items.Add(staffText);
                     staffListTemp.Add(staff);
                 }
                 else
-                    if (User.role == 3 && User.subrole == staff.id)
+                    if (User.role == 3 && User.subgroup == staff.id)
                     {
                         string staffText = String.Format("{1} {2}", staff.id, staff.surname, staff.name);
                         comboBoxDealer.Items.Add(staffText);

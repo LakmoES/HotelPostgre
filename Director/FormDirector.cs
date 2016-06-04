@@ -176,7 +176,7 @@ namespace Director
                 //}
                 if (selectedDGV == dataGridViewStaff)
                 {
-                    if (repositoryFactory.GetStaffRepository().GetConcreteRecord(id).company == User.subrole)
+                    if (repositoryFactory.GetStaffRepository().GetConcreteRecord(id).company == User.subgroup)
                     {
                         succeedFlag = staffPresenter.DeleteFromTable(id);
                         if (succeedFlag) staffPresenter.ShowTable(true);

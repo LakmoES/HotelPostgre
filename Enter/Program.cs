@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Configuration;
 using Repositories;
 using Npgsql;
 
@@ -10,7 +11,7 @@ namespace Enter
 {
     static class Program
     {
-        /// <summary>
+        /// <summary
         /// Главная точка входа для приложения.
         /// </summary>
         [STAThread]
@@ -18,7 +19,7 @@ namespace Enter
         {
             //string key = "8fLZh0Ku";
             //string iv = "UQNtDuJH";
-            //string enc = SecureCrypt.DESEncrypt("1111", key, iv);
+            //string enc = SecureCrypt.DESEncrypt("user", key, iv);
             //string dec = SecureCrypt.DESDecrypt(enc, key, iv);
             //Clipboard.SetText(enc);
             //MessageBox.Show(enc + "\r\n" + dec);
@@ -28,10 +29,15 @@ namespace Enter
                 DBConnection dbc = new DBConnection(null);
                 ISecureRepositoryFactory secureRepositoryFactory = new SecureRepositoryFactory(dbc);
                 IRepositoryFactory repositoryFactory = new RepositoryFactory(dbc);
-                SecureProcessor secureProcessor = new SecureProcessor(dbc, secureRepositoryFactory);
+                SecureProcessor secureProcessor = new SecureProcessor(dbc, 
+                    secureRepositoryFactory,
+                    ConfigurationManager.AppSettings.Get("user"),
+                    ConfigurationManager.AppSettings.Get("password"));
+
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
                 Application.Run(new FormLogin(secureProcessor, repositoryFactory, secureRepositoryFactory));
+
                 if (dbc.Connection != null)
                     dbc.CloseConnection();
             }
