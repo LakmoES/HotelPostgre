@@ -94,23 +94,19 @@ namespace Director
         {
             wishes = wishPresenter.ShowTable(true);
         }
-        private void dataGridView_SelectAndShowMenu(object sender, MouseEventArgs e)
+        private void dataGridView_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
         {
             selectedDGV = sender as DataGridView;
             if (e.Button == MouseButtons.Right)
             {
-                selectedDGV.ClearSelection();
-                DataGridView.HitTestInfo hittestinfo = selectedDGV.HitTest(e.X, e.Y);
-                if (hittestinfo.RowIndex == selectedDGV.Rows.Count - 1) //пропускаем клик по последней пустой строке
+                selectedDGV.CurrentCell = selectedDGV.Rows[e.RowIndex].Cells[e.ColumnIndex];
+
+                if (selectedDGV.CurrentRow.Index == selectedDGV.Rows.Count - 1) //избавляемся от клика по последней пустой строке
                     return;
 
-                if (hittestinfo != null && hittestinfo.Type == DataGridViewHitTestType.Cell)
-                {
-                    var activeRow = selectedDGV.Rows[hittestinfo.RowIndex];
-                    activeRow.Selected = true;
-                    contextMenu.Show(selectedDGV, new Point(e.X, e.Y));
-                }
-
+                selectedDGV.Rows[e.RowIndex].Selected = true;
+                selectedDGV.Focus();
+                contextMenu.Show(selectedDGV, selectedDGV.PointToClient(Cursor.Position));
             }
         }
         private void dataGridView_Edit_Click(object sender, EventArgs e)

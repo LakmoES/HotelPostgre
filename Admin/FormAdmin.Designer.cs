@@ -187,7 +187,7 @@
             this.dataGridViewCompany.ReadOnly = true;
             this.dataGridViewCompany.Size = new System.Drawing.Size(534, 247);
             this.dataGridViewCompany.TabIndex = 0;
-            this.dataGridViewCompany.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataGridView_SelectAndShowMenu);
+            this.dataGridViewCompany.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView_CellMouseDown);
             // 
             // id
             // 
@@ -266,7 +266,7 @@
             this.dataGridViewObject.ReadOnly = true;
             this.dataGridViewObject.Size = new System.Drawing.Size(646, 247);
             this.dataGridViewObject.TabIndex = 1;
-            this.dataGridViewObject.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataGridView_SelectAndShowMenu);
+            this.dataGridViewObject.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView_CellMouseDown);
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -371,7 +371,7 @@
             this.dataGridViewOwner.ReadOnly = true;
             this.dataGridViewOwner.Size = new System.Drawing.Size(436, 247);
             this.dataGridViewOwner.TabIndex = 2;
-            this.dataGridViewOwner.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataGridView_SelectAndShowMenu);
+            this.dataGridViewOwner.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView_CellMouseDown);
             // 
             // dataGridViewTextBoxColumn5
             // 
@@ -449,7 +449,7 @@
             this.dataGridViewStaff.ReadOnly = true;
             this.dataGridViewStaff.Size = new System.Drawing.Size(535, 247);
             this.dataGridViewStaff.TabIndex = 3;
-            this.dataGridViewStaff.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataGridView_SelectAndShowMenu);
+            this.dataGridViewStaff.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView_CellMouseDown);
             // 
             // dataGridViewTextBoxColumn9
             // 
@@ -532,7 +532,7 @@
             this.dataGridViewClient.ReadOnly = true;
             this.dataGridViewClient.Size = new System.Drawing.Size(436, 247);
             this.dataGridViewClient.TabIndex = 3;
-            this.dataGridViewClient.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataGridView_SelectAndShowMenu);
+            this.dataGridViewClient.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView_CellMouseDown);
             // 
             // dataGridViewTextBoxColumn13
             // 
@@ -611,7 +611,7 @@
             this.dataGridViewDeal.ReadOnly = true;
             this.dataGridViewDeal.Size = new System.Drawing.Size(639, 247);
             this.dataGridViewDeal.TabIndex = 4;
-            this.dataGridViewDeal.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataGridView_SelectAndShowMenu);
+            this.dataGridViewDeal.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView_CellMouseDown);
             // 
             // dataGridViewTextBoxColumn17
             // 
@@ -701,7 +701,7 @@
             this.dataGridViewShow.ReadOnly = true;
             this.dataGridViewShow.Size = new System.Drawing.Size(543, 247);
             this.dataGridViewShow.TabIndex = 10;
-            this.dataGridViewShow.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataGridView_SelectAndShowMenu);
+            this.dataGridViewShow.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView_CellMouseDown);
             // 
             // dataGridViewTextBoxColumn23
             // 
@@ -787,7 +787,7 @@
             this.dataGridViewWish.ReadOnly = true;
             this.dataGridViewWish.Size = new System.Drawing.Size(575, 247);
             this.dataGridViewWish.TabIndex = 13;
-            this.dataGridViewWish.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataGridView_SelectAndShowMenu);
+            this.dataGridViewWish.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView_CellMouseDown);
             // 
             // dataGridViewTextBoxColumn27
             // 
