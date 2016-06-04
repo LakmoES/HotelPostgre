@@ -15,12 +15,12 @@ namespace Repositories
         List<Staff> dgvElements;
         ICompanyRepository companyRepository;
 
-        public StaffPresenter(DataGridView dgv)
+        public StaffPresenter(DataGridView dgv, IRepositoryFactory repositoryFactory)
         {
             dgvElements = new List<Staff>();
             this.dgv = dgv;
             staffRepository = new StaffRepository();
-            companyRepository = RepositoryFactory.GetCompanyRepository();//new CompanyRepository();
+            companyRepository = repositoryFactory.GetCompanyRepository();//new CompanyRepository();
         }
         public Dictionary<int, Staff> ShowTable(bool sort = false)
         {

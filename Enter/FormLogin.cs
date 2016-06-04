@@ -17,9 +17,11 @@ namespace Enter
 {
     public partial class FormLogin : Form
     {
-        public FormLogin()
+        IRepositoryFactory repositoryFactory;
+        public FormLogin(IRepositoryFactory repositoryFactory)
         {
             InitializeComponent();
+            this.repositoryFactory = repositoryFactory;
         }
 
         private void buttonEnter_Click(object sender, EventArgs e)
@@ -33,9 +35,9 @@ namespace Enter
                 this.Hide();
                 switch (User.role)
                 {
-                    case 1: new FormAdmin().ShowDialog(); break;
-                    case 2: new FormDirector().ShowDialog(); break;
-                    case 3: new FormStaff().ShowDialog(); break;
+                    case 1: new FormAdmin(repositoryFactory).ShowDialog(); break;
+                    case 2: new FormDirector(repositoryFactory).ShowDialog(); break;
+                    case 3: new FormStaff(repositoryFactory).ShowDialog(); break;
                 }
                 this.Show();
             }

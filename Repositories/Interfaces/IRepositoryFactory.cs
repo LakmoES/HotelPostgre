@@ -11,8 +11,9 @@ namespace Repositories
         ICompanyRepository GetCompanyRepository();
         IDealRepository GetDealRepository();
         IObjectRepository GetObjectRepository();
-        IPersonRepository GetClientRepository();
+        IPersonRepository GetPersonRepository(string tableName);
         IPersonRepository GetOwnerRepository();
+        IPersonRepository GetClientRepository();
         IShowRepository GetShowRepository();
         IStaffRepository GetStaffRepository();
         IWishRepository GetWishRepository();

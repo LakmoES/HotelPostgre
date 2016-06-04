@@ -14,15 +14,18 @@ namespace EditForms
 {
     public partial class FormAddUpdateCompanyTable : Form
     {
+        private IRepositoryFactory repositoryFactory;
+
         private CompanyPresenter companyPresenter;
         private Company company;
         private bool adding;
-        public FormAddUpdateCompanyTable(DataGridView dgv, int index) //редактирование
+        public FormAddUpdateCompanyTable(DataGridView dgv, IRepositoryFactory repositoryFactory, int index) //редактирование
         {
             InitializeComponent();
+            this.repositoryFactory = repositoryFactory;
             adding = false;
 
-            companyPresenter = new CompanyPresenter(dgv);
+            companyPresenter = new CompanyPresenter(dgv, repositoryFactory);
             company = new Company(Convert.ToInt32(dgv.Rows[index].Cells[0].Value), dgv.Rows[index].Cells[1].Value.ToString(),
                 dgv.Rows[index].Cells[2].Value.ToString(), dgv.Rows[index].Cells[3].Value.ToString());
 
@@ -31,12 +34,13 @@ namespace EditForms
             this.textBoxTelephone.Text = company.telephone;
             this.textBoxAddress.Text = company.address;
         }
-        public FormAddUpdateCompanyTable(DataGridView dgv) //добавление
+        public FormAddUpdateCompanyTable(DataGridView dgv, IRepositoryFactory repositoryFactory) //добавление
         {
             InitializeComponent();
+            this.repositoryFactory = repositoryFactory;
             adding = true;
 
-            companyPresenter = new CompanyPresenter(dgv);
+            companyPresenter = new CompanyPresenter(dgv, repositoryFactory);
             company = new Company(-1, null, null, null);
         }
 

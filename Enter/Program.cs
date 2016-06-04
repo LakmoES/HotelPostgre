@@ -22,9 +22,11 @@ namespace Enter
             //MessageBox.Show(enc + "\r\n" + dec);
             try
             {
+                IRepositoryFactory repositoryFactory = new RepositoryFactory();
+
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
-                Application.Run(new FormLogin());
+                Application.Run(new FormLogin(repositoryFactory));
                 DBConnection.Instance.closeConnection();
             }
             catch (PostgresException pEx) { MessageBox.Show("Произошла критическая ошибка базы данных.\r\nПриложение завершит свою работу.\r\n" + pEx.ToString(), "Критическая ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }

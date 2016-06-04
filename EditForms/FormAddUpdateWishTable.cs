@@ -16,6 +16,8 @@ namespace EditForms
     public partial class FormAddUpdateWishTable : Form
     {
         //private Regex regex;
+        private IRepositoryFactory repositoryFactory;
+
         private Wish wish;
         private bool adding;
         private IPersonRepository clientRepository;
@@ -23,9 +25,10 @@ namespace EditForms
         private WishPresenter wishPresenter;
         private List<Wish> wishList;
         private List<Person> clientList;
-        public FormAddUpdateWishTable(DataGridView dgv, Wish wish) //редактирование
+        public FormAddUpdateWishTable(DataGridView dgv, IRepositoryFactory repositoryFactory, Wish wish) //редактирование
         {
             InitializeComponent();
+            this.repositoryFactory = repositoryFactory;
             adding = false;
             this.wish = wish;
             Init(dgv);
@@ -46,9 +49,10 @@ namespace EditForms
 
             this.comboBoxClient.Enabled = false;
         }
-        public FormAddUpdateWishTable(DataGridView dgv) //добавление
+        public FormAddUpdateWishTable(DataGridView dgv, IRepositoryFactory repositoryFactory) //добавление
         {
             InitializeComponent();
+            this.repositoryFactory = repositoryFactory;
             adding = true;
             Init(dgv);
             FillTheFields();
@@ -57,10 +61,10 @@ namespace EditForms
         }
         private void Init(DataGridView dgv)
         {
-            clientRepository = RepositoryFactory.GetClientRepository();//new PersonRepository("Client");
-            wishRepository = RepositoryFactory.GetWishRepository();//new WishRepository();
+            clientRepository = repositoryFactory.GetClientRepository();//new PersonRepository("Client");
+            wishRepository = repositoryFactory.GetWishRepository();//new WishRepository();
 
-            wishPresenter = new WishPresenter(dgv);
+            wishPresenter = new WishPresenter(dgv, repositoryFactory);
 
             //regex = new Regex("\\[[0-9]+\\]");
 

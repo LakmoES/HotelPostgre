@@ -16,12 +16,12 @@ namespace Repositories
         IPersonRepository ownerRepository;
         List<Entity> dgvElements;
 
-        public ObjectPresenter(DataGridView dgv)
+        public ObjectPresenter(DataGridView dgv, IRepositoryFactory repositoryFactory)
         {
             dgvElements = new List<Entity>();
             this.dgv = dgv;
-            objectRepository = RepositoryFactory.GetObjectRepository();//new ObjectRepository();
-            ownerRepository = RepositoryFactory.GetOwnerRepository();//new PersonRepository("Owner");
+            objectRepository = repositoryFactory.GetObjectRepository();//new ObjectRepository();
+            ownerRepository = repositoryFactory.GetOwnerRepository();//new PersonRepository("Owner");
         }
         public Dictionary<int, Entity> ShowTable(bool sort = false)
         {

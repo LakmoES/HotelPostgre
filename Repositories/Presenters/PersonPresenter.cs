@@ -14,11 +14,11 @@ namespace Repositories
         IPersonRepository personRepository;
         List<Person> dgvElements;
 
-        public PersonPresenter(DataGridView dgv, string tableName)
+        public PersonPresenter(DataGridView dgv, IRepositoryFactory repositoryFactory, string tableName)
         {
             dgvElements = new List<Person>();
             this.dgv = dgv;
-            personRepository = new PersonRepository(tableName);
+            personRepository = repositoryFactory.GetPersonRepository(tableName);
         }
         public Dictionary<int, Person> ShowTable(bool sort = false)
         {

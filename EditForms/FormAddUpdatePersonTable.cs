@@ -15,6 +15,8 @@ namespace EditForms
 {
     public partial class FormAddUpdatePersonTable : Form
     {
+        private IRepositoryFactory repositoryFactory;
+
         private Dictionary<string, string> role;
         private PersonPresenter personPresenter;
         private StaffPresenter staffPresenter;
@@ -24,9 +26,10 @@ namespace EditForms
         private string tableName;
         private List<Company> companiesList;
         //private Regex regex; // [id]
-        public FormAddUpdatePersonTable(DataGridView dgv, Person person/*int index*/, string tableName) //редактирование
+        public FormAddUpdatePersonTable(DataGridView dgv, IRepositoryFactory repositoryFactory, Person person/*int index*/, string tableName) //редактирование
         {
             InitializeComponent();
+            this.repositoryFactory = repositoryFactory;
             this.tableName = tableName;
             this.person = person;
             Init(dgv);
@@ -57,9 +60,10 @@ namespace EditForms
             this.textBoxSurname.Text = person.surname;
             this.textBoxTelephone.Text = person.telephone;
         }
-        public FormAddUpdatePersonTable(DataGridView dgv, string tableName) //добавление
+        public FormAddUpdatePersonTable(DataGridView dgv, IRepositoryFactory repositoryFactory, string tableName) //добавление
         {
             InitializeComponent();
+            this.repositoryFactory = repositoryFactory;
             this.tableName = tableName;
             Init(dgv);
             adding = true;
@@ -75,9 +79,9 @@ namespace EditForms
         private void Init(DataGridView dgv)
         {
             //regex = new Regex("\\[[0-9]+\\]");
-            personPresenter = new PersonPresenter(dgv, tableName);
-            staffPresenter = new StaffPresenter(dgv);
-            companyRepository = RepositoryFactory.GetCompanyRepository();//new CompanyRepository();
+            personPresenter = new PersonPresenter(dgv, repositoryFactory, tableName);
+            staffPresenter = new StaffPresenter(dgv, repositoryFactory);
+            companyRepository = repositoryFactory.GetCompanyRepository();//new CompanyRepository();
 
             role = new Dictionary<string, string>();
             role.Add("Staff", "Работник");

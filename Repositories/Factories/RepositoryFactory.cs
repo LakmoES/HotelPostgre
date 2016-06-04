@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Repositories
 {
-    public static class RepositoryFactory
+    public class RepositoryFactory : IRepositoryFactory
     {
         //private NpgsqlConnection conn = null;
         //private static RepositoryFactory instance;
@@ -20,35 +20,39 @@ namespace Repositories
         //        return instance;
         //    }
         //}
-        public static ICompanyRepository GetCompanyRepository()
+        public ICompanyRepository GetCompanyRepository()
         {
             return new CompanyRepository();
         }
-        public static IDealRepository GetDealRepository()
+        public  IDealRepository GetDealRepository()
         {
             return new DealRepository();
         }
-        public static IObjectRepository GetObjectRepository()
+        public  IObjectRepository GetObjectRepository()
         {
             return new ObjectRepository();
         }
-        public static IPersonRepository GetClientRepository()
+        public IPersonRepository GetClientRepository()
         {
             return new PersonRepository("Client");
         }
-        public static IPersonRepository GetOwnerRepository()
+        public IPersonRepository GetOwnerRepository()
         {
             return new PersonRepository("Owner");
         }
-        public static IShowRepository GetShowRepository()
+        public  IPersonRepository GetPersonRepository(string tableName)
+        {
+            return new PersonRepository(tableName);
+        }
+        public  IShowRepository GetShowRepository()
         {
             return new ShowRepository();
         }
-        public static IStaffRepository GetStaffRepository()
+        public  IStaffRepository GetStaffRepository()
         {
             return new StaffRepository();
         }
-        public static IWishRepository GetWishRepository()
+        public  IWishRepository GetWishRepository()
         {
             return new WishRepository();
         }

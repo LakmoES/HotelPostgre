@@ -14,6 +14,8 @@ namespace Director
 {
     public partial class FormDirector : Form
     {
+        private IRepositoryFactory repositoryFactory;
+
         ObjectPresenter objectPresenter;
         PersonPresenter ownerPresenter;
         StaffPresenter staffPresenter;
@@ -32,9 +34,10 @@ namespace Director
         Dictionary<int, Show> shows;
         Dictionary<int, Wish> wishes;
         Dictionary<int, Staff> staffs;
-        public FormDirector()
+        public FormDirector(IRepositoryFactory repositoryFactory)
         {
             InitializeComponent();
+            this.repositoryFactory = repositoryFactory;
 
             MenuItem editItem = new MenuItem("Правка", dataGridView_Edit_Click);
             MenuItem removeItem = new MenuItem("Удалить", dataGridView_Remove_Click);
@@ -45,25 +48,25 @@ namespace Director
 
         private void FormAdmin_Load(object sender, EventArgs e)
         {
-            objectPresenter = new ObjectPresenter(this.dataGridViewObject);
+            objectPresenter = new ObjectPresenter(this.dataGridViewObject, repositoryFactory);
             objects = objectPresenter.ShowTable(true);
 
-            ownerPresenter = new PersonPresenter(this.dataGridViewOwner, "Owner");
+            ownerPresenter = new PersonPresenter(this.dataGridViewOwner, repositoryFactory, "Owner");
             owners = ownerPresenter.ShowTable(true);
 
-            staffPresenter = new StaffPresenter(this.dataGridViewStaff);
+            staffPresenter = new StaffPresenter(this.dataGridViewStaff, repositoryFactory);
             staffs = staffPresenter.ShowTable(true);
 
-            clientPresenter = new PersonPresenter(this.dataGridViewClient, "Client");
+            clientPresenter = new PersonPresenter(this.dataGridViewClient, repositoryFactory, "Client");
             clients = clientPresenter.ShowTable(true);
 
-            dealPresenter = new DealPresenter(this.dataGridViewDeal);
+            dealPresenter = new DealPresenter(this.dataGridViewDeal, repositoryFactory);
             deals = dealPresenter.ShowTable(true);
 
-            showPresenter = new ShowPresenter(this.dataGridViewShow);
+            showPresenter = new ShowPresenter(this.dataGridViewShow, repositoryFactory);
             shows = showPresenter.ShowTable(true);
 
-            wishPresenter = new WishPresenter(this.dataGridViewWish);
+            wishPresenter = new WishPresenter(this.dataGridViewWish, repositoryFactory);
             wishes = wishPresenter.ShowTable(true);
         }
         private void buttonObjectRefresh_Click(object sender, EventArgs e)
@@ -115,43 +118,43 @@ namespace Director
             {
                 Entity obj;
                 objects.TryGetValue(Convert.ToInt32(selectedDGV.CurrentRow.Cells[0].Value), out obj);
-                new FormAddUpdateObjectTable(selectedDGV, obj/*selectedDGV.CurrentRow.Index*/).ShowDialog();
+                new FormAddUpdateObjectTable(selectedDGV, repositoryFactory, obj/*selectedDGV.CurrentRow.Index*/).ShowDialog();
             }
             if (selectedDGV == dataGridViewOwner)
             {
                 Person owner;
                 owners.TryGetValue(Convert.ToInt32(selectedDGV.CurrentRow.Cells[0].Value), out owner);
-                new FormAddUpdatePersonTable(selectedDGV, owner, "Owner").ShowDialog();
+                new FormAddUpdatePersonTable(selectedDGV, repositoryFactory, owner, "Owner").ShowDialog();
             }
             if (selectedDGV == dataGridViewStaff)
             {
                 Staff staff;
                 staffs.TryGetValue(Convert.ToInt32(selectedDGV.CurrentRow.Cells[0].Value), out staff);
-                new FormAddUpdatePersonTable(selectedDGV, staff, "Staff").ShowDialog();
+                new FormAddUpdatePersonTable(selectedDGV, repositoryFactory, staff, "Staff").ShowDialog();
             }
             if (selectedDGV == dataGridViewClient)
             {
                 Person client;
                 clients.TryGetValue(Convert.ToInt32(selectedDGV.CurrentRow.Cells[0].Value), out client);
-                new FormAddUpdatePersonTable(selectedDGV, client, "Client").ShowDialog();
+                new FormAddUpdatePersonTable(selectedDGV, repositoryFactory, client, "Client").ShowDialog();
             }
             if (selectedDGV == dataGridViewDeal)
             {
                 Deal deal;
                 deals.TryGetValue(Convert.ToInt32(selectedDGV.CurrentRow.Cells[0].Value), out deal);
-                new FormAddUpdateDealTable(selectedDGV, deal/*selectedDGV.CurrentRow.Index*/).ShowDialog();
+                new FormAddUpdateDealTable(selectedDGV, repositoryFactory, deal/*selectedDGV.CurrentRow.Index*/).ShowDialog();
             }
             if (selectedDGV == dataGridViewShow)
             {
                 Show show;
                 shows.TryGetValue(Convert.ToInt32(selectedDGV.CurrentRow.Cells[0].Value), out show);
-                new FormAddUpdateShowTable(selectedDGV, show).ShowDialog();
+                new FormAddUpdateShowTable(selectedDGV, repositoryFactory, show).ShowDialog();
             }
             if (selectedDGV == dataGridViewWish)
             {
                 Wish wish;
                 wishes.TryGetValue(Convert.ToInt32(selectedDGV.CurrentRow.Cells[0].Value), out wish);
-                new FormAddUpdateWishTable(selectedDGV, wish).ShowDialog();
+                new FormAddUpdateWishTable(selectedDGV, repositoryFactory, wish).ShowDialog();
             }
         }
         private void dataGridView_Remove_Click(object sender, EventArgs e)
@@ -173,7 +176,7 @@ namespace Director
                 //}
                 if (selectedDGV == dataGridViewStaff)
                 {
-                    if (RepositoryFactory.GetStaffRepository().GetConcreteRecord(id).company == User.subrole)
+                    if (repositoryFactory.GetStaffRepository().GetConcreteRecord(id).company == User.subrole)
                     {
                         succeedFlag = staffPresenter.DeleteFromTable(id);
                         if (succeedFlag) staffPresenter.ShowTable(true);
@@ -205,31 +208,31 @@ namespace Director
         }
         private void buttonObjectAdd_Click(object sender, EventArgs e)
         {
-            new FormAddUpdateObjectTable(dataGridViewObject).ShowDialog();
+            new FormAddUpdateObjectTable(dataGridViewObject, repositoryFactory).ShowDialog();
         }
         private void buttonOwnerAdd_Click(object sender, EventArgs e)
         {
-            new FormAddUpdatePersonTable(dataGridViewOwner, "Owner").ShowDialog();
+            new FormAddUpdatePersonTable(dataGridViewOwner, repositoryFactory, "Owner").ShowDialog();
         }
         private void buttonStaffAdd_Click(object sender, EventArgs e)
         {
-            new FormAddUpdatePersonTable(dataGridViewStaff, "Staff").ShowDialog();
+            new FormAddUpdatePersonTable(dataGridViewStaff, repositoryFactory, "Staff").ShowDialog();
         }
         private void buttonClientAdd_Click(object sender, EventArgs e)
         {
-            new FormAddUpdatePersonTable(dataGridViewClient, "Client").ShowDialog();
+            new FormAddUpdatePersonTable(dataGridViewClient, repositoryFactory, "Client").ShowDialog();
         }
         private void buttonDealAdd_Click(object sender, EventArgs e)
         {
-            new FormAddUpdateDealTable(dataGridViewDeal).ShowDialog();
+            new FormAddUpdateDealTable(dataGridViewDeal, repositoryFactory).ShowDialog();
         }
         private void buttonShowAdd_Click(object sender, EventArgs e)
         {
-            new FormAddUpdateShowTable(selectedDGV).ShowDialog();
+            new FormAddUpdateShowTable(selectedDGV, repositoryFactory).ShowDialog();
         }
         private void buttonWishAdd_Click(object sender, EventArgs e)
         {
-            new FormAddUpdateWishTable(dataGridViewWish).ShowDialog();
+            new FormAddUpdateWishTable(dataGridViewWish, repositoryFactory).ShowDialog();
         }
     }
 }

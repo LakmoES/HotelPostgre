@@ -16,6 +16,7 @@ namespace EditForms
     public partial class FormAddUpdateShowTable : Form
     {
         //private Regex regex;
+        private IRepositoryFactory repositoryFactory;
         private Show show;
         private bool adding;
         private IStaffRepository staffRepository;
@@ -28,9 +29,10 @@ namespace EditForms
         private List<Entity> objectList;
         private List<Show> showList;
         private List<Staff> staffList;
-        public FormAddUpdateShowTable(DataGridView dgv, Show show) //редактирование
+        public FormAddUpdateShowTable(DataGridView dgv, IRepositoryFactory repositoryFactory, Show show) //редактирование
         {
             InitializeComponent();
+            this.repositoryFactory = repositoryFactory;
             adding = false;
             this.show = show;
             Init(dgv);
@@ -55,9 +57,10 @@ namespace EditForms
 
             CheckEditPermissions();
         }
-        public FormAddUpdateShowTable(DataGridView dgv) //добавление
+        public FormAddUpdateShowTable(DataGridView dgv, IRepositoryFactory repositoryFactory) //добавление
         {
             InitializeComponent();
+            this.repositoryFactory = repositoryFactory;
             adding = true;
             Init(dgv);
             FillTheFields();
@@ -66,12 +69,12 @@ namespace EditForms
         }
         private void Init(DataGridView dgv)
         {
-            staffRepository = RepositoryFactory.GetStaffRepository();//new StaffRepository();
-            clientRepository = RepositoryFactory.GetClientRepository();//new PersonRepository("Client");
-            objectRepository = RepositoryFactory.GetObjectRepository();//new ObjectRepository();
-            showRepository = RepositoryFactory.GetShowRepository();//new ShowRepository();
+            staffRepository = repositoryFactory.GetStaffRepository();//new StaffRepository();
+            clientRepository = repositoryFactory.GetClientRepository();//new PersonRepository("Client");
+            objectRepository = repositoryFactory.GetObjectRepository();//new ObjectRepository();
+            showRepository = repositoryFactory.GetShowRepository();//new ShowRepository();
 
-            showPresenter = new ShowPresenter(dgv);
+            showPresenter = new ShowPresenter(dgv, repositoryFactory);
 
             //regex = new Regex("\\[[0-9]+\\]");
         }

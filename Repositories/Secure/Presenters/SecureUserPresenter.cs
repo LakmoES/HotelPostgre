@@ -17,13 +17,13 @@ namespace Repositories
         IStaffRepository staffRepository;
         ICompanyRepository companyRepository;
 
-        public SecureUserPresenter(DataGridView dgv)
+        public SecureUserPresenter(DataGridView dgv, IRepositoryFactory repositoryFactory)
         {
             dgvElements = new List<SecureDBUser>();
             this.dgv = dgv;
 
-            staffRepository = RepositoryFactory.GetStaffRepository();
-            companyRepository = RepositoryFactory.GetCompanyRepository();
+            staffRepository = repositoryFactory.GetStaffRepository();
+            companyRepository = repositoryFactory.GetCompanyRepository();
         }
         private Dictionary<int, Staff> GetStaffs()
         {

@@ -16,6 +16,8 @@ namespace EditForms
     public partial class FormAddUpdateDealTable : Form
     {
         //private Regex regex;
+        private IRepositoryFactory repositoryFactory;
+
         private Deal deal;
         private bool adding;
         private IStaffRepository staffRepository;
@@ -29,9 +31,10 @@ namespace EditForms
         private List<Staff> staffList;
         private List<Person> clientList;
         private List<Entity> objectList;
-        public FormAddUpdateDealTable(DataGridView dgv, Deal deal) //редактирование
+        public FormAddUpdateDealTable(DataGridView dgv, IRepositoryFactory repositoryFactory, Deal deal) //редактирование
         {
             InitializeComponent();
+            this.repositoryFactory = repositoryFactory;
             adding = false;
             this.deal = deal;
             Init(dgv);
@@ -60,9 +63,10 @@ namespace EditForms
 
             CheckPermissions();
         }
-        public FormAddUpdateDealTable(DataGridView dgv) //добавление
+        public FormAddUpdateDealTable(DataGridView dgv, IRepositoryFactory repositoryFactory) //добавление
         {
             InitializeComponent();
+            this.repositoryFactory = repositoryFactory;
             adding = true;
             Init(dgv);
             FillTheFields();
@@ -71,12 +75,12 @@ namespace EditForms
         }
         private void Init(DataGridView dgv)
         {
-            staffRepository = RepositoryFactory.GetStaffRepository();//new StaffRepository();
-            clientRepository = RepositoryFactory.GetClientRepository();//new PersonRepository("Client");
-            objectRepository = RepositoryFactory.GetObjectRepository();//new ObjectRepository();
-            dealRepository = RepositoryFactory.GetDealRepository();//new DealRepository();
+            staffRepository = repositoryFactory.GetStaffRepository();//new StaffRepository();
+            clientRepository = repositoryFactory.GetClientRepository();//new PersonRepository("Client");
+            objectRepository = repositoryFactory.GetObjectRepository();//new ObjectRepository();
+            dealRepository = repositoryFactory.GetDealRepository();//new DealRepository();
 
-            dealPresenter = new DealPresenter(dgv);
+            dealPresenter = new DealPresenter(dgv, repositoryFactory);
 
             //regex = new Regex("\\[[0-9]+\\]");
 

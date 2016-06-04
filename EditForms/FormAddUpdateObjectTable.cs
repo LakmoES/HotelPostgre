@@ -15,15 +15,18 @@ namespace EditForms
 {
     public partial class FormAddUpdateObjectTable : Form
     {
+        private IRepositoryFactory repositoryFactory;
+
         private ObjectPresenter objectPresenter;
         private IPersonRepository ownerRepository;
         private Entity obj;
         //private Regex regex; // [id]
         private bool adding;
         private List<Person> ownersList;
-        public FormAddUpdateObjectTable(DataGridView dgv, Entity obj) //редактирование
+        public FormAddUpdateObjectTable(DataGridView dgv, IRepositoryFactory repositoryFactory, Entity obj) //редактирование
         {
             InitializeComponent();
+            this.repositoryFactory = repositoryFactory;
             adding = false;
             this.obj = obj;
             numericUpDownCost.Minimum = -1;
@@ -31,8 +34,8 @@ namespace EditForms
             numericUpDownArea.Minimum = -1;
             numericUpDownArea.Maximum = Int32.MaxValue;
 
-            objectPresenter = new ObjectPresenter(dgv);
-            ownerRepository = RepositoryFactory.GetOwnerRepository();//new PersonRepository("Owner");
+            objectPresenter = new ObjectPresenter(dgv, repositoryFactory);
+            ownerRepository = repositoryFactory.GetOwnerRepository();//new PersonRepository("Owner");
 
             FillTheFields();
             this.textBoxAddress.ReadOnly = true;
@@ -63,15 +66,16 @@ namespace EditForms
             this.numericUpDownArea.Value = Convert.ToDecimal(obj.area);
             this.numericUpDownRooms.Value = obj.numberOfRooms;
         }
-        public FormAddUpdateObjectTable(DataGridView dgv) //добавление
+        public FormAddUpdateObjectTable(DataGridView dgv, IRepositoryFactory repositoryFactory) //добавление
         {
             InitializeComponent();
+            this.repositoryFactory = repositoryFactory;
             adding = true;
             numericUpDownCost.Minimum = -1;
             numericUpDownCost.Maximum = Int32.MaxValue;
 
-            objectPresenter = new ObjectPresenter(dgv);
-            ownerRepository = RepositoryFactory.GetOwnerRepository();//new PersonRepository("Owner");
+            objectPresenter = new ObjectPresenter(dgv, repositoryFactory);
+            ownerRepository = repositoryFactory.GetOwnerRepository();//new PersonRepository("Owner");
 
             FillTheFields();
             obj = new Entity(-1, null, new DateTime(), -1, -1, null, -1, -1);

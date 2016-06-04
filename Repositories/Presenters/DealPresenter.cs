@@ -18,15 +18,15 @@ namespace Repositories
         IPersonRepository clientRepository;
         IObjectRepository objectRepository;
 
-        public DealPresenter(DataGridView dgv)
+        public DealPresenter(DataGridView dgv, IRepositoryFactory repositoryFactory)
         {
             dgvElements = new List<Deal>();
             this.dgv = dgv;
-            dealRepository = RepositoryFactory.GetDealRepository();//new DealRepository();
+            dealRepository = repositoryFactory.GetDealRepository();//new DealRepository();
 
-            staffRepository = RepositoryFactory.GetStaffRepository();//new StaffRepository();
-            clientRepository = RepositoryFactory.GetClientRepository();//new PersonRepository("Client");
-            objectRepository = RepositoryFactory.GetObjectRepository();//new ObjectRepository();
+            staffRepository = repositoryFactory.GetStaffRepository();//new StaffRepository();
+            clientRepository = repositoryFactory.GetClientRepository();//new PersonRepository("Client");
+            objectRepository = repositoryFactory.GetObjectRepository();//new ObjectRepository();
             
         }
         private Dictionary<int, Staff> GetStaffs()

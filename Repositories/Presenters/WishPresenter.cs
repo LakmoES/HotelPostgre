@@ -16,13 +16,13 @@ namespace Repositories
 
         IPersonRepository clientRepository;
 
-        public WishPresenter(DataGridView dgv)
+        public WishPresenter(DataGridView dgv, IRepositoryFactory repositoryFactory)
         {
             dgvElements = new List<Wish>();
             this.dgv = dgv;
-            wishRepository = RepositoryFactory.GetWishRepository();//new WishRepository();
+            wishRepository = repositoryFactory.GetWishRepository();//new WishRepository();
 
-            clientRepository = RepositoryFactory.GetClientRepository();//new PersonRepository("Client");
+            clientRepository = repositoryFactory.GetClientRepository();//new PersonRepository("Client");
 
         }
         private Dictionary<int, Person> GetClients()
