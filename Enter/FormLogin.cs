@@ -30,6 +30,11 @@ namespace Enter
 
         private void buttonEnter_Click(object sender, EventArgs e)
         {
+            Login();
+        }
+
+        private void Login()
+        {
             string username = textBoxUsername.Text;
             string password = textBoxPassword.Text;
 
@@ -46,6 +51,14 @@ namespace Enter
                 this.Show();
             }
             else MessageBox.Show("Произошла ошибка. Проверьте правильность ввода имени и пароля.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void textBoxPassword_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Return))
+            {
+                Login();
+            }
         }
     }
 }
