@@ -91,6 +91,7 @@ namespace Staff
         }
         private void buttonClientRefresh_Click(object sender, EventArgs e)
         {
+            DeleteSatis();
             clients = clientPresenter.ShowTable(true);
         }
         private void buttonDealRefresh_Click(object sender, EventArgs e)

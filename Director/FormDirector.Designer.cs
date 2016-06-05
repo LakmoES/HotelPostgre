@@ -33,6 +33,14 @@
             this.buttonObjectAdd = new System.Windows.Forms.Button();
             this.buttonObjectRefresh = new System.Windows.Forms.Button();
             this.dataGridViewObject = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ObjectOwner = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AppartamentOrHouse = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Area = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Rooms = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.buttonOwnerAdd = new System.Windows.Forms.Button();
             this.buttonOwnerRefresh = new System.Windows.Forms.Button();
@@ -81,16 +89,6 @@
             this.buttonWishAdd = new System.Windows.Forms.Button();
             this.buttonWishRefresh = new System.Windows.Forms.Button();
             this.dataGridViewWish = new System.Windows.Forms.DataGridView();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBoxYou = new System.Windows.Forms.TextBox();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ObjectOwner = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AppartamentOrHouse = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Area = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Rooms = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn27 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn30 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -98,6 +96,10 @@
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label1 = new System.Windows.Forms.Label();
+            this.textBoxYou = new System.Windows.Forms.TextBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textBoxStaffFind = new System.Windows.Forms.TextBox();
             this.tabControlMain.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewObject)).BeginInit();
@@ -113,6 +115,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewShow)).BeginInit();
             this.tabPage8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewWish)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControlMain
@@ -182,6 +185,62 @@
             this.dataGridViewObject.Size = new System.Drawing.Size(666, 247);
             this.dataGridViewObject.TabIndex = 1;
             this.dataGridViewObject.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView_CellMouseDown);
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.HeaderText = "id";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.dataGridViewTextBoxColumn1.Width = 30;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.HeaderText = "Адрес";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.Width = 145;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.HeaderText = "Дата";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            this.dataGridViewTextBoxColumn3.Width = 70;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.HeaderText = "Стоимость";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            this.dataGridViewTextBoxColumn4.Width = 65;
+            // 
+            // ObjectOwner
+            // 
+            this.ObjectOwner.HeaderText = "Владелец";
+            this.ObjectOwner.Name = "ObjectOwner";
+            this.ObjectOwner.ReadOnly = true;
+            this.ObjectOwner.Width = 140;
+            // 
+            // AppartamentOrHouse
+            // 
+            this.AppartamentOrHouse.HeaderText = "Тип";
+            this.AppartamentOrHouse.Name = "AppartamentOrHouse";
+            this.AppartamentOrHouse.ReadOnly = true;
+            this.AppartamentOrHouse.Width = 40;
+            // 
+            // Area
+            // 
+            this.Area.HeaderText = "Площадь";
+            this.Area.Name = "Area";
+            this.Area.ReadOnly = true;
+            this.Area.Width = 55;
+            // 
+            // Rooms
+            // 
+            this.Rooms.HeaderText = "Комнат";
+            this.Rooms.Name = "Rooms";
+            this.Rooms.ReadOnly = true;
+            this.Rooms.Width = 55;
             // 
             // tabPage3
             // 
@@ -262,6 +321,7 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.groupBox1);
             this.tabPage4.Controls.Add(this.buttonStaffAdd);
             this.tabPage4.Controls.Add(this.buttonStaffRefresh);
             this.tabPage4.Controls.Add(this.dataGridViewStaff);
@@ -285,7 +345,7 @@
             // 
             // buttonStaffRefresh
             // 
-            this.buttonStaffRefresh.Location = new System.Drawing.Point(693, 108);
+            this.buttonStaffRefresh.Location = new System.Drawing.Point(693, 152);
             this.buttonStaffRefresh.Name = "buttonStaffRefresh";
             this.buttonStaffRefresh.Size = new System.Drawing.Size(75, 23);
             this.buttonStaffRefresh.TabIndex = 4;
@@ -648,79 +708,6 @@
             this.dataGridViewWish.TabIndex = 13;
             this.dataGridViewWish.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView_CellMouseDown);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(557, 8);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(81, 13);
-            this.label1.TabIndex = 18;
-            this.label1.Text = "Вы зашли как:";
-            // 
-            // textBoxYou
-            // 
-            this.textBoxYou.Location = new System.Drawing.Point(644, 8);
-            this.textBoxYou.Name = "textBoxYou";
-            this.textBoxYou.ReadOnly = true;
-            this.textBoxYou.Size = new System.Drawing.Size(150, 20);
-            this.textBoxYou.TabIndex = 17;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "id";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            this.dataGridViewTextBoxColumn1.Width = 30;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.HeaderText = "Адрес";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            this.dataGridViewTextBoxColumn2.Width = 145;
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.HeaderText = "Дата";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.ReadOnly = true;
-            this.dataGridViewTextBoxColumn3.Width = 70;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.HeaderText = "Стоимость";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.ReadOnly = true;
-            this.dataGridViewTextBoxColumn4.Width = 65;
-            // 
-            // ObjectOwner
-            // 
-            this.ObjectOwner.HeaderText = "Владелец";
-            this.ObjectOwner.Name = "ObjectOwner";
-            this.ObjectOwner.ReadOnly = true;
-            this.ObjectOwner.Width = 140;
-            // 
-            // AppartamentOrHouse
-            // 
-            this.AppartamentOrHouse.HeaderText = "Тип";
-            this.AppartamentOrHouse.Name = "AppartamentOrHouse";
-            this.AppartamentOrHouse.ReadOnly = true;
-            this.AppartamentOrHouse.Width = 40;
-            // 
-            // Area
-            // 
-            this.Area.HeaderText = "Площадь";
-            this.Area.Name = "Area";
-            this.Area.ReadOnly = true;
-            this.Area.Width = 55;
-            // 
-            // Rooms
-            // 
-            this.Rooms.HeaderText = "Комнат";
-            this.Rooms.Name = "Rooms";
-            this.Rooms.ReadOnly = true;
-            this.Rooms.Width = 55;
-            // 
             // dataGridViewTextBoxColumn27
             // 
             this.dataGridViewTextBoxColumn27.HeaderText = "id";
@@ -768,6 +755,41 @@
             this.Column6.ReadOnly = true;
             this.Column6.Width = 65;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(557, 8);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(81, 13);
+            this.label1.TabIndex = 18;
+            this.label1.Text = "Вы зашли как:";
+            // 
+            // textBoxYou
+            // 
+            this.textBoxYou.Location = new System.Drawing.Point(644, 8);
+            this.textBoxYou.Name = "textBoxYou";
+            this.textBoxYou.ReadOnly = true;
+            this.textBoxYou.Size = new System.Drawing.Size(150, 20);
+            this.textBoxYou.TabIndex = 17;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.textBoxStaffFind);
+            this.groupBox1.Location = new System.Drawing.Point(628, 6);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(140, 50);
+            this.groupBox1.TabIndex = 6;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Найти работника";
+            // 
+            // textBoxStaffFind
+            // 
+            this.textBoxStaffFind.Location = new System.Drawing.Point(6, 19);
+            this.textBoxStaffFind.Name = "textBoxStaffFind";
+            this.textBoxStaffFind.Size = new System.Drawing.Size(128, 20);
+            this.textBoxStaffFind.TabIndex = 0;
+            this.textBoxStaffFind.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxStaffFind_KeyDown);
+            // 
             // FormDirector
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -796,6 +818,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewShow)).EndInit();
             this.tabPage8.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewWish)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -873,5 +897,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.TextBox textBoxStaffFind;
     }
 }

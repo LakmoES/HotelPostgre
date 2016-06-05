@@ -34,9 +34,17 @@ namespace Director
         Dictionary<int, Show> shows;
         Dictionary<int, Wish> wishes;
         Dictionary<int, Staff> staffs;
+
+        AutoCompleteStringCollection staffCompleteCollection;
         public FormDirector(IRepositoryFactory repositoryFactory)
         {
             InitializeComponent();
+
+            this.staffCompleteCollection = new AutoCompleteStringCollection();
+            textBoxStaffFind.AutoCompleteCustomSource = staffCompleteCollection;
+            textBoxStaffFind.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            textBoxStaffFind.AutoCompleteSource = AutoCompleteSource.CustomSource;
+
             this.repositoryFactory = repositoryFactory;
             Company company = repositoryFactory.GetCompanyRepository().GetConcreteRecord(User.subgroup);
             this.textBoxYou.Text = String.Format("{0} ({1})",
@@ -60,6 +68,7 @@ namespace Director
 
             staffPresenter = new StaffPresenter(this.dataGridViewStaff, repositoryFactory);
             staffs = staffPresenter.ShowTable(true);
+            FillStaffCompleteCollection();
 
             clientPresenter = new PersonPresenter(this.dataGridViewClient, repositoryFactory, "Client");
             clients = clientPresenter.ShowTable(true);
@@ -84,6 +93,7 @@ namespace Director
         private void buttonStaffRefresh_Click(object sender, EventArgs e)
         {
             staffs = staffPresenter.ShowTable(true);
+            FillStaffCompleteCollection();
         }
         private void buttonClientRefresh_Click(object sender, EventArgs e)
         {
@@ -100,6 +110,11 @@ namespace Director
         private void buttonWishRefresh_Click(object sender, EventArgs e)
         {
             wishes = wishPresenter.ShowTable(true);
+        }
+        private void FillStaffCompleteCollection()
+        {
+            foreach (var staff in staffs)
+                staffCompleteCollection.Add(String.Format("{0} {1}", staff.Value.surname, staff.Value.name));
         }
         private void dataGridView_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
         {
@@ -240,6 +255,25 @@ namespace Director
         private void buttonWishAdd_Click(object sender, EventArgs e)
         {
             new FormAddUpdateWishTable(dataGridViewWish, repositoryFactory).ShowDialog();
+        }
+
+        private void textBoxStaffFind_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                string selectedText = this.textBoxStaffFind.Text;
+                dataGridViewStaff.Rows.Clear();
+
+                foreach(var staff in staffs)
+                {
+                    string staffFullName = staff.Value.surname + " " + staff.Value.name;
+                    if (staffFullName.IndexOf(selectedText) == 0)
+                    {
+                        Company company = repositoryFactory.GetCompanyRepository().GetConcreteRecord(staff.Value.company);
+                        dataGridViewStaff.Rows.Add(staff.Value.id, staff.Value.name, staff.Value.surname, staff.Value.telephone, company.title);
+                    }
+                }
+            }
         }
     }
 }
