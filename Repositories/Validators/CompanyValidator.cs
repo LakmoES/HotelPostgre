@@ -13,12 +13,17 @@ namespace Repositories
         {
             errorList = new List<string>();
             bool succeedFlag = true;
-            if (company.title.Trim(' ').Length <= 0 )
+            if (company.title.Trim(' ').Length <= 0)
             {
                 succeedFlag = false;
                 errorList.Add("Название филиала не может быть пустым.");
             }
-            if(company.address.Trim(' ').Length <= 0)
+            if(string.Concat(company.title.Where(char.IsLetter)).Length <= 0)
+            {
+                succeedFlag = false;
+                errorList.Add("Название не может состоять только из цифр и спецсимволов");
+            }
+            if (company.address.Trim(' ').Length <= 0)
             {
                 succeedFlag = false;
                 errorList.Add("Адрес филиала не может быть пустым.");

@@ -76,6 +76,7 @@
             this.label1.Size = new System.Drawing.Size(18, 13);
             this.label1.TabIndex = 59;
             this.label1.Text = "ID";
+            this.label1.Visible = false;
             // 
             // textBoxID
             // 
@@ -84,6 +85,7 @@
             this.textBoxID.ReadOnly = true;
             this.textBoxID.Size = new System.Drawing.Size(41, 20);
             this.textBoxID.TabIndex = 58;
+            this.textBoxID.Visible = false;
             // 
             // buttonOK
             // 

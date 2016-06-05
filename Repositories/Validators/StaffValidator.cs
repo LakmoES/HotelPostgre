@@ -23,7 +23,17 @@ namespace Repositories
                 succeedFlag = false;
                 errorList.Add("Не указана фамилия.");
             }
-            if(staff.telephone.Trim(' ').Length <= 0)
+            if (string.Concat(staff.name.Where(char.IsLetter)).Length <= 0)
+            {
+                succeedFlag = false;
+                errorList.Add("Имя не может состоять только из цифр и спецсимволов");
+            }
+            if (string.Concat(staff.surname.Where(char.IsLetter)).Length <= 0)
+            {
+                succeedFlag = false;
+                errorList.Add("Фамилия не может состоять только из цифр и спецсимволов");
+            }
+            if (staff.telephone.Trim(' ').Length <= 0)
             {
                 succeedFlag = false;
                 errorList.Add("Укажите номер телефона.");

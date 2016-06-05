@@ -28,7 +28,12 @@ namespace Repositories
                 succeedFlag = false;
                 errorList.Add("Не указан адрес.");
             }
-            if(obj.area <= 0)
+            if (string.Concat(obj.address.Where(char.IsLetter)).Length <= 0)
+            {
+                succeedFlag = false;
+                errorList.Add("Адрес не может состоять только из цифр и спецсимволов");
+            }
+            if (obj.area <= 0)
             {
                 succeedFlag = false;
                 errorList.Add("Неверно указана площадь.");

@@ -19,9 +19,8 @@ namespace Repositories
         public List<Deal> GetTable()
         {
             List<Deal> dealTable = new List<Deal>();
-            Deal dealTbl;
-            try
-            {
+            Deal deal;
+
                 NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"HomeBUY\".\"Deal\"", dbc.Connection);
                 NpgsqlDataReader dealTableReader = queryCommand.ExecuteReader();
 
@@ -29,7 +28,7 @@ namespace Repositories
                     foreach (DbDataRecord dbDataRecord in dealTableReader)
                     {
                         Application.DoEvents();
-                        dealTbl = new Deal(
+                        deal = new Deal(
                             Convert.ToInt32(dbDataRecord["id"]),
                             Convert.ToInt32(dbDataRecord["Dealer"]),
                             Convert.ToInt32(dbDataRecord["Buyer"]),
@@ -37,22 +36,16 @@ namespace Repositories
                             Convert.ToSingle(dbDataRecord["Cost"]),
                             Convert.ToDateTime(dbDataRecord["Date"])
                             );
-                        dealTable.Add(dealTbl);
+                        dealTable.Add(deal);
                     }
                 dealTableReader.Close();
-            }
-            catch (NpgsqlException exp)
-            {
-                MessageBox.Show(Convert.ToString(exp), "Ошибка");
-            }
+
             return dealTable;
         }
         public Deal GetConcreteRecord(int id)
         {
-            Deal dealTbl = null;
-
-            //try
-            //{
+            Deal deal = null;
+            
                 NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"HomeBUY\".\"Deal\" WHERE \"id\" = @id", dbc.Connection);
                 queryCommand.Parameters.AddWithValue("@id", id);
                 NpgsqlDataReader dealTableReader = queryCommand.ExecuteReader();
@@ -61,7 +54,7 @@ namespace Repositories
                     foreach (DbDataRecord dbDataRecord in dealTableReader)
                     {
                         Application.DoEvents();
-                        dealTbl = new Deal(
+                        deal = new Deal(
                             Convert.ToInt32(dbDataRecord["id"]),
                             Convert.ToInt32(dbDataRecord["Dealer"]),
                             Convert.ToInt32(dbDataRecord["Buyer"]),
@@ -72,18 +65,13 @@ namespace Repositories
                         break;
                     }
                 dealTableReader.Close();
-            //}
-            //catch (NpgsqlException exp)
-            //{
-            //    MessageBox.Show(Convert.ToString(exp), "Ошибка");
-            //}
-            return dealTbl;
+
+            return deal;
         }
         public void AddToTable(Deal deal)
         {
             NpgsqlCommand queryCommand;
-            //try
-            //{
+
                 queryCommand = new NpgsqlCommand("INSERT INTO \"HomeBUY\".\"Deal\" (\"Dealer\", \"Buyer\", \"Object\", \"Cost\", \"Date\")" +
                     " VALUES(@Dealer, @Buyer, @Object, @Cost, @Date)", dbc.Connection);
                 queryCommand.Parameters.AddWithValue("@Dealer", deal.dealer);
@@ -92,14 +80,9 @@ namespace Repositories
                 queryCommand.Parameters.AddWithValue("@Cost", deal.cost);
                 queryCommand.Parameters.AddWithValue("@Date", deal.date);
                 queryCommand.ExecuteNonQuery();
-            //}
-            //catch (NpgsqlException)
-            //{ }
         }
         public void UpdateTable(Deal updatedDeal)
         {
-            //try
-            //{
                 NpgsqlCommand queryCommand = new NpgsqlCommand("UPDATE \"HomeBUY\".\"Deal\" SET \"Dealer\" = @Dealer, \"Buyer\" = @Buyer, \"Object\" = @Object, \"Cost\" = @Cost, \"Date\" = @Date" +
                     " WHERE \"id\" = @id", dbc.Connection);
                 queryCommand.Parameters.AddWithValue("@Dealer", updatedDeal.dealer);
@@ -109,18 +92,12 @@ namespace Repositories
                 queryCommand.Parameters.AddWithValue("@Date", updatedDeal.date);
                 queryCommand.Parameters.AddWithValue("@id", updatedDeal.id);
                 queryCommand.ExecuteNonQuery();
-            //}
-            //catch (NpgsqlException) { }
         }
         public void DeleteFromTable(int id)
         {
-            //try
-            //{
             NpgsqlCommand queryCommand = new NpgsqlCommand("DELETE FROM \"HomeBUY\".\"Deal\" WHERE \"id\" = @id", dbc.Connection);
             queryCommand.Parameters.AddWithValue("@id", id);
             queryCommand.ExecuteNonQuery();
-            //}
-            //catch (NpgsqlException) { }
         }
     }
 }

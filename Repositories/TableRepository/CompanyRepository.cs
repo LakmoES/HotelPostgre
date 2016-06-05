@@ -19,10 +19,8 @@ namespace Repositories
         public List<Company> GetTable()
         {
             List<Company> companyTable = new List<Company>();
-            Company companyTbl;
+            Company company;
 
-            //try
-            //{
                 NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"HomeBUY\".\"Company\"", dbc.Connection);
                 NpgsqlDataReader companyTableReader = queryCommand.ExecuteReader();
 
@@ -30,28 +28,22 @@ namespace Repositories
                     foreach (DbDataRecord dbDataRecord in companyTableReader)
                     {
                         Application.DoEvents();
-                        companyTbl = new Company(
+                        company = new Company(
                             Convert.ToInt32(dbDataRecord["id"]),
                             dbDataRecord["Title"].ToString(),
                             dbDataRecord["Telephone"].ToString(),
                             dbDataRecord["Address"].ToString()
                             );
-                        companyTable.Add(companyTbl);
+                        companyTable.Add(company);
                     }
                 companyTableReader.Close();
-            //}
-            //catch (NpgsqlException exp)
-            //{
-            //    MessageBox.Show(Convert.ToString(exp), "Ошибка");
-            //}
+            
             return companyTable;
         }
         public Company GetConcreteRecord(int id)
         {
-            Company companyTbl = null;
+            Company company = null;
 
-            //try
-            //{
                 NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"HomeBUY\".\"Company\" WHERE \"id\" = @id", dbc.Connection);
                 queryCommand.Parameters.AddWithValue("@id", id);
                 NpgsqlDataReader companyTableReader = queryCommand.ExecuteReader();
@@ -60,7 +52,7 @@ namespace Repositories
                     foreach (DbDataRecord dbDataRecord in companyTableReader)
                     {
                         Application.DoEvents();
-                        companyTbl = new Company(
+                        company = new Company(
                             Convert.ToInt32(dbDataRecord["id"]),
                             dbDataRecord["Title"].ToString(),
                             dbDataRecord["Telephone"].ToString(),
@@ -69,18 +61,13 @@ namespace Repositories
                         break;
                     }
                 companyTableReader.Close();
-            //}
-            //catch (NpgsqlException exp)
-            //{
-            //    MessageBox.Show(Convert.ToString(exp), "Ошибка");
-            //}
-            return companyTbl;
+           
+            return company;
         }
         public void AddToTable(Company company)
         {
             NpgsqlCommand queryCommand;
-            //try
-            //{
+            
                 //id, Title, Telephone, Address
                 queryCommand = new NpgsqlCommand("INSERT INTO \"HomeBUY\".\"Company\" (\"Title\", \"Telephone\", \"Address\")" +
                     " VALUES(@Title, @Telephone, @Address)", dbc.Connection);
@@ -88,14 +75,9 @@ namespace Repositories
                 queryCommand.Parameters.AddWithValue("@Telephone", company.telephone);
                 queryCommand.Parameters.AddWithValue("@Address", company.address);
                 queryCommand.ExecuteNonQuery();
-            //}
-            //catch (NpgsqlException)
-            //{ }
         }
         public void UpdateTable(Company updatedCompany)
         {
-            //try
-            //{
                 //id, Title, Telephone, Address
                 NpgsqlCommand queryCommand = new NpgsqlCommand("UPDATE \"HomeBUY\".\"Company\" SET \"Title\" = @Title, \"Telephone\" = @Telephone, \"Address\" = @Address" +
                     " WHERE \"id\" = @id", dbc.Connection);
@@ -104,18 +86,12 @@ namespace Repositories
                 queryCommand.Parameters.AddWithValue("@Address", updatedCompany.address);
                 queryCommand.Parameters.AddWithValue("@id", updatedCompany.id);
                 queryCommand.ExecuteNonQuery();
-            //}
-            //catch (NpgsqlException) { }
         }
         public void DeleteFromTable(int id)
         {
-            //try
-            //{
                 NpgsqlCommand queryCommand = new NpgsqlCommand("DELETE FROM \"HomeBUY\".\"Company\" WHERE \"id\" = @id", dbc.Connection);
                 queryCommand.Parameters.AddWithValue("@id", id);
                 queryCommand.ExecuteNonQuery();
-            //}
-            //catch (NpgsqlException) { }
         }
     }
 }

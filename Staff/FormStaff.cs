@@ -259,8 +259,6 @@ namespace Staff
 
                 this.dataGridViewClient.ColumnCount = this.dataGridViewClient.ColumnCount - 1;
                 satisfShow = false;
-
-                DeleteSatis();
             }
         }
     }

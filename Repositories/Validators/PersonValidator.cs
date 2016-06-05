@@ -18,12 +18,22 @@ namespace Repositories
                 succeedFlag = false;
                 errorList.Add("Укажите имя.");
             }
-            if(person.surname.Trim(' ').Length <= 0)
+            if (person.surname.Trim(' ').Length <= 0)
             {
                 succeedFlag = false;
                 errorList.Add("Укажите фамилию.");
             }
-            if(person.telephone.Trim(' ').Length <= 0)
+            if (string.Concat(person.name.Where(char.IsLetter)).Length <= 0)
+            {
+                succeedFlag = false;
+                errorList.Add("Имя не может состоять только из цифр и спецсимволов");
+            }
+            if (string.Concat(person.surname.Where(char.IsLetter)).Length <= 0)
+            {
+                succeedFlag = false;
+                errorList.Add("Фамилия не может состоять только из цифр и спецсимволов");
+            }
+            if (person.telephone.Trim(' ').Length <= 0)
             {
                 succeedFlag = false;
                 errorList.Add("Не указан номер телефона.");

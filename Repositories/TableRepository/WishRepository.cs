@@ -25,7 +25,7 @@ namespace Repositories
         public List<Wish> GetTable()
         {
             List<Wish> wishTable = new List<Wish>();
-            Wish wishTbl;
+            Wish wish;
             NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"HomeBUY\".\"Wish\"", dbc.Connection);
             NpgsqlDataReader wishTableReader = queryCommand.ExecuteReader();
 
@@ -34,7 +34,7 @@ namespace Repositories
                 foreach (DbDataRecord dbDataRecord in wishTableReader)
                 {
                     Application.DoEvents();
-                    wishTbl = new Wish(
+                    wish = new Wish(
                         Convert.ToInt32(dbDataRecord["id"]),
                         Convert.ToInt32(dbDataRecord["Client"]),
                         (FixDBValue(dbDataRecord["Township"]) ?? "").ToString(), // is null ? => empty
@@ -43,7 +43,7 @@ namespace Repositories
                         Convert.ToInt32(FixDBValue(dbDataRecord["NumberOfRooms"])),
                         Convert.ToSingle(FixDBValue(dbDataRecord["Cost"]))
                         );
-                    wishTable.Add(wishTbl);
+                    wishTable.Add(wish);
                 }
             wishTableReader.Close();
 
@@ -51,7 +51,7 @@ namespace Repositories
         }
         public Wish GetConcreteRecord(int id)
         {
-            Wish wishTbl = null;
+            Wish wish = null;
 
             NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"HomeBUY\".\"Wish\" WHERE \"id\" = @id", dbc.Connection);
             queryCommand.Parameters.AddWithValue("@id", id);
@@ -61,7 +61,7 @@ namespace Repositories
                 foreach (DbDataRecord dbDataRecord in wishTableReader)
                 {
                     Application.DoEvents();
-                    wishTbl = new Wish(
+                    wish = new Wish(
                         Convert.ToInt32(dbDataRecord["id"]),
                         Convert.ToInt32(dbDataRecord["Client"]),
                         (FixDBValue(dbDataRecord["Township"]) ?? "").ToString(),   // is null ? => empty
@@ -74,7 +74,7 @@ namespace Repositories
                 }
             wishTableReader.Close();
 
-            return wishTbl;
+            return wish;
         }
         public void AddToTable(Wish wish)
         {
