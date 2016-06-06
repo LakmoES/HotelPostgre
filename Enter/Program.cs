@@ -17,13 +17,6 @@ namespace Enter
         [STAThread]
         static void Main()
         {
-            //string key = "8fLZh0Ku";
-            //string iv = "UQNtDuJH";
-            //string enc = SecureCrypt.DESEncrypt("user", key, iv);
-            //string dec = SecureCrypt.DESDecrypt(enc, key, iv);
-            //Clipboard.SetText(enc);
-            //MessageBox.Show(enc + "\r\n" + dec);
-
             try
             {
                 DBConnection dbc = new DBConnection(null);
@@ -41,8 +34,8 @@ namespace Enter
                 if (dbc.Connection != null)
                     dbc.CloseConnection();
             }
-            catch (PostgresException pEx) { MessageBox.Show("Произошла критическая ошибка базы данных.\r\nПриложение завершит свою работу.\r\n" + pEx.ToString(), "Критическая ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            catch (PostgresException pEx) { MessageBox.Show("Произошла критическая ошибка базы данных.\r\nПриложение завершит свою работу.\r\nКод ошибки " + pEx.SqlState, "Критическая ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
             catch (Exception ex) { MessageBox.Show("Произошла критическая ошибка.\r\nПриложение завершит свою работу." + ex.Message, "Критическая ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
-}
+        }
     }
 }

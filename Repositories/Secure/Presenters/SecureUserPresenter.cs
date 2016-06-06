@@ -99,7 +99,7 @@ namespace Repositories
                 if (checkFlag)
                     secureUserRepository.AddToTable(user);
             }
-            catch (Exception) { errorList.Add("Ошибка базы данных."); }
+            catch (Exception) { errorList.Add("Ошибка базы данных."); checkFlag = false; }
 
             ShowErrors(errorList);
 
@@ -114,7 +114,7 @@ namespace Repositories
                 if (checkFlag)
                     secureUserRepository.UpdateTable(user);
             }
-            catch (Exception) { errorList.Add("Ошибка базы данных."); }
+            catch (Exception) { errorList.Add("Ошибка базы данных."); checkFlag = false; }
 
             ShowErrors(errorList);
 
