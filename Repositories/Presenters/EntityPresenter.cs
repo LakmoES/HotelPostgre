@@ -9,19 +9,19 @@ using Npgsql;
 
 namespace Repositories
 {
-    public class ObjectPresenter
+    public class EntityPresenter
     {
         DataGridView dgv;
-        IObjectRepository objectRepository;
+        IEntityRepository objectRepository;
         IPersonRepository ownerRepository;
         List<Entity> dgvElements;
 
-        public ObjectPresenter(DataGridView dgv, IRepositoryFactory repositoryFactory)
+        public EntityPresenter(DataGridView dgv, IRepositoryFactory repositoryFactory)
         {
             dgvElements = new List<Entity>();
             this.dgv = dgv;
-            objectRepository = repositoryFactory.GetObjectRepository();//new ObjectRepository();
-            ownerRepository = repositoryFactory.GetOwnerRepository();//new PersonRepository("Owner");
+            objectRepository = repositoryFactory.GetObjectRepository();
+            ownerRepository = repositoryFactory.GetOwnerRepository();
         }
         public Dictionary<int, Entity> ShowTable(bool sort = false)
         {
@@ -33,7 +33,6 @@ namespace Repositories
                 //id,address,adddate,cost,owner,apart,area,rooms
                 foreach (Entity obj in dgvElements)
                 {
-                    //MessageBox.Show(obj.cost.ToString("N2") + " " + obj.area.ToString("N2"));
                     string ownerText = null;
                     foreach (Person owner in owners)
                         if (owner.id == obj.owner)

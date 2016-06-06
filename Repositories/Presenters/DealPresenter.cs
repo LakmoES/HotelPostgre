@@ -16,17 +16,17 @@ namespace Repositories
 
         IStaffRepository staffRepository;
         IPersonRepository clientRepository;
-        IObjectRepository objectRepository;
+        IEntityRepository objectRepository;
 
         public DealPresenter(DataGridView dgv, IRepositoryFactory repositoryFactory)
         {
             dgvElements = new List<Deal>();
             this.dgv = dgv;
-            dealRepository = repositoryFactory.GetDealRepository();//new DealRepository();
+            dealRepository = repositoryFactory.GetDealRepository();
 
-            staffRepository = repositoryFactory.GetStaffRepository();//new StaffRepository();
-            clientRepository = repositoryFactory.GetClientRepository();//new PersonRepository("Client");
-            objectRepository = repositoryFactory.GetObjectRepository();//new ObjectRepository();
+            staffRepository = repositoryFactory.GetStaffRepository();
+            clientRepository = repositoryFactory.GetClientRepository();
+            objectRepository = repositoryFactory.GetObjectRepository();
             
         }
         private Dictionary<int, Staff> GetStaffs()
@@ -34,7 +34,6 @@ namespace Repositories
             var staffs = staffRepository.GetTable();
             var assocArray = new Dictionary<int, Staff>();
 
-            //staffs.Sort((x, y) => x.id.CompareTo(y.id));
             foreach (Staff staff in staffs)
                 assocArray.Add(staff.id, staff);
 
@@ -45,7 +44,6 @@ namespace Repositories
             var clients = clientRepository.GetTable();
             var assocArray = new Dictionary<int, Person>();
 
-            //clients.Sort((x, y) => x.id.CompareTo(y.id));
             foreach (Person client in clients)
                 assocArray.Add(client.id, client);
 
@@ -56,7 +54,6 @@ namespace Repositories
             var objects = objectRepository.GetTable();
             var assocArray = new Dictionary<int, Entity>();
 
-            //clients.Sort((x, y) => x.id.CompareTo(y.id));
             foreach (Entity obj in objects)
                 assocArray.Add(obj.id, obj);
 
@@ -89,11 +86,6 @@ namespace Repositories
                         obj.address,
                         deal.cost.ToString("N2"),
                         deal.date.ToString("dd/MM/yyyy"));
-                    //dgv.Rows.Add(deal.id, String.Format("[{0}] {1} {2}", dealer.id, dealer.surname, dealer.name),
-                    //    String.Format("[{0}] {1} {2}", buyer.id, buyer.surname, buyer.name),
-                    //    String.Format("[{0}] {1}", obj.id, obj.address),
-                    //    deal.cost.ToString(),
-                    //    deal.date.ToString("dd/MM/yyyy"));
                 }
             }
             catch (Npgsql.PostgresException pEx) { MessageBox.Show("Ошибка базы данных.\r\nКод ошибки: " + pEx.SqlState, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }

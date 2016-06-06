@@ -16,7 +16,7 @@ namespace Director
     {
         private IRepositoryFactory repositoryFactory;
 
-        ObjectPresenter objectPresenter;
+        EntityPresenter objectPresenter;
         PersonPresenter ownerPresenter;
         StaffPresenter staffPresenter;
         PersonPresenter clientPresenter;
@@ -60,7 +60,7 @@ namespace Director
 
         private void FormAdmin_Load(object sender, EventArgs e)
         {
-            objectPresenter = new ObjectPresenter(this.dataGridViewObject, repositoryFactory);
+            objectPresenter = new EntityPresenter(this.dataGridViewObject, repositoryFactory);
             objects = objectPresenter.ShowTable(true);
 
             ownerPresenter = new PersonPresenter(this.dataGridViewOwner, repositoryFactory, "Owner");

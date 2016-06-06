@@ -20,9 +20,9 @@ namespace Repositories
         {
             dgvElements = new List<Wish>();
             this.dgv = dgv;
-            wishRepository = repositoryFactory.GetWishRepository();//new WishRepository();
+            wishRepository = repositoryFactory.GetWishRepository();
 
-            clientRepository = repositoryFactory.GetClientRepository();//new PersonRepository("Client");
+            clientRepository = repositoryFactory.GetClientRepository();
 
         }
         private Dictionary<int, Person> GetClients()
@@ -30,7 +30,6 @@ namespace Repositories
             var clients = clientRepository.GetTable();
             var assocArray = new Dictionary<int, Person>();
 
-            //clients.Sort((x, y) => x.id.CompareTo(y.id));
             foreach (Person client in clients)
                 assocArray.Add(client.id, client);
 

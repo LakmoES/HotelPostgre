@@ -16,17 +16,17 @@ namespace Repositories
 
         IStaffRepository staffRepository;
         IPersonRepository clientRepository;
-        IObjectRepository objectRepository;
+        IEntityRepository objectRepository;
 
         public ShowPresenter(DataGridView dgv, IRepositoryFactory repositoryFactory)
         {
             dgvElements = new List<Show>();
             this.dgv = dgv;
-            showRepository = repositoryFactory.GetShowRepository();//new ShowRepository();
+            showRepository = repositoryFactory.GetShowRepository();
 
-            staffRepository = repositoryFactory.GetStaffRepository();//new StaffRepository();
-            clientRepository = repositoryFactory.GetClientRepository();//new PersonRepository("Client");
-            objectRepository = repositoryFactory.GetObjectRepository();//new ObjectRepository();
+            staffRepository = repositoryFactory.GetStaffRepository();
+            clientRepository = repositoryFactory.GetClientRepository();
+            objectRepository = repositoryFactory.GetObjectRepository();
 
         }
         private Dictionary<int, Staff> GetStaffs()
@@ -45,7 +45,6 @@ namespace Repositories
             var clients = clientRepository.GetTable();
             var assocArray = new Dictionary<int, Person>();
 
-            //clients.Sort((x, y) => x.id.CompareTo(y.id));
             foreach (Person client in clients)
                 assocArray.Add(client.id, client);
 
@@ -56,7 +55,6 @@ namespace Repositories
             var objects = objectRepository.GetTable();
             var assocArray = new Dictionary<int, Entity>();
 
-            //clients.Sort((x, y) => x.id.CompareTo(y.id));
             foreach (Entity obj in objects)
                 assocArray.Add(obj.id, obj);
 

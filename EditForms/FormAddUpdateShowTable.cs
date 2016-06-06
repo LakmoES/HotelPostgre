@@ -21,7 +21,7 @@ namespace EditForms
         private bool adding;
         private IStaffRepository staffRepository;
         private IPersonRepository clientRepository;
-        private IObjectRepository objectRepository;
+        private IEntityRepository objectRepository;
         private IShowRepository showRepository;
         private ShowPresenter showPresenter;
 

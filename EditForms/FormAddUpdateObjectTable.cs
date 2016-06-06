@@ -17,7 +17,7 @@ namespace EditForms
     {
         private IRepositoryFactory repositoryFactory;
 
-        private ObjectPresenter objectPresenter;
+        private EntityPresenter objectPresenter;
         private IPersonRepository ownerRepository;
         private Entity obj;
         //private Regex regex; // [id]
@@ -34,7 +34,7 @@ namespace EditForms
             numericUpDownArea.Minimum = -1;
             numericUpDownArea.Maximum = Int32.MaxValue;
 
-            objectPresenter = new ObjectPresenter(dgv, repositoryFactory);
+            objectPresenter = new EntityPresenter(dgv, repositoryFactory);
             ownerRepository = repositoryFactory.GetOwnerRepository();//new PersonRepository("Owner");
 
             FillTheFields();
@@ -74,7 +74,7 @@ namespace EditForms
             numericUpDownCost.Minimum = -1;
             numericUpDownCost.Maximum = Int32.MaxValue;
 
-            objectPresenter = new ObjectPresenter(dgv, repositoryFactory);
+            objectPresenter = new EntityPresenter(dgv, repositoryFactory);
             ownerRepository = repositoryFactory.GetOwnerRepository();//new PersonRepository("Owner");
 
             FillTheFields();

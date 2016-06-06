@@ -10,7 +10,7 @@ namespace Repositories
     {
         ICompanyRepository GetCompanyRepository();
         IDealRepository GetDealRepository();
-        IObjectRepository GetObjectRepository();
+        IEntityRepository GetObjectRepository();
         IPersonRepository GetPersonRepository(string tableName);
         IPersonRepository GetOwnerRepository();
         IPersonRepository GetClientRepository();

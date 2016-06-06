@@ -18,7 +18,7 @@ namespace Admin
         private IRepositoryFactory repositoryFactory;
         private ISecureRepositoryFactory secureRepositoryFactory;
 
-        private ObjectPresenter objectPresenter;
+        private EntityPresenter objectPresenter;
         private CompanyPresenter companyPresenter;
         private PersonPresenter ownerPresenter;
         private StaffPresenter staffPresenter;
@@ -54,7 +54,7 @@ namespace Admin
 
         private void FormAdmin_Load(object sender, EventArgs e)
         {
-            objectPresenter = new ObjectPresenter(this.dataGridViewObject, repositoryFactory);
+            objectPresenter = new EntityPresenter(this.dataGridViewObject, repositoryFactory);
             objects = objectPresenter.ShowTable(true);
 
             companyPresenter = new CompanyPresenter(this.dataGridViewCompany, repositoryFactory);

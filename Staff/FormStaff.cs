@@ -16,7 +16,7 @@ namespace Staff
     {
         private IRepositoryFactory repositoryFactory;
 
-        private ObjectPresenter objectPresenter;
+        private EntityPresenter objectPresenter;
         private PersonPresenter ownerPresenter;
         private StaffPresenter staffPresenter;
         private PersonPresenter clientPresenter;
@@ -56,7 +56,7 @@ namespace Staff
 
         private void FormStaff_Load(object sender, EventArgs e)
         {
-            objectPresenter = new ObjectPresenter(this.dataGridViewObject, repositoryFactory);
+            objectPresenter = new EntityPresenter(this.dataGridViewObject, repositoryFactory);
             objects = objectPresenter.ShowTable(true);
 
             ownerPresenter = new PersonPresenter(this.dataGridViewOwner, repositoryFactory, "Owner");

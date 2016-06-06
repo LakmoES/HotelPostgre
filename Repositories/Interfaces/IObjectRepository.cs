@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Repositories
 {
-    public interface IObjectRepository
+    public interface IEntityRepository
     {
         List<Entity> GetTable();
         Entity GetConcreteRecord(int id);

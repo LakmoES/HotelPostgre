@@ -21,9 +21,9 @@ namespace Repositories
         {
             return new DealRepository(dbc);
         }
-        public  IObjectRepository GetObjectRepository()
+        public  IEntityRepository GetObjectRepository()
         {
-            return new ObjectRepository(dbc);
+            return new EntityRepository(dbc);
         }
         public IPersonRepository GetClientRepository()
         {

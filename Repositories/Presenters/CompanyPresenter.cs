@@ -18,7 +18,7 @@ namespace Repositories
         {
             dgvElements = new List<Company>();
             this.dgv = dgv;
-            companyRepository = repositoryFactory.GetCompanyRepository()/*new CompanyRepository()*/;
+            companyRepository = repositoryFactory.GetCompanyRepository();
         }
         public Dictionary<int, Company> ShowTable(bool sort = false)
         {

@@ -9,10 +9,10 @@ using System.Windows.Forms;
 
 namespace Repositories
 {
-    public class ObjectRepository : IObjectRepository
+    public class EntityRepository : IEntityRepository
     {
         private DBConnection dbc;
-        public ObjectRepository(DBConnection dbc)
+        public EntityRepository(DBConnection dbc)
         {
             this.dbc = dbc;
         }

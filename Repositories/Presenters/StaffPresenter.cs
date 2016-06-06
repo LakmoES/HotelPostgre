@@ -20,7 +20,7 @@ namespace Repositories
             dgvElements = new List<Staff>();
             this.dgv = dgv;
             staffRepository = repositoryFactory.GetStaffRepository();
-            companyRepository = repositoryFactory.GetCompanyRepository();//new CompanyRepository();
+            companyRepository = repositoryFactory.GetCompanyRepository();
         }
         public Dictionary<int, Staff> ShowTable(bool sort = false)
         {

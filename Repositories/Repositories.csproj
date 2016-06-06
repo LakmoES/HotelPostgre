@@ -89,7 +89,7 @@
     <Compile Include="Presenters\DealPresenter.cs" />
     <Compile Include="Presenters\PersonPresenter.cs" />
     <Compile Include="Presenters\CompanyPresenter.cs" />
-    <Compile Include="Presenters\ObjectPresenter.cs" />
+    <Compile Include="Presenters\EntityPresenter.cs" />
     <Compile Include="Presenters\ShowPresenter.cs" />
     <Compile Include="Presenters\StaffPresenter.cs" />
     <Compile Include="Presenters\WishPresenter.cs" />
@@ -105,7 +105,7 @@
     <Compile Include="TableRepository\PersonRepository.cs" />
     <Compile Include="TableRepository\CompanyRepository.cs" />
     <Compile Include="TableRepository\DealRepository.cs" />
-    <Compile Include="TableRepository\ObjectRepository.cs" />
+    <Compile Include="TableRepository\EntityRepository.cs" />
     <Compile Include="TableRepository\ShowRepository.cs" />
     <Compile Include="TableRepository\StaffRepository.cs" />
     <Compile Include="TableRepository\WishRepository.cs" />
