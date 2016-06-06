@@ -170,8 +170,6 @@ namespace EditForms
                     showPresenter.ShowTable(true);
                     this.Close();
                 }
-                //else
-                //    MessageBox.Show("Проверьте правильность заполнения полей", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             catch (PostgresException pEx)
             {
@@ -184,19 +182,9 @@ namespace EditForms
         }
         private bool AddUpdateShow()
         {
-            //id, Shower, Buyer, Object, Cost, Date
-
-            //Match matchDealer = regex.Match(this.comboBoxDealer.Text);
-            //Match matchClient = regex.Match(this.comboBoxClient.Text);
-            //Match matchObject = regex.Match(this.comboBoxObject.Text);
-
-            //show.dealer = matchDealer.Success ? Convert.ToInt32(matchDealer.Value.Substring(1, matchDealer.Value.Length - 2)) : -1;
-            //show.client = matchClient.Success ? Convert.ToInt32(matchClient.Value.Substring(1, matchClient.Value.Length - 2)) : -1;
-            //show.obj = matchObject.Success ? Convert.ToInt32(matchObject.Value.Substring(1, matchObject.Value.Length - 2)) : -1;
-
             show.dealer = -1;
             if (this.comboBoxDealer.SelectedIndex != -1)
-                show.dealer = clientList[this.comboBoxDealer.SelectedIndex].id;
+                show.dealer = staffList[this.comboBoxDealer.SelectedIndex].id;
 
             show.client = -1;
             if (this.comboBoxClient.SelectedIndex != -1)
@@ -204,7 +192,7 @@ namespace EditForms
 
             show.obj = -1;
             if (this.comboBoxObject.SelectedIndex != -1)
-                show.obj = clientList[this.comboBoxObject.SelectedIndex].id;
+                show.obj = objectList[this.comboBoxObject.SelectedIndex].id;
 
             show.date = this.dateTimePickerDate.Value;
 

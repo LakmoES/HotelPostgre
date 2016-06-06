@@ -89,7 +89,7 @@ namespace EditForms
                 comboBoxClient.Items.Add(clientText);
             }
 
-            comboBoxApartamentOrHouse.Items.AddRange(new string[] { "", "House", "Appartament" });
+            comboBoxApartamentOrHouse.Items.AddRange(new string[] { "", "House", "Apartment" });
         }
         private void ExtractDataFromWish(Wish wish)
         {

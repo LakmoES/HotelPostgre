@@ -62,7 +62,7 @@ namespace EditForms
             Person owner = ownerRepository.GetConcreteRecord(obj.owner);
             this.comboBoxOwner.Text = String.Format("{0} {1}", owner.surname, owner.name);
 
-            this.comboBoxType.Text = obj.appartamentOrHouse;
+            this.comboBoxType.Text = obj.apartmentOrHouse;
             this.numericUpDownArea.Value = Convert.ToDecimal(obj.area);
             this.numericUpDownRooms.Value = obj.numberOfRooms;
         }
@@ -90,7 +90,7 @@ namespace EditForms
                 string ownerText = String.Format("{0} {1}", owner.surname, owner.name);
                 comboBoxOwner.Items.Add(ownerText);
             }
-            comboBoxType.Items.AddRange(new string[] { "Apartament", "House" });
+            comboBoxType.Items.AddRange(new string[] { "Apartment", "House" });
         }
         private void buttonCancel_Click(object sender, EventArgs e)
         {
@@ -136,7 +136,7 @@ namespace EditForms
             if (this.comboBoxOwner.SelectedIndex != -1)
                 obj.owner = ownersList.ElementAt(this.comboBoxOwner.SelectedIndex).id;
 
-            obj.appartamentOrHouse = this.comboBoxType.Text;
+            obj.apartmentOrHouse = this.comboBoxType.Text;
             obj.area = Convert.ToSingle(this.numericUpDownArea.Value);
             obj.numberOfRooms = Convert.ToInt32(this.numericUpDownRooms.Value);
 

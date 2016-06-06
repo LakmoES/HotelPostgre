@@ -96,7 +96,7 @@ namespace Repositories
                     //    deal.date.ToString("dd/MM/yyyy"));
                 }
             }
-            catch (Npgsql.PostgresException pEx) { MessageBox.Show("Ошибка базы данных.\r\n" + pEx.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            catch (Npgsql.PostgresException pEx) { MessageBox.Show("Ошибка базы данных.\r\nКод ошибки: " + pEx.SqlState, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
             catch (Exception ex) { MessageBox.Show("Неизвестная ошибка.\r\n" + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
             
             if (sort)
@@ -116,7 +116,7 @@ namespace Repositories
                 if (checkFlag)
                     dealRepository.AddToTable(deal);
             }
-            catch (Npgsql.PostgresException pEx) { errorList.Add("Ошибка базы данных." + pEx.Message); checkFlag = false; }
+            catch (Npgsql.PostgresException pEx) { errorList.Add("Ошибка базы данных.\r\nКод ошибки: " + pEx.SqlState); checkFlag = false; }
             catch (Exception) { errorList.Add("Ошибка базы данных."); checkFlag = false; }
 
             ShowErrors(errorList);
@@ -132,7 +132,7 @@ namespace Repositories
                 if (checkFlag)
                     dealRepository.UpdateTable(deal);
             }
-            catch (Npgsql.PostgresException pEx) { errorList.Add("Ошибка базы данных." + pEx.Message); checkFlag = false; }
+            catch (Npgsql.PostgresException pEx) { errorList.Add("Ошибка базы данных.\r\nКод ошибки: " + pEx.SqlState); checkFlag = false; }
             catch (Exception) { errorList.Add("Ошибка базы данных."); checkFlag = false; }
 
             ShowErrors(errorList);
@@ -148,6 +148,7 @@ namespace Repositories
             if (checkFlag)
                 dealRepository.DeleteFromTable(id);
             }
+            catch (Npgsql.PostgresException pEx) { errorList.Add("Ошибка базы данных.\r\nКод ошибки: " + pEx.SqlState); checkFlag = false; }
             catch (Exception) { errorList.Add("Ошибка базы данных."); checkFlag = false; }
 
             ShowErrors(errorList);

@@ -30,7 +30,7 @@ namespace Repositories
                 var owners = ownerRepository.GetTable();
                 dgvElements = objectRepository.GetTable();
                 dgv.Rows.Clear();
-                //id,address,adddate,cost,owner,appart,area,rooms
+                //id,address,adddate,cost,owner,apart,area,rooms
                 foreach (Entity obj in dgvElements)
                 {
                     //MessageBox.Show(obj.cost.ToString("N2") + " " + obj.area.ToString("N2"));
@@ -41,10 +41,10 @@ namespace Repositories
                             ownerText = String.Format("{0} {1}", owner.surname, owner.name);
                             break;
                         }
-                    dgv.Rows.Add(obj.id, obj.address, obj.addDate.ToString("dd/MM/yyyy"), obj.cost.ToString("N2"), ownerText, obj.appartamentOrHouse, obj.area.ToString("N2"), obj.numberOfRooms);
+                    dgv.Rows.Add(obj.id, obj.address, obj.addDate.ToString("dd/MM/yyyy"), obj.cost.ToString("N2"), ownerText, obj.apartmentOrHouse, obj.area.ToString("N2"), obj.numberOfRooms);
                 }
             }
-            catch (PostgresException pEx) { MessageBox.Show("Ошибка базы данных.\r\n" + pEx.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            catch (PostgresException pEx) { MessageBox.Show("Ошибка базы данных.\r\nКод ошибки: " + pEx.SqlState, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
             catch (Exception ex) { MessageBox.Show("Неизвестная ошибка.\r\n" + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
             if (sort)
                 dgv.Sort(dgv.Columns[0], ListSortDirection.Ascending);
@@ -63,6 +63,7 @@ namespace Repositories
                 if (checkFlag)
                     objectRepository.AddToTable(obj);
             }
+            catch (Npgsql.PostgresException pEx) { errorList.Add("Ошибка базы данных.\r\nКод ошибки: " + pEx.SqlState); checkFlag = false; }
             catch (Exception) { errorList.Add("Ошибка базы данных."); checkFlag = false; }
 
             ShowErrors(errorList);
@@ -78,6 +79,7 @@ namespace Repositories
                 if (checkFlag)
                     objectRepository.UpdateTable(obj);
             }
+            catch (Npgsql.PostgresException pEx) { errorList.Add("Ошибка базы данных.\r\nКод ошибки: " + pEx.SqlState); checkFlag = false; }
             catch (Exception) { errorList.Add("Ошибка базы данных."); checkFlag = false; }
 
             ShowErrors(errorList);
@@ -93,6 +95,7 @@ namespace Repositories
                 if (checkFlag)
                     objectRepository.DeleteFromTable(id);
             }
+            catch (Npgsql.PostgresException pEx) { errorList.Add("Ошибка базы данных.\r\nКод ошибки: " + pEx.SqlState); checkFlag = false; }
             catch (Exception) { errorList.Add("Ошибка базы данных."); checkFlag = false; }
 
             ShowErrors(errorList);

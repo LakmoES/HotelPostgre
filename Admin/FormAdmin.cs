@@ -259,7 +259,7 @@ namespace Admin
         }
         private void buttonShowAdd_Click(object sender, EventArgs e)
         {
-            new FormAddUpdateShowTable(selectedDGV, repositoryFactory).ShowDialog();
+            new FormAddUpdateShowTable(dataGridViewShow, repositoryFactory).ShowDialog();
         }
         private void buttonWishAdd_Click(object sender, EventArgs e)
         {

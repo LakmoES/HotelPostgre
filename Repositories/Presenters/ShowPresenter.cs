@@ -107,6 +107,7 @@ namespace Repositories
                 if (checkFlag)
                     showRepository.AddToTable(show);
             }
+            catch (Npgsql.PostgresException pEx) { errorList.Add("Ошибка базы данных.\r\nКод ошибки: " + pEx.SqlState); checkFlag = false; }
             catch (Exception) { errorList.Add("Ошибка базы данных."); checkFlag = false; }
 
             ShowErrors(errorList);
@@ -122,6 +123,7 @@ namespace Repositories
                 if (checkFlag)
                     showRepository.UpdateTable(show);
             }
+            catch (Npgsql.PostgresException pEx) { errorList.Add("Ошибка базы данных.\r\nКод ошибки: " + pEx.SqlState); checkFlag = false; }
             catch (Exception) { errorList.Add("Ошибка базы данных."); checkFlag = false; }
 
             ShowErrors(errorList);
@@ -137,6 +139,7 @@ namespace Repositories
                 if (checkFlag)
                     showRepository.DeleteFromTable(id);
             }
+            catch (Npgsql.PostgresException pEx) { errorList.Add("Ошибка базы данных.\r\nКод ошибки: " + pEx.SqlState); checkFlag = false; }
             catch (Exception) { errorList.Add("Ошибка базы данных."); checkFlag = false; }
 
             ShowErrors(errorList);

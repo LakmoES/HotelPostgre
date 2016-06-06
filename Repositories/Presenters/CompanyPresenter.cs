@@ -47,7 +47,7 @@ namespace Repositories
                 if (checkFlag)
                     companyRepository.AddToTable(company);
             }
-            catch (Exception) { errorList.Add("Ошибка базы данных."); checkFlag = false; }
+            catch (Npgsql.PostgresException pEx) { errorList.Add("Ошибка базы данных.\r\nКод ошибки: " + pEx.SqlState); checkFlag = false; }
 
             ShowErrors(errorList);
 
@@ -62,7 +62,7 @@ namespace Repositories
                 if (checkFlag)
                     companyRepository.UpdateTable(company);
             }
-            catch (Exception) { errorList.Add("Ошибка базы данных."); checkFlag = false; }
+            catch (Npgsql.PostgresException pEx) { errorList.Add("Ошибка базы данных.\r\nКод ошибки: " + pEx.SqlState); checkFlag = false; }
 
             ShowErrors(errorList);
 
@@ -77,7 +77,7 @@ namespace Repositories
                 if (checkFlag)
                     companyRepository.DeleteFromTable(id);
             }
-            catch(Exception) { errorList.Add("Ошибка базы данных."); checkFlag = false; }
+            catch (Npgsql.PostgresException pEx) { errorList.Add("Ошибка базы данных.\r\nКод ошибки: " + pEx.SqlState); checkFlag = false; }
 
             ShowErrors(errorList);
 

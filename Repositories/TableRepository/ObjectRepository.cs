@@ -35,7 +35,7 @@ namespace Repositories
                             //parseCost(dbDataRecord["Cost"].ToString()),
                             Convert.ToSingle(dbDataRecord["Cost"]),
                             Convert.ToInt32(dbDataRecord["Owner"]),
-                            dbDataRecord["AppartamentOrHouse"].ToString(),
+                            dbDataRecord["ApartmentOrHouse"].ToString(),
                             Convert.ToSingle(dbDataRecord["Area"]),
                             Convert.ToInt32(dbDataRecord["NumberOfRooms"])
                             );
@@ -63,7 +63,7 @@ namespace Repositories
                             Convert.ToDateTime(dbDataRecord["AddDate"]),
                             Convert.ToSingle(dbDataRecord["Cost"]),
                             Convert.ToInt32(dbDataRecord["Owner"]),
-                            dbDataRecord["AppartamentOrHouse"].ToString(),
+                            dbDataRecord["ApartmentOrHouse"].ToString(),
                             Convert.ToSingle(dbDataRecord["Area"]),
                             Convert.ToInt32(dbDataRecord["NumberOfRooms"])
                             );
@@ -76,26 +76,26 @@ namespace Repositories
         {
             NpgsqlCommand queryCommand;
 
-                queryCommand = new NpgsqlCommand("INSERT INTO \"HomeBUY\".\"Object\" (\"Address\", \"AddDate\", \"Cost\", \"Owner\", \"AppartamentOrHouse\", \"Area\", \"NumberOfRooms\")"+
-                    "VALUES(@Address, @AddDate, @Cost, @Owner, @AppartamentOrHouse, @Area, @NumberOfRooms)", dbc.Connection);
+                queryCommand = new NpgsqlCommand("INSERT INTO \"HomeBUY\".\"Object\" (\"Address\", \"AddDate\", \"Cost\", \"Owner\", \"ApartmentOrHouse\", \"Area\", \"NumberOfRooms\")"+
+                    "VALUES(@Address, @AddDate, @Cost, @Owner, @ApartmentOrHouse, @Area, @NumberOfRooms)", dbc.Connection);
                 queryCommand.Parameters.AddWithValue("@Address", obj.address);
                 queryCommand.Parameters.AddWithValue("@AddDate", obj.addDate);
                 queryCommand.Parameters.AddWithValue("@Cost", obj.cost);
                 queryCommand.Parameters.AddWithValue("@Owner", obj.owner);
-                queryCommand.Parameters.AddWithValue("@AppartamentOrHouse", obj.appartamentOrHouse);
+                queryCommand.Parameters.AddWithValue("@ApartmentOrHouse", obj.apartmentOrHouse);
                 queryCommand.Parameters.AddWithValue("@Area", obj.area);
                 queryCommand.Parameters.AddWithValue("@NumberOfRooms", obj.numberOfRooms);
                 queryCommand.ExecuteNonQuery();
         }
         public void UpdateTable(Entity objToUpdate)
         {
-                NpgsqlCommand queryCommand = new NpgsqlCommand("UPDATE \"HomeBUY\".\"Object\" SET \"Address\" = @Address, \"AddDate\" = @AddDate, \"Cost\" = @Cost, \"Owner\" = @Owner, \"AppartamentOrHouse\" = @AppartamentOrHouse, \"Area\" = @Area, \"NumberOfRooms\" = @NumberOfRooms" +
+                NpgsqlCommand queryCommand = new NpgsqlCommand("UPDATE \"HomeBUY\".\"Object\" SET \"Address\" = @Address, \"AddDate\" = @AddDate, \"Cost\" = @Cost, \"Owner\" = @Owner, \"ApartmentOrHouse\" = @ApartmentOrHouse, \"Area\" = @Area, \"NumberOfRooms\" = @NumberOfRooms" +
                     " WHERE \"id\" = @id", dbc.Connection);
                 queryCommand.Parameters.AddWithValue("@Address", objToUpdate.address);
                 queryCommand.Parameters.AddWithValue("@AddDate", objToUpdate.addDate);
                 queryCommand.Parameters.AddWithValue("@Cost", objToUpdate.cost);
                 queryCommand.Parameters.AddWithValue("@Owner", objToUpdate.owner);
-                queryCommand.Parameters.AddWithValue("@AppartamentOrHouse", objToUpdate.appartamentOrHouse);
+                queryCommand.Parameters.AddWithValue("@ApartmentOrHouse", objToUpdate.apartmentOrHouse);
                 queryCommand.Parameters.AddWithValue("@Area", objToUpdate.area);
                 queryCommand.Parameters.AddWithValue("@NumberOfRooms", objToUpdate.numberOfRooms);
                 queryCommand.Parameters.AddWithValue("@id", objToUpdate.id);

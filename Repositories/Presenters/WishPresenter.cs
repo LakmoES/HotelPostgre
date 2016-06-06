@@ -78,6 +78,7 @@ namespace Repositories
                 if (checkFlag)
                     wishRepository.AddToTable(wish);
             }
+            catch (Npgsql.PostgresException pEx) { errorList.Add("Ошибка базы данных.\r\nКод ошибки: " + pEx.SqlState); checkFlag = false; }
             catch (Exception) { errorList.Add("Ошибка базы данных."); checkFlag = false; }
 
             ShowErrors(errorList);
@@ -93,6 +94,7 @@ namespace Repositories
                 if (checkFlag)
                     wishRepository.UpdateTable(wish);
             }
+            catch (Npgsql.PostgresException pEx) { errorList.Add("Ошибка базы данных.\r\nКод ошибки: " + pEx.SqlState); checkFlag = false; }
             catch (Exception) { errorList.Add("Ошибка базы данных."); checkFlag = false; }
 
             ShowErrors(errorList);
@@ -108,6 +110,7 @@ namespace Repositories
                 if (checkFlag)
                     wishRepository.DeleteFromTable(id);
             }
+            catch (Npgsql.PostgresException pEx) { errorList.Add("Ошибка базы данных.\r\nКод ошибки: " + pEx.SqlState); checkFlag = false; }
             catch (Exception) { errorList.Add("Ошибка базы данных."); checkFlag = false; }
 
             ShowErrors(errorList);

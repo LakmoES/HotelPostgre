@@ -38,7 +38,7 @@ namespace Repositories
                         Convert.ToInt32(dbDataRecord["id"]),
                         Convert.ToInt32(dbDataRecord["Client"]),
                         (FixDBValue(dbDataRecord["Township"]) ?? "").ToString(), // is null ? => empty
-                        (FixDBValue(dbDataRecord["AppartamentOrHouse"]) ?? "").ToString(),
+                        (FixDBValue(dbDataRecord["ApartmentOrHouse"]) ?? "").ToString(),
                         Convert.ToSingle(FixDBValue(dbDataRecord["Area"])),
                         Convert.ToInt32(FixDBValue(dbDataRecord["NumberOfRooms"])),
                         Convert.ToSingle(FixDBValue(dbDataRecord["Cost"]))
@@ -65,7 +65,7 @@ namespace Repositories
                         Convert.ToInt32(dbDataRecord["id"]),
                         Convert.ToInt32(dbDataRecord["Client"]),
                         (FixDBValue(dbDataRecord["Township"]) ?? "").ToString(),   // is null ? => empty
-                        (FixDBValue(dbDataRecord["AppartamentOrHouse"]) ?? "").ToString(),
+                        (FixDBValue(dbDataRecord["ApartmentOrHouse"]) ?? "").ToString(),
                         Convert.ToInt32(FixDBValue(dbDataRecord["Area"])),
                         Convert.ToInt32(FixDBValue(dbDataRecord["NumberOfRooms"])),
                         Convert.ToInt32(FixDBValue(dbDataRecord["Cost"]))
@@ -80,7 +80,7 @@ namespace Repositories
         {
             //int id, int client, string township, string apartamentOrHouse, int area, int numberOfRooms, int cost
             NpgsqlCommand queryCommand;
-            queryCommand = new NpgsqlCommand("INSERT INTO \"HomeBUY\".\"Wish\" (\"Client\", \"Township\", \"AppartamentOrHouse\", \"Area\", \"NumberOfRooms\", \"Cost\")" +
+            queryCommand = new NpgsqlCommand("INSERT INTO \"HomeBUY\".\"Wish\" (\"Client\", \"Township\", \"ApartmentOrHouse\", \"Area\", \"NumberOfRooms\", \"Cost\")" +
                 " VALUES(@Client, @Township, @ApartamentOrHouse, @Area, @NumberOfRooms, @Cost)", dbc.Connection);
             queryCommand.Parameters.AddWithValue("@Client", wish.client );
             queryCommand.Parameters.AddWithValue("@Township", (wish.township ?? (object)DBNull.Value));
@@ -94,7 +94,7 @@ namespace Repositories
         public void UpdateTable(Wish updatedWish)
         {
             //int id, int client, string township, string apartamentOrHouse, int area, int numberOfRooms, int cost
-            NpgsqlCommand queryCommand = new NpgsqlCommand("UPDATE \"HomeBUY\".\"Wish\" SET \"Client\" = @Client, \"Township\" = @Township, \"AppartamentOrHouse\" = @ApartamentOrHouse, \"Area\" = @Area, \"NumberOfRooms\" = @NumberOfRooms, \"Cost\" = @Cost" +
+            NpgsqlCommand queryCommand = new NpgsqlCommand("UPDATE \"HomeBUY\".\"Wish\" SET \"Client\" = @Client, \"Township\" = @Township, \"ApartmentOrHouse\" = @ApartamentOrHouse, \"Area\" = @Area, \"NumberOfRooms\" = @NumberOfRooms, \"Cost\" = @Cost" +
                 " WHERE \"id\" = @id", dbc.Connection);
             queryCommand.Parameters.AddWithValue("@Client", updatedWish.client);
             queryCommand.Parameters.AddWithValue("@Township", (updatedWish.township ?? (object)DBNull.Value));

@@ -38,7 +38,7 @@
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ObjectOwner = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AppartamentOrHouse = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ApartmentOrHouse = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Area = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Rooms = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage3 = new System.Windows.Forms.TabPage();
@@ -175,7 +175,7 @@
             this.dataGridViewTextBoxColumn3,
             this.dataGridViewTextBoxColumn4,
             this.ObjectOwner,
-            this.AppartamentOrHouse,
+            this.ApartmentOrHouse,
             this.Area,
             this.Rooms});
             this.dataGridViewObject.Location = new System.Drawing.Point(3, 3);
@@ -221,12 +221,12 @@
             this.ObjectOwner.ReadOnly = true;
             this.ObjectOwner.Width = 140;
             // 
-            // AppartamentOrHouse
+            // ApartmentOrHouse
             // 
-            this.AppartamentOrHouse.HeaderText = "Тип";
-            this.AppartamentOrHouse.Name = "AppartamentOrHouse";
-            this.AppartamentOrHouse.ReadOnly = true;
-            this.AppartamentOrHouse.Width = 40;
+            this.ApartmentOrHouse.HeaderText = "Тип";
+            this.ApartmentOrHouse.Name = "ApartmentOrHouse";
+            this.ApartmentOrHouse.ReadOnly = true;
+            this.ApartmentOrHouse.Width = 40;
             // 
             // Area
             // 
@@ -887,7 +887,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.DataGridViewTextBoxColumn ObjectOwner;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AppartamentOrHouse;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ApartmentOrHouse;
         private System.Windows.Forms.DataGridViewTextBoxColumn Area;
         private System.Windows.Forms.DataGridViewTextBoxColumn Rooms;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn27;
