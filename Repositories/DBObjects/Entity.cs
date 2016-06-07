@@ -29,38 +29,4 @@ namespace Repositories
             this.numberOfRooms = numberOfRooms;
         }
     }
-
-    //public struct Money
-    //{
-    //    int ammount;
-    //    string currency;
-    //    public Money(int ammount, string currency)
-    //    {
-    //        this.ammount = ammount;
-    //        this.currency = currency;
-    //    }
-    //    public Money(string value)
-    //    {
-    //        this.ammount = 0;
-    //        this.currency = "";
-    //    }
-    //    public override string ToString()
-    //    {
-    //        return String.Format("{0} {1}", ammount, currency);
-    //    }
-    //    public int Ammount
-    //    {
-    //        get
-    //        {
-    //            return ammount;
-    //        }
-    //    }
-    //    public string Currency
-    //    {
-    //        get
-    //        {
-    //            return currency;
-    //        }
-    //    }
-    //}
 }

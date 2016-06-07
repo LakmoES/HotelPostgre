@@ -129,7 +129,7 @@ namespace Repositories
                 if (checkFlag)
                     secureUserRepository.DeleteFromTable(name);
             }
-            catch (Exception) { errorList.Add("Ошибка базы данных."); }
+            catch (Exception) { errorList.Add("Ошибка базы данных."); checkFlag = false; }
 
             ShowErrors(errorList);
 
